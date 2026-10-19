@@ -175,6 +175,43 @@ const daily={
     "Nous te rendons grâce de ne pas nous abandonner ; transforme notre épreuve en compassion pour les autres."
   ]
 };
+
+const saintPetitions={
+sante:'Présentez au Seigneur les malades, leurs proches et ceux qui les soignent ; obtenez-leur la consolation, des secours adaptés et le courage de chaque jour.',
+famille:'Présentez au Seigneur nos familles ; demandez pour elles la paix, le respect, la patience et la protection des plus fragiles.',
+couple:'Présentez au Seigneur les couples ; demandez pour eux la fidélité, le dialogue vrai et un amour qui respecte la liberté de chacun.',
+enfants:'Présentez au Seigneur les enfants et les jeunes ; demandez pour eux protection, discernement, affection et des éducateurs attentifs.',
+travail:'Présentez au Seigneur ceux qui cherchent un travail et ceux qui peinent à vivre ; demandez pour eux des occasions justes et la solidarité.',
+paix:'Présentez au Seigneur les victimes de la violence et les familles déplacées, particulièrement au Burkina Faso ; demandez justice, protection et paix.',
+foi:'Présentez au Seigneur ceux dont la foi vacille ; demandez la grâce d’une rencontre vivante avec Jésus et d’une conversion sincère.',
+decision:'Présentez au Seigneur nos décisions difficiles ; demandez la lumière de l’Esprit Saint, de bons conseils et la liberté de choisir le bien.',
+deuil:'Présentez au Seigneur les personnes endeuillées et nos défunts ; demandez consolation pour les vivants et miséricorde pour ceux qui nous ont quittés.',
+reconciliation:'Présentez au Seigneur nos relations blessées ; demandez la vérité, le pardon, la réparation et la sécurité des personnes.',
+vocation:'Présentez au Seigneur ceux qui cherchent leur vocation ; demandez la liberté du cœur et la joie de répondre à son appel.',
+epreuve:'Présentez au Seigneur ceux qui traversent une épreuve ; demandez des secours concrets, la persévérance et la paix du cœur.'
+};
+const finalPetitions={
+sante:'Nous te confions les malades et leurs proches : que personne ne manque de soins, de présence et d’espérance.',
+famille:'Nous te confions nos familles : fais grandir le dialogue, la protection et la tendresse dans nos foyers.',
+couple:'Nous te confions les couples : fortifie leur fidélité et leur respect mutuel.',
+enfants:'Nous te confions les enfants et les jeunes : garde-les du mal et aide-les à grandir dans la vérité et l’amour.',
+travail:'Nous te confions ceux qui cherchent un travail : ouvre des chemins dignes et inspire la solidarité.',
+paix:'Nous te confions les victimes de la violence : protège les innocents et fais grandir la justice et la paix.',
+foi:'Nous te confions notre foi : conduis-nous à Jésus et rends notre charité plus vraie.',
+decision:'Nous te confions nos choix : éclaire notre conscience et conduis-nous sur le chemin du bien.',
+deuil:'Nous te confions nos défunts et ceux qui pleurent : accueille-les dans ta miséricorde et soutiens notre espérance.',
+reconciliation:'Nous te confions nos blessures : guide-nous vers la vérité, le pardon et une paix juste.',
+vocation:'Nous te confions nos vocations : apprends-nous à répondre avec liberté et générosité.',
+epreuve:'Nous te confions nos épreuves : donne-nous la force d’aujourd’hui et des personnes pour nous soutenir.'
+};
+function replacePrayer(heading,body,marker,content){
+if(!heading)return false;
+const p=heading.nextElementSibling;
+if(!p||p.tagName!=='P'||p.dataset[marker]==='1')return false;
+p.textContent=content;
+p.dataset[marker]='1';
+return true;
+}
 const root=document.getElementById('intention-prayer');
 const choice=document.getElementById('intention-choice');
 if(!root||!choice)return;
@@ -186,7 +223,7 @@ if(!openings[key])return;
 const heading=[...root.querySelectorAll('h4')].find(e=>e.textContent.trim()==='Prière d’intercession');
 if(!heading)return;
 const prayer=heading.nextElementSibling;
-if(!prayer||prayer.tagName!=='P'||prayer.dataset.intercessionEnriched==='1')return;
+if(!prayer||prayer.tagName!=='P')return;
 const match=root.querySelector('.eyebrow')?.textContent.match(/JOUR\s+(\d+)\s*\/\s*9/i);
 const day=match?Number(match[1])-1:-1;
 if(day<0||day>8)return;
@@ -196,7 +233,7 @@ const closing=' Que ton Esprit nous guide dans les actes que nous pouvons poser 
 const middle=(original.endsWith(closing)?original.slice(0,-closing.length):original)
 .replace(/(Par l’intercession de saint Jean-Paul II, )([A-ZÀÂÉÈÊÎÏÔÙÛÜ])/u,(_,prefix,letter)=>prefix+letter.toLocaleLowerCase('fr-FR'));
 busy=true;
-prayer.textContent=[
+if(prayer.dataset.intercessionEnriched!=='1')prayer.textContent=[
 openings[key],
 journey[day],
 daily[key][day],
@@ -205,6 +242,21 @@ endings[key],
 'Très Sainte Vierge Marie, accompagne notre supplication et conduis-nous à Jésus. Donne-nous, Seigneur, de faire aujourd’hui le bien qui dépend de nous et de recevoir avec confiance ce qui nous dépasse. Par Jésus, le Christ, notre Seigneur. Amen.'
 ].join(' ');
 prayer.dataset.intercessionEnriched='1';
+const headings=[...root.querySelectorAll('h4')];
+const saint=headings.find(e=>/Prière à saint Jean-Paul II/i.test(e.textContent));
+replacePrayer(saint,null,'saintAdapted',[
+'Saint Jean-Paul II, témoin fidèle de Jésus-Christ et serviteur de la Vierge Marie, vous avez porté dans votre prière les familles, les malades, les jeunes et tous ceux qui souffrent.',
+'En ce '+(day+1)+'e jour de notre neuvaine, nous vous confions particulièrement cette intention.',
+saintPetitions[key],
+'Intercédez pour nous auprès de Dieu. Aidez-nous à écouter sa Parole, à poser des actes justes et à accueillir sa volonté dans la confiance. Que notre prière nous conduise toujours plus profondément à Jésus-Christ. Amen.'
+].join(' '));
+const finale=headings.find(e=>/^(Prière finale|Prière de conclusion|Prière pour conclure|Prière de clôture)$/i.test(e.textContent.trim()));
+replacePrayer(finale,null,'finalAdapted',[
+'Père de bonté, nous te rendons grâce pour cette journée de prière.',
+finalPetitions[key],
+'Par l’intercession de saint Jean-Paul II et avec l’aide maternelle de la Vierge Marie, fais-nous avancer dans la foi, l’espérance et la charité.',
+'Donne-nous d’accomplir aujourd’hui le bien qui dépend de nous et de te remettre avec confiance ce qui nous dépasse. Par Jésus, le Christ, notre Seigneur. Amen.'
+].join(' '));
 busy=false;
 }
 const observer=new MutationObserver(enhance);
