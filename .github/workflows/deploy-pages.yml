@@ -1,5 +1,5 @@
 name: Publier Totus Tuus sur GitHub Pages
-# Partage V5.9.1 : invitation courte WhatsApp, sans nouvelle fonctionnalité.
+# Prévisualisation des intercessions : correction des trois prières, V5.9.1 stable inchangée.
 on:
   push:
     branches: [main]
