@@ -1,5 +1,5 @@
 name: Publier Totus Tuus sur GitHub Pages
-# Prévisualisation des intercessions : nouvelle exécution complète après incident de publication GitHub Pages.
+# Release 5.10.0 : 108 prières d'intercession et actes de confiance personnalisés.
 on:
   push:
     branches: [main]
@@ -50,10 +50,38 @@ jobs:
           assert (p/"index.html").read_text(encoding="utf-8").count("intercession-prayers.js")>=1
           print("PREVISUALISATION SEPAREE: /preview-intercessions/ ; intentions isolees")
           PY
+      - name: Finaliser la version publique 5.10.0 avec les prières d'intercession
+        run: |
+          cp /tmp/totus-preview-src/site/intercession-prayers.js site/intercession-prayers.js
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,re
+          p=Path("site")
+          html=(p/"index.html").read_text(encoding="utf-8")
+          assert "intercession-prayers.js" not in html, "Inclusion double"
+          html=html.replace("</body>",'<script src="./intercession-prayers.js?v=5.10.0" defer></script></body>',1)
+          assert html.count("intercession-prayers.js")==1
+          (p/"index.html").write_text(html,encoding="utf-8")
+          sw=p/"service-worker.js"
+          worker=sw.read_text(encoding="utf-8")
+          worker,n=re.subn(r"const CACHE=['\"][^'\"]+['\"]","const CACHE='totus-tuus-pages-v5-10-0'",worker,count=1)
+          assert n==1,"Cache SW introuvable"
+          assert "const ASSETS=[" in worker
+          worker=worker.replace("const ASSETS=[","const ASSETS=['./intercession-prayers.js?v=5.10.0',",1)
+          sw.write_text(worker,encoding="utf-8")
+          version=p/"version.json"
+          version.write_text(json.dumps({"version":"5.10.0-pages","release":"5.10.0"},ensure_ascii=False),encoding="utf-8")
+          # Conserver la clé de stockage existante pour les intentions et progressions.
+          source=(p/"interventions.js").read_text(encoding="utf-8")
+          assert "totus-intercession-v51" in source
+          assert "intercession-prayers.js?v=5.10.0" in html
+          print("RELEASE 5.10.0 : 108 prières ; stockage existant préservé ; cache renouvelé")
+          PY
       - name: Vérifier les fichiers et la syntaxe JavaScript
         run: |
           python3 scripts/check_site.py site
           for file in site/*.js; do node --check "$file"; done
+          NODE_PATH=/tmp/totus-qa/node_modules node --version
       - name: Activer GitHub Pages avec GitHub Actions si autorisé
         env:
           GH_TOKEN: ${{ github.token }}
