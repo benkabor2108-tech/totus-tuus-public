@@ -59,7 +59,8 @@ if(day<0||day>8)return;
 const original=prayer.textContent.trim();
 if(!original.startsWith('Père très bon, nous te confions '))return;
 const closing=' Que ton Esprit nous guide dans les actes que nous pouvons poser aujourd’hui. Par Jésus, le Christ, notre Seigneur. Amen.';
-const middle=original.endsWith(closing)?original.slice(0,-closing.length):original;
+const middle=(original.endsWith(closing)?original.slice(0,-closing.length):original)
+.replace(/(Par l’intercession de saint Jean-Paul II, )([A-ZÀÂÉÈÊÎÏÔÙÛÜ])/u,(_,prefix,letter)=>prefix+letter.toLocaleLowerCase('fr-FR'));
 busy=true;
 prayer.textContent=[
 openings[key],
