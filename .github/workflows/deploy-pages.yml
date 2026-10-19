@@ -1,5 +1,5 @@
 name: Publier Totus Tuus sur GitHub Pages
-# Partage V5.9.1 : rétablissement du texte d'invitation, sans nouvelle fonctionnalité.
+# Partage V5.9.1 : invitation courte WhatsApp, sans nouvelle fonctionnalité.
 on:
   push:
     branches: [main]
