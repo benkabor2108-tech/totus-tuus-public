@@ -15,7 +15,7 @@ if OUT.exists():
     shutil.rmtree(OUT)
 OUT.mkdir()
 paths = {
-    "index.html", "app.js", "styles.css", "prieres.json",
+    "index.html", "app.js", "styles.css", "data/neuvaine.json", "prieres.json",
     "rosary-scriptures.json", "interventions.js", "service-worker.js",
     "manifest.webmanifest", "version.json", "couverture.png",
     "neuvaine-imprimable.pdf", "favicon.ico",
