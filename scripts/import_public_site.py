@@ -15,7 +15,7 @@ if OUT.exists():
     shutil.rmtree(OUT)
 OUT.mkdir()
 paths = {
-    "index.html", "app.js", "style.css", "styles.css", "prieres.json",
+    "index.html", "app.js", "styles.css", "prieres.json",
     "rosary-scriptures.json", "interventions.js", "service-worker.js",
     "manifest.webmanifest", "version.json", "couverture.png",
     "neuvaine-imprimable.pdf", "favicon.ico",
@@ -85,7 +85,8 @@ for p in sorted(Path("overrides").glob("*.js")):
 # Ne pas importer un service worker conçu pour le domaine racine Netlify :
 # une application sous /totus-tuus-public/ doit utiliser des chemins relatifs.
 worker = (OUT/"service-worker.js").read_text(encoding="utf-8")
-worker = worker.replace("totus-tuus-v5-2", "totus-tuus-pages-v5-9")
+worker = re.sub(r"const CACHE=['\"][^'\"]+['\"]", "const CACHE='totus-tuus-pages-v5-9-1'", worker, count=1)
+worker = worker.replace("const ASSETS=[", "const ASSETS=['./scripture-explanation.js?v=5.9.1','./share-app.js?v=5.9.1','./update-manager.js?v=5.9.1',")
 (OUT/"service-worker.js").write_text(worker, encoding="utf-8")
 (OUT/".nojekyll").write_text("", encoding="utf-8")
 (OUT/"version.json").write_text(json.dumps({"version":"5.9.1-pages","release":"5.9.1"},ensure_ascii=False),encoding="utf-8")
