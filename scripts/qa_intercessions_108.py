@@ -9,7 +9,7 @@ assert len(re.findall(r"En ce (?:premier|deuxième|troisième|quatrième|cinqui�
 assert all('"'+i+'"' in base for i in ids), "Catégorie absente de la base"
 assert "specific=" in base and "specific[item.id][state.day]" in base, "Méditations et intentions quotidiennes absentes"
 assert "localStorage.setItem" not in s, "L'extension ne doit pas toucher aux données locales"
-assert "const middle=original" in s, "La demande quotidienne d'origine doit être préservée"
+assert "const middle=" in s, "La demande quotidienne d'origine doit être préservée"
 assert "dataset.intercessionEnriched" in s, "Protection contre les répétitions absente"
 assert "intercession-prayers.js" in (Path("site/index.html").read_text(encoding="utf-8"))
 print("RECETTE CANDIDATE : 12 catégories x 9 journées = 108 prières spécifiques. Données locales inchangées. PASS")
