@@ -5,7 +5,14 @@ root=Path('site')
 errors=[]
 data=json.loads((root/'prieres.json').read_text(encoding='utf-8'))
 print('TYPE DONNEES NEUVAINE:',type(data).__name__)
-if isinstance(data,dict): print('CLES NEUVAINE:',list(data)[:20])
+if isinstance(data,dict):
+    print('CLES NEUVAINE:',list(data)[:20])
+    days=data.get('days',[])
+    print('JOURS DU LIVRET:',len(days))
+    if len(days)!=9: errors.append('La neuvaine doit contenir exactement neuf jours')
+    for i,day in enumerate(days,1):
+        print('DONNEES JOUR',i, 'champs:',list(day)[:15] if isinstance(day,dict) else type(day).__name__)
+        if not isinstance(day,dict) or not day: errors.append(f'Jour {i} absent ou vide')
 if isinstance(data,list): print('ELEMENTS NEUVAINE:',len(data))
 source=Path('overrides/scripture-explanation.js').read_text(encoding='utf-8')
 part=source.split('const notes = [',1)[1].split('];',1)[0]
