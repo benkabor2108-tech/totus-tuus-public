@@ -10,15 +10,13 @@
   button.id = 'totus-share-app';
   button.textContent = 'Partager Totus Tuus';
   const message = [
-    '🙏 Et si vous preniez chaque jour un moment pour vous rapprocher de Jésus, à l’école de la Vierge Marie ?',
+    '🙏 Et si vous preniez chaque jour quelques minutes pour vous rapprocher de Jésus, à l’école de la Vierge Marie ?',
     '',
-    'Découvrez TOTUS TUUS, un chemin de prière inspiré de saint Jean-Paul II : neuf jours de méditation de la Parole de Dieu, intentions personnelles et Rosaire méditatif.',
+    '🌹 Découvrez TOTUS TUUS, un chemin de prière inspiré de saint Jean-Paul II : neuvaine de neuf jours, méditations bibliques, intentions personnelles et Rosaire méditatif.',
     '',
-    '🌹 Confiez au Seigneur vos joies, vos épreuves, votre famille et vos projets, par l’intercession de la Vierge Marie et de saint Jean-Paul II.',
+    '✨ Confiez vos intentions au Seigneur, fortifiez votre foi et avancez dans l’espérance !',
     '',
-    '✨ Prenez quelques minutes pour nourrir votre foi et votre espérance. « Totus Tuus » : tout à toi, Marie, pour être tout à Jésus.',
-    '',
-    '🙏 Partagez cette invitation avec vos proches : une simple invitation peut ouvrir un chemin de prière.',
+    '🙏 Découvrez l’application et partagez cette invitation avec vos proches.',
     '',
     url
   ].join('\n');
