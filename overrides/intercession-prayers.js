@@ -244,13 +244,14 @@ endings[key],
 prayer.dataset.intercessionEnriched='1';
 const headings=[...root.querySelectorAll('h4')];
 const saint=headings.find(e=>/Prière à saint Jean-Paul II/i.test(e.textContent));
+if(saint&&saint.nextElementSibling&&saint.nextElementSibling.nextElementSibling?.tagName==='P')saint.nextElementSibling.nextElementSibling.remove();
 replacePrayer(saint,null,'saintAdapted',[
 'Saint Jean-Paul II, témoin fidèle de Jésus-Christ et serviteur de la Vierge Marie, vous avez porté dans votre prière les familles, les malades, les jeunes et tous ceux qui souffrent.',
-'En ce '+(day+1)+'e jour de notre neuvaine, nous vous confions particulièrement cette intention.',
+'En ce jour '+(day+1)+' de notre neuvaine, nous vous confions particulièrement cette intention.',
 saintPetitions[key],
 'Intercédez pour nous auprès de Dieu. Aidez-nous à écouter sa Parole, à poser des actes justes et à accueillir sa volonté dans la confiance. Que notre prière nous conduise toujours plus profondément à Jésus-Christ. Amen.'
 ].join(' '));
-const finale=headings.find(e=>/^(Prière finale|Prière de conclusion|Prière pour conclure|Prière de clôture)$/i.test(e.textContent.trim()));
+const finale=headings.find(e=>/^(Acte de confiance|Prière finale|Prière de conclusion|Prière pour conclure|Prière de clôture)$/i.test(e.textContent.trim()));
 replacePrayer(finale,null,'finalAdapted',[
 'Père de bonté, nous te rendons grâce pour cette journée de prière.',
 finalPetitions[key],
