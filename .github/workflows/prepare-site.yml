@@ -20,6 +20,12 @@ jobs:
         run: |
           python3 scripts/check_site.py site
           for file in site/*.js; do node --check "$file"; done
+      - name: Examiner le service worker et les chemins du site
+        run: |
+          head -c 3000 site/service-worker.js
+          echo
+          grep -o 'src="[^"]*"' site/index.html || true
+          grep -o 'href="[^"]*"' site/index.html || true
       - name: Archiver la version candidate sans la publier
         uses: actions/upload-artifact@v4
         with:
