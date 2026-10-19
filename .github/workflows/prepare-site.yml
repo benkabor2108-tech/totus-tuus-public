@@ -1,7 +1,7 @@
 name: Préparer la version candidate GitHub Pages
 on:
   push:
-    branches: [main]
+    branches: [main, 'candidate/intercessions-108']
     paths:
       - 'scripts/**'
       - 'overrides/**'
@@ -30,6 +30,8 @@ jobs:
         run: python3 -m pip install pypdf
       - name: Vérifier les neuf commentaires, le livret PDF et le cache
         run: python3 scripts/qa_stabilisation.py
+      - name: Vérifier les 108 prières spécifiques de la version candidate
+        run: python3 scripts/qa_intercessions_108.py
       - name: Auditer les chemins PWA GitHub Pages
         run: python3 scripts/qa_pwa_paths.py
       - name: Archiver la version candidate sans la publier
