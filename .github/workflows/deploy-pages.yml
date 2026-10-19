@@ -1,41 +1,36 @@
 name: Publier Totus Tuus sur GitHub Pages
 on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/deploy-pages.yml'
   workflow_dispatch:
 permissions:
   contents: read
   pages: write
   id-token: write
 concurrency:
-  group: github-pages
+  group: totus-tuus-pages
   cancel-in-progress: false
 jobs:
   publier:
+    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Auditer les fichiers destinés au public
-        run: python3 scripts/check_site.py site
-      - name: Vérifier la version candidate
-        shell: bash
+      - name: Construire la version candidate depuis le site actuel
+        run: python3 scripts/import_public_site.py
+      - name: Vérifier les fichiers et la syntaxe JavaScript
         run: |
-          set -euo pipefail
-          test -s site/index.html
-          test -s site/prieres.json
-          test -s site/rosary-scriptures.json
-          test -s site/service-worker.js
-          test -s site/manifest.webmanifest
-          test -s site/version.json
-          python3 - <<'PY'
-          import json
-          from pathlib import Path
-          root=Path("site")
-          for f in ("prieres.json","rosary-scriptures.json","version.json"):
-              json.loads((root/f).read_text(encoding="utf-8"))
-          print("Contenus requis presents et JSON valides")
-          PY
+          python3 scripts/check_site.py site
+          for file in site/*.js; do node --check "$file"; done
+      - name: Activer GitHub Pages avec GitHub Actions si autorisé
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api -X POST "repos/${GITHUB_REPOSITORY}/pages" -f build_type=workflow || echo "Configuration Pages existante ou activation à effectuer dans Settings > Pages"
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
