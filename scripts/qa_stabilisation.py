@@ -3,7 +3,7 @@ from pathlib import Path
 import json,re,sys
 root=Path('site')
 errors=[]
-data=json.loads((root/'data/neuvaine.json').read_text(encoding='utf-8'))
+data=json.loads((root/'prieres.json').read_text(encoding='utf-8'))
 print('TYPE DONNEES NEUVAINE:',type(data).__name__)
 if isinstance(data,dict): print('CLES NEUVAINE:',list(data)[:20])
 if isinstance(data,list): print('ELEMENTS NEUVAINE:',len(data))
