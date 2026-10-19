@@ -32,6 +32,10 @@ jobs:
         run: python3 scripts/qa_stabilisation.py
       - name: Vérifier les 108 prières spécifiques de la version candidate
         run: python3 scripts/qa_intercessions_108.py
+      - name: Recette DOM des 108 prières et sauvegarde des intentions
+        run: |
+          npm install --prefix /tmp/totus-qa --no-audit --no-fund jsdom@26
+          NODE_PATH=/tmp/totus-qa/node_modules node scripts/qa_intercessions_dom.cjs
       - name: Auditer les chemins PWA GitHub Pages
         run: python3 scripts/qa_pwa_paths.py
       - name: Archiver la version candidate sans la publier
