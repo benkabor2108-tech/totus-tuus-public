@@ -1,5 +1,5 @@
 name: Publier Totus Tuus sur GitHub Pages
-# Prévisualisation des intercessions : correction des trois prières, V5.9.1 stable inchangée.
+# Prévisualisation des intercessions : nouvelle exécution complète après incident de publication GitHub Pages.
 on:
   push:
     branches: [main]
