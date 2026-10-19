@@ -1,0 +1,42 @@
+name: Publier Totus Tuus sur GitHub Pages
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+jobs:
+  publier:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Vérifier la version candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s site/index.html
+          test -s site/prieres.json
+          test -s site/rosary-scriptures.json
+          test -s site/service-worker.js
+          test -s site/manifest.webmanifest
+          test -s site/version.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path("site")
+          for f in ("prieres.json","rosary-scriptures.json","version.json"):
+              json.loads((root/f).read_text(encoding="utf-8"))
+          print("Contenus requis presents et JSON valides")
+          PY
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - id: deployment
+        uses: actions/deploy-pages@v4
