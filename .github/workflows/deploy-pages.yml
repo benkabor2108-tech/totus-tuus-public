@@ -23,6 +23,33 @@ jobs:
       - uses: actions/checkout@v4
       - name: Construire la version candidate depuis le site actuel
         run: python3 scripts/import_public_site.py
+      - name: Préparer une prévisualisation isolée des 108 prières
+        run: |
+          git clone --quiet --depth 1 --branch candidate/intercessions-108 "https://github.com/${GITHUB_REPOSITORY}.git" /tmp/totus-preview-src
+          cd /tmp/totus-preview-src
+          python3 scripts/import_public_site.py
+          python3 scripts/check_site.py site
+          for file in site/*.js; do node --check "$file"; done
+          cd "$GITHUB_WORKSPACE"
+          mkdir -p site/preview-intercessions
+          cp -a /tmp/totus-preview-src/site/. site/preview-intercessions/
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          p=Path("site/preview-intercessions")
+          js=p/"interventions.js"
+          content=js.read_text(encoding="utf-8")
+          old="totus-intercession-v51"
+          assert old in content
+          js.write_text(content.replace(old,"totus-intercession-preview-108"),encoding="utf-8")
+          sw=p/"service-worker.js"
+          sw.write_text(sw.read_text(encoding="utf-8").replace("totus-tuus-pages-v5-9-1","totus-tuus-intercessions-preview-108"),encoding="utf-8")
+          version=p/"version.json"
+          version.write_text(json.dumps({"version":"candidate-intercessions-108","release":"preview-only"}),encoding="utf-8")
+          assert (p/"intercession-prayers.js").is_file()
+          assert (p/"index.html").read_text(encoding="utf-8").count("intercession-prayers.js")>=1
+          print("PREVISUALISATION SEPAREE: /preview-intercessions/ ; intentions isolees")
+          PY
       - name: Vérifier les fichiers et la syntaxe JavaScript
         run: |
           python3 scripts/check_site.py site
