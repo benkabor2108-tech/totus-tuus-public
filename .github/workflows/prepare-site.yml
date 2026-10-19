@@ -30,6 +30,8 @@ jobs:
         run: python3 -m pip install pypdf
       - name: Vérifier les neuf commentaires, le livret PDF et le cache
         run: python3 scripts/qa_stabilisation.py
+      - name: Auditer les chemins PWA GitHub Pages
+        run: python3 scripts/qa_pwa_paths.py
       - name: Archiver la version candidate sans la publier
         uses: actions/upload-artifact@v4
         with:
