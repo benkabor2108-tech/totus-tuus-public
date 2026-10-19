@@ -1,0 +1,29 @@
+name: Préparer la version candidate GitHub Pages
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/**'
+      - 'overrides/**'
+      - '.github/workflows/prepare-site.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  preparer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Récupérer les fichiers du site Netlify existant sans le modifier
+        run: python3 scripts/import_public_site.py
+      - name: Contrôler la version candidate
+        run: |
+          python3 scripts/check_site.py site
+          for file in site/*.js; do node --check "$file"; done
+      - name: Archiver la version candidate sans la publier
+        uses: actions/upload-artifact@v4
+        with:
+          name: totus-tuus-pages-candidat
+          path: site/
+          include-hidden-files: true
+          retention-days: 7
