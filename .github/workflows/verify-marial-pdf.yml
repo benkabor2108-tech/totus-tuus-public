@@ -154,7 +154,6 @@ jobs:
           path: /tmp/marial/
           retention-days: 14
           if-no-files-found: error
-,x['text']) for x in units), 'Numéro de folio PDF restant'
           assert (p/'parcours-33.js').stat().st_size > 100000
           assert (p/'parcours-33.json').stat().st_size > 100000
           import json
@@ -217,7 +216,6 @@ jobs:
           path: /tmp/marial/
           retention-days: 14
           if-no-files-found: error
-,x['text']) for x in units), 'Folio PDF isole restant'
           assert len({x['meditation'] for x in units})==33
           assert len({x['prayer'] for x in units})==33
           assert len({x['theme'] for x in units})==33
@@ -275,7 +273,6 @@ jobs:
           path: /tmp/marial/
           retention-days: 14
           if-no-files-found: error
-,x['text']) for x in units), 'Numéro de folio PDF restant'
           assert (p/'parcours-33.js').stat().st_size > 100000
           assert (p/'parcours-33.json').stat().st_size > 100000
           import json
