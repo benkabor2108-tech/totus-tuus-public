@@ -1,5 +1,5 @@
 /* Totus Tuus Marian preview: self-contained offline cache, isolated scope. */
-const CACHE='totus-marial-preview-2026-10-20-v4';
+const CACHE='totus-marial-preview-2026-10-20-v5';
 const FILES=['./','./index.html','./parcours-33.js','./traite-vraie-devotion-fr.pdf'];
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(FILES)).then(()=>self.skipWaiting()));
