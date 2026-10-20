@@ -4,6 +4,9 @@ on:
     branches: [candidate/parcours-marial-33]
     paths: ['.github/workflows/verify-marial-pdf.yml', 'parcours-marial/**']
   workflow_dispatch:
+concurrency:
+  group: marial-candidate-preview
+  cancel-in-progress: true
 permissions:
   contents: write
 jobs:
