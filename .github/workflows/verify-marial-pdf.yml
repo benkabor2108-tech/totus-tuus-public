@@ -62,7 +62,15 @@ jobs:
             pages=int(next(line.split(':',1)[1] for line in result.stdout.splitlines() if line.startswith('Pages:')))
             assert pages>=10
             extracted=None
-          meta={'sha256':hashlib.sha256(data).hexdigest(),'bytes':len(data),'pdf_pages':pages,'extracted_text_characters':extracted,'source':Path('/tmp/marial/source.txt').read_text().strip(),'verified_in_github_actions':True,'edition_pagination_verified':False,'android_tests_performed':False}
+          txt=subprocess.run(['pdftotext','-layout',str(p),'-'],capture_output=True,text=True,check=True).stdout
+          normalized=' '.join(txt.lower().split())
+          keywords=['marie','jésus','dévotion','consécration']
+          keyword_hits={w:(w in normalized) for w in keywords}
+          print('text_characters',len(txt),'keyword_hits',keyword_hits)
+          assert len(txt)>25000, 'Texte extrait insuffisant : vérification manuelle nécessaire'
+          assert sum(keyword_hits.values())>=3, 'Contenu à vérifier'
+          Path('/tmp/marial/extrait-controle.txt').write_text(txt[:25000],encoding='utf-8')
+          meta={'sha256':hashlib.sha256(data).hexdigest(),'bytes':len(data),'pdf_pages':pages,'text_chars':len(txt),'keyword_hits':keyword_hits,'extracted_text_characters':extracted,'source':Path('/tmp/marial/source.txt').read_text().strip(),'verified_in_github_actions':True,'edition_pagination_verified':False,'android_tests_performed':False}
           Path('/tmp/marial/manifest.json').write_text(json.dumps(meta,ensure_ascii=False,indent=2))
           print(json.dumps(meta,indent=2))
           PY
