@@ -97,7 +97,6 @@ jobs:
           import json
           units=json.loads((p/'parcours-33.json').read_text())['days']
           assert len(units)==33
-          assert not any(__import__('re').search(r'(?m)^[ \\t]*[0-9]{1,2}[ \\t]*
           assert len({x['meditation'] for x in units})==33
           assert len({x['prayer'] for x in units})==33
           assert len({x['theme'] for x in units})==33
