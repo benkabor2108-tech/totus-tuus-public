@@ -34,7 +34,7 @@ details{border:1px solid #d5dbe5;border-radius:12px;padding:12px}summary{cursor:
 #book-cover{min-height:0;height:100%;gap:clamp(8px,2vh,18px);padding:18px 12px}
 .cover-cross{font-size:2rem}.cover-heading{font-size:clamp(1.8rem,7vw,3.2rem)}.cover-subtitle{font-size:.86rem}.cover-small{font-size:.65rem}
 .flip-sheet{inset:8px 17px 8px 20px;padding:40px 20px 42px;line-height:1.55;overflow:hidden}
-#reflection[hidden]{display:none}
+#reflection[hidden]{display:none}#book-page[data-kind='intro'] #reading,#book-page[data-kind='reflection'] #reading,#book-page[data-kind='prayer'] #reading{font-size:clamp(16px,calc(var(--reading-size) * .88),23px);line-height:1.6}#book-page[data-kind='intro']{background:linear-gradient(115deg,#f3e8d0,#fffbf0 45%,#f3e8d0)}#book-page[data-kind='prayer']{background:linear-gradient(115deg,#f5ebd9,#fffdf6 45%,#f5ebd9)}
 @media(max-width:460px){#book-stage{height:clamp(420px,66svh,620px)}#book-page{padding:10px 18px 43px 20px}#daily-reading{padding:8px}}
 </style></head>
 <body><header><h1>Totus Tuus — 33 jours avec Marie</h1><p>Saint Louis-Marie Grignion de Montfort · Traité de la vraie dévotion</p></header>
@@ -44,13 +44,13 @@ details{border:1px solid #d5dbe5;border-radius:12px;padding:12px}summary{cursor:
 <p id="offline-status" role="status" aria-live="polite">Préparation de la lecture hors connexion…</p><p id="guide"></p>
 <small>Parcours pédagogique : la pagination du PDF diffère de l'édition historique.</small></section>
 <section id="daily-reading"><div class="reading-tools"><strong>Confort de lecture</strong><button id="smaller" class="secondary" aria-label="Réduire la taille du texte">A−</button><button id="larger" class="secondary" aria-label="Augmenter la taille du texte">A+</button><button id="top" class="secondary">↑ Haut</button></div>
-<div class="book-title">✦ TOTUS TUUS ✦</div><p id="pages"></p><p id="page-indicator" aria-live="polite"></p><small>Feuilletez de droite à gauche pour avancer, de gauche à droite pour revenir.</small><div id="book-stage"><div class="book-spine" aria-hidden="true"></div><div id="book-page"><div class="page-ornament">❧</div><h2>Lecture du jour</h2><div id="reading" role="article"></div><div class="page-foot">Totus Tuus · Avec Marie vers Jésus</div></div><button id="tap-prev" class="page-corner page-corner-left" aria-label="Tourner la page vers la droite">‹</button><button id="tap-next" class="page-corner page-corner-right" aria-label="Tourner la page vers la gauche">›</button><div id="book-cover"><div class="cover-cross">✝</div><div class="cover-small">PARCOURS SPIRITUEL</div><div class="cover-heading">33 jours<br>avec Marie</div><div class="cover-divider">✦</div><div class="cover-subtitle">À Jésus par Marie<br>Saint Louis-Marie Grignion de Montfort</div><button id="open-book">Ouvrir le livre →</button></div></div>
-<div id="reflection"><h3>Méditation</h3><p id="meditation"></p><h3>Prière</h3><p id="prayer"></p></div>
+<div class="book-title">✦ TOTUS TUUS ✦</div><p id="pages"></p><p id="page-indicator" aria-live="polite"></p><small>Feuilletez de droite à gauche pour avancer, de gauche à droite pour revenir.</small><div id="book-stage"><div class="book-spine" aria-hidden="true"></div><div id="book-page"><div class="page-ornament">❧</div><h2 id="leaf-heading">Lecture du jour</h2><div id="reading" role="article"></div><div class="page-foot">Totus Tuus · Avec Marie vers Jésus</div></div><button id="tap-prev" class="page-corner page-corner-left" aria-label="Tourner la page vers la droite">‹</button><button id="tap-next" class="page-corner page-corner-right" aria-label="Tourner la page vers la gauche">›</button><div id="book-cover"><div class="cover-cross">✝</div><div class="cover-small">PARCOURS SPIRITUEL</div><div class="cover-heading">33 jours<br>avec Marie</div><div class="cover-divider">✦</div><div class="cover-subtitle">À Jésus par Marie<br>Saint Louis-Marie Grignion de Montfort</div><button id="open-book">Ouvrir le livre →</button></div></div>
+<div id="reflection" hidden><h3>Pour prolonger cette journée</h3><p>La méditation et la prière figurent désormais dans les dernières pages du livre.</p></div>
 <div class="bottom-nav"><button id="bottom-prev" class="secondary">← Page précédente</button><button id="bottom-next">Page suivante →</button></div></section>
 <section><details><summary>Consulter le livre intégral (PDF)</summary><p><a href="./traite-vraie-devotion-fr.pdf" download>Enregistrer le livre intégral</a> · <a href="./traite-vraie-devotion-fr.pdf" target="_blank" rel="noopener">Ouvrir le PDF sur le téléphone</a></p><p>Pour une lecture hors connexion, les fichiers doivent avoir été enregistrés sur l'appareil.</p><iframe loading="lazy" title="Traité de la vraie dévotion" data-src="./traite-vraie-devotion-fr.pdf"></iframe></details></section>
 <script src="./parcours-33.js"></script><script>
 const key='totus-marial-33-candidate-v1';
-const d=document.getElementById('day');let bookPages=[''];let bookPage=0;let fontSize=19;
+const d=document.getElementById('day');let bookPages=[{kind:'intro',text:''}];let bookPage=0;let fontSize=19;
 const stages=[['Se préparer à accueillir Jésus par Marie',1,7],['Discerner la vraie dévotion',8,14],['Approfondir la consécration',15,21],['Vivre la consécration dans le Christ',22,33]];
 for(let i=1;i<=33;i++){const o=document.createElement('option');o.value=i;o.textContent='Jour '+i;d.append(o)}
 let state;try{state=JSON.parse(localStorage.getItem(key)||'{}')}catch{state={}}
@@ -70,7 +70,7 @@ document.getElementById('prev').disabled=n===1;
 document.getElementById('bottom-prev').disabled=n===1&&bookPage===0;
 document.getElementById('next').disabled=n===33;
 document.getElementById('bottom-next').disabled=n===33&&bookPage===bookPages.length-1;
-const unit=window.TOTUS_MARIAL_READING?.days?.[n-1];if(!unit){document.getElementById('reading').textContent='Lecture indisponible : actualisez la page.';return;}document.getElementById('guide').textContent=unit.theme+'. Lisez, méditez et priez à votre rythme.';document.getElementById('pages').textContent='Pages du PDF : '+unit.pdf_pages.join(' à ');bookPages=paginateBook(unit.text);bookPage=Math.min(bookPage,bookPages.length-1);renderBook();document.getElementById('meditation').textContent=unit.meditation;document.getElementById('prayer').textContent=unit.prayer;state.day=n;
+const unit=window.TOTUS_MARIAL_READING?.days?.[n-1];if(!unit){document.getElementById('reading').textContent='Lecture indisponible : actualisez la page.';return;}document.getElementById('guide').textContent=unit.theme+'. Lisez, méditez et priez à votre rythme.';document.getElementById('pages').textContent='Pages du PDF : '+unit.pdf_pages.join(' à ');bookPages=buildDayPages(unit);bookPage=Math.min(bookPage,bookPages.length-1);renderBook();state.day=n;
 if(!persist())document.getElementById('status').textContent+=' · Sauvegarde indisponible';
 }
 function changeDay(n){d.value=Math.max(1,Math.min(33,n));bookPage=0;state.bookPage=0;render();document.getElementById('book-stage').scrollIntoView({behavior:'instant',block:'center'})}
@@ -89,7 +89,7 @@ function turnBook(direction){
  if(turning)return;
  const day=Number(d.value),targetPage=bookPage+direction;
  if(targetPage<0&&day===1||targetPage>=bookPages.length&&day===33)return;
- const oldText=bookPages[bookPage]||'';
+ const oldText=bookPages[bookPage]?.text||'';
  const surface=document.getElementById('book-page');
  const sheet=document.createElement('div');
  sheet.className='flip-sheet '+(direction>0?'flip-next':'flip-prev');
@@ -104,7 +104,31 @@ function turnBook(direction){
  sheet.addEventListener('animationend',finish,{once:true});
  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)finish();
 }
-function renderBook(){bookPage=Math.min(Math.max(0,bookPage),bookPages.length-1);document.getElementById('reading').textContent=bookPages[bookPage]||'';state.bookPage=bookPage;persist();document.getElementById('page-indicator').textContent='Jour '+d.value+' · Page '+(bookPage+1)+' / '+bookPages.length;document.getElementById('reflection').hidden=bookPage!==bookPages.length-1;document.getElementById('bottom-prev').disabled=Number(d.value)===1&&bookPage===0;document.getElementById('bottom-next').disabled=Number(d.value)===33&&bookPage===bookPages.length-1;document.getElementById('tap-prev').disabled=Number(d.value)===1&&bookPage===0;document.getElementById('tap-next').disabled=Number(d.value)===33&&bookPage===bookPages.length-1;document.getElementById('bottom-next').textContent=bookPage===bookPages.length-1?'Jour suivant →':'Page suivante →';document.getElementById('book-stage').scrollIntoView({behavior:'instant',block:'center'})}
+function renderBook(){
+ bookPage=Math.min(Math.max(0,bookPage),bookPages.length-1);
+ const leaf=bookPages[bookPage]||{kind:'reading',text:'Lecture indisponible'};
+ const titles={intro:'Ouverture de la journée',reading:'Lecture du jour',reflection:'Méditation du jour',prayer:'Prière du jour'};
+ document.getElementById('leaf-heading').textContent=titles[leaf.kind]||'Lecture du jour';
+ document.getElementById('reading').textContent=leaf.text;
+ document.getElementById('book-page').dataset.kind=leaf.kind;
+ state.bookPage=bookPage;persist();
+ document.getElementById('page-indicator').textContent='Jour '+d.value+' · Page '+(bookPage+1)+' / '+bookPages.length;
+ document.getElementById('reflection').hidden=true;
+ const first=Number(d.value)===1&&bookPage===0,last=Number(d.value)===33&&bookPage===bookPages.length-1;
+ for(const id of ['bottom-prev','tap-prev'])document.getElementById(id).disabled=first;
+ for(const id of ['bottom-next','tap-next'])document.getElementById(id).disabled=last;
+ document.getElementById('bottom-next').textContent=bookPage===bookPages.length-1?'Jour suivant →':'Page suivante →';
+ document.getElementById('book-stage').scrollIntoView({behavior:'instant',block:'center'});
+}
+function buildDayPages(unit){
+ const n=unit.day;
+ const intro='JOUR '+n+' SUR 33\n\n'+unit.theme+'\n\nPour entrer dans cette journée, prenez un moment de silence. Lisez attentivement le passage proposé du Traité de la vraie dévotion. Accueillez ce qu’il vous inspire et présentez votre journée au Seigneur.\n\nLes pages suivantes contiennent la lecture originale ; les réflexions et prières sont des propositions rédigées pour ce parcours.';
+ const pages=[{kind:'intro',text:intro}];
+ for(const text of paginateBook(unit.text))pages.push({kind:'reading',text});
+ pages.push({kind:'reflection',text:'JOUR '+n+' — '+unit.theme+'\n\nÉclairage pour la méditation\n\n'+unit.explanation+'\n\nQuestion personnelle\n\n'+unit.meditation+'\n\nPrenez quelques instants pour formuler une résolution concrète.'});
+ pages.push({kind:'prayer',text:'JOUR '+n+' — PRIÈRE\n\n'+unit.prayer+'\n\nAmen.\n\nFin du jour '+n+' sur 33.\n\nVous pouvez marquer cette journée comme lue, puis ouvrir la suivante.'});
+ return pages;
+}
 function paginateBook(text){
  // Measure the actual page area: never hide unread words below the page edge.
  const reader=document.getElementById('reading');
@@ -132,7 +156,7 @@ bookSurface.addEventListener('touchstart',e=>{if(e.touches.length!==1)return;swi
 bookSurface.addEventListener('touchend',e=>{if(e.changedTouches.length!==1)return;const dx=e.changedTouches[0].clientX-swipeX,dy=e.changedTouches[0].clientY-swipeY;if(Math.abs(dx)<90||Math.abs(dx)<Math.abs(dy)*1.5)return;if(e.target.closest('button,select,a,iframe'))return;if(dx<0)document.getElementById('bottom-next').click();else document.getElementById('bottom-prev').click()},{passive:true});
 document.getElementById('top').onclick=()=>document.getElementById('navigation').scrollIntoView({behavior:'smooth'});
 try{fontSize=Math.min(28,Math.max(16,Number(localStorage.getItem('totus-marial-font-candidate-v1'))||19))}catch(e){}
-function setFont(n){fontSize=Math.min(28,Math.max(16,n));document.documentElement.style.setProperty('--reading-size',fontSize+'px');const unit=window.TOTUS_MARIAL_READING?.days?.[Number(d.value)-1];if(unit){const oldRatio=bookPages.length>1?bookPage/(bookPages.length-1):0;bookPages=paginateBook(unit.text);bookPage=Math.min(bookPages.length-1,Math.round(oldRatio*(bookPages.length-1)));renderBook()}try{localStorage.setItem('totus-marial-font-candidate-v1',String(fontSize))}catch(e){}}
+function setFont(n){fontSize=Math.min(28,Math.max(16,n));document.documentElement.style.setProperty('--reading-size',fontSize+'px');const unit=window.TOTUS_MARIAL_READING?.days?.[Number(d.value)-1];if(unit){const oldRatio=bookPages.length>1?bookPage/(bookPages.length-1):0;bookPages=buildDayPages(unit);bookPage=Math.min(bookPages.length-1,Math.round(oldRatio*(bookPages.length-1)));renderBook()}try{localStorage.setItem('totus-marial-font-candidate-v1',String(fontSize))}catch(e){}}
 document.getElementById('smaller').onclick=()=>setFont(fontSize-2);
 document.getElementById('larger').onclick=()=>setFont(fontSize+2);
 setFont(fontSize);
