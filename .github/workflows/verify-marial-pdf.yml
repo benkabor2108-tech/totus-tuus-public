@@ -87,7 +87,8 @@ jobs:
           assert 'traite-vraie-devotion-fr.pdf' in h
           assert 'totus-marial-33-candidate-v1' in h
           assert 'window.TOTUS_MARIAL_READING?.days?.[n-1]' in h, 'Lectures non connectees au lecteur'
-          assert 'id="reading"' in h and 'id="meditation"' in h and 'id="prayer"' in h
+          assert h.count('id="reading"')==1 and h.count('id="meditation"')==1 and h.count('id="prayer"')==1
+          assert 'id="larger"' in h and 'id="bottom-next"' in h and '<details>' in h
           assert (p/'parcours-33.js').stat().st_size > 100000
           assert (p/'parcours-33.json').stat().st_size > 100000
           assert (p/'traite-vraie-devotion-fr.pdf').read_bytes().startswith(b'%PDF-')
