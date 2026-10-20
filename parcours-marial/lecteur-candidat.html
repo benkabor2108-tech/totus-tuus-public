@@ -20,7 +20,7 @@ details{border:1px solid #d5dbe5;border-radius:12px;padding:12px}summary{cursor:
 <p id="offline-status" role="status" aria-live="polite">Préparation de la lecture hors connexion…</p><p id="guide"></p>
 <small>Parcours pédagogique : la pagination du PDF diffère de l'édition historique.</small></section>
 <section id="daily-reading"><div class="reading-tools"><strong>Confort de lecture</strong><button id="smaller" class="secondary" aria-label="Réduire la taille du texte">A−</button><button id="larger" class="secondary" aria-label="Augmenter la taille du texte">A+</button><button id="top" class="secondary">↑ Haut</button></div>
-<p id="pages"></p><p id="page-indicator" aria-live="polite"></p><div id="book-page"><h2>Lecture du jour</h2><div id="reading" role="article"></div></div>
+<p id="pages"></p><p id="page-indicator" aria-live="polite"></p><small>Glissez horizontalement pour tourner les pages.</small><div id="book-page"><h2>Lecture du jour</h2><div id="reading" role="article"></div></div>
 <div id="reflection"><h3>Méditation</h3><p id="meditation"></p><h3>Prière</h3><p id="prayer"></p></div>
 <div class="bottom-nav"><button id="bottom-prev" class="secondary">← Page précédente</button><button id="bottom-next">Page suivante →</button></div></section>
 <section><details><summary>Consulter le livre intégral (PDF)</summary><p><a href="./traite-vraie-devotion-fr.pdf" download>Enregistrer le livre intégral</a> · <a href="./traite-vraie-devotion-fr.pdf" target="_blank" rel="noopener">Ouvrir le PDF sur le téléphone</a></p><p>Pour une lecture hors connexion, les fichiers doivent avoir été enregistrés sur l'appareil.</p><iframe loading="lazy" title="Traité de la vraie dévotion" data-src="./traite-vraie-devotion-fr.pdf"></iframe></details></section>
@@ -31,6 +31,7 @@ const stages=[['Se préparer à accueillir Jésus par Marie',1,7],['Discerner la
 for(let i=1;i<=33;i++){const o=document.createElement('option');o.value=i;o.textContent='Jour '+i;d.append(o)}
 let state;try{state=JSON.parse(localStorage.getItem(key)||'{}')}catch{state={}}
 state.completed=Array.isArray(state.completed)?state.completed.filter(n=>Number.isInteger(n)&&n>=1&&n<=33):[];
+bookPage=Math.max(0,Number.isInteger(state.bookPage)?state.bookPage:0);
 d.value=Math.min(33,Math.max(1,Number(state.day)||1));
 function persist(){try{localStorage.setItem(key,JSON.stringify(state));return true}catch(e){return false}}
 function render(){
@@ -47,7 +48,7 @@ document.getElementById('bottom-next').disabled=n===33&&bookPage===bookPages.len
 state.day=n;
 if(!persist())document.getElementById('status').textContent+=' · Sauvegarde indisponible';
 }
-function changeDay(n){d.value=Math.max(1,Math.min(33,n));bookPage=0;render();document.getElementById('daily-reading').scrollIntoView({behavior:'instant',block:'start'})}
+function changeDay(n){d.value=Math.max(1,Math.min(33,n));bookPage=0;state.bookPage=0;render();document.getElementById('daily-reading').scrollIntoView({behavior:'instant',block:'start'})}
 d.onchange=()=>changeDay(Number(d.value));
 document.getElementById('prev').onclick=()=>changeDay(Number(d.value)-1);
 document.getElementById('next').onclick=()=>changeDay(Number(d.value)+1);
@@ -55,8 +56,12 @@ document.getElementById('bottom-prev').onclick=()=>{if(bookPage>0){bookPage--;re
 document.getElementById('bottom-next').onclick=()=>{if(bookPage<bookPages.length-1){bookPage++;renderBook();}else changeDay(Number(d.value)+1)};
 document.getElementById('done').onclick=()=>{const n=Number(d.value);if(!state.completed.includes(n))state.completed.push(n);render()};
 document.getElementById('jump').onclick=()=>document.getElementById('daily-reading').scrollIntoView({behavior:'smooth'});
-function renderBook(){document.getElementById('reading').textContent=bookPages[bookPage]||'';document.getElementById('page-indicator').textContent='Jour '+d.value+' · Page '+(bookPage+1)+' / '+bookPages.length;document.getElementById('reflection').hidden=bookPage!==bookPages.length-1;document.getElementById('bottom-prev').disabled=Number(d.value)===1&&bookPage===0;document.getElementById('bottom-next').disabled=Number(d.value)===33&&bookPage===bookPages.length-1;document.getElementById('bottom-next').textContent=bookPage===bookPages.length-1?'Jour suivant →':'Page suivante →';document.getElementById('daily-reading').scrollIntoView({behavior:'instant',block:'start'})}
+function renderBook(){document.getElementById('reading').textContent=bookPages[bookPage]||'';state.bookPage=bookPage;persist();document.getElementById('page-indicator').textContent='Jour '+d.value+' · Page '+(bookPage+1)+' / '+bookPages.length;document.getElementById('reflection').hidden=bookPage!==bookPages.length-1;document.getElementById('bottom-prev').disabled=Number(d.value)===1&&bookPage===0;document.getElementById('bottom-next').disabled=Number(d.value)===33&&bookPage===bookPages.length-1;document.getElementById('bottom-next').textContent=bookPage===bookPages.length-1?'Jour suivant →':'Page suivante →';document.getElementById('daily-reading').scrollIntoView({behavior:'instant',block:'start'})}
 function paginateBook(text){const parts=text.split(/(?=\n\s*\d{1,3}\.\s)/).filter(Boolean);const result=[];let page='';for(const part of parts){if(page&&page.length+part.length>1500){result.push(page.trim());page=''}page+=part}if(page.trim())result.push(page.trim());return result.length?result:['Lecture indisponible']}
+let swipeX=0,swipeY=0;
+const bookSurface=document.getElementById('daily-reading');
+bookSurface.addEventListener('touchstart',e=>{if(e.touches.length!==1)return;swipeX=e.touches[0].clientX;swipeY=e.touches[0].clientY},{passive:true});
+bookSurface.addEventListener('touchend',e=>{if(e.changedTouches.length!==1)return;const dx=e.changedTouches[0].clientX-swipeX,dy=e.changedTouches[0].clientY-swipeY;if(Math.abs(dx)<90||Math.abs(dx)<Math.abs(dy)*1.5)return;if(e.target.closest('button,select,a,iframe'))return;if(dx<0)document.getElementById('bottom-next').click();else document.getElementById('bottom-prev').click()},{passive:true});
 document.getElementById('top').onclick=()=>document.getElementById('navigation').scrollIntoView({behavior:'smooth'});
 let fontSize=19;try{fontSize=Math.min(28,Math.max(16,Number(localStorage.getItem('totus-marial-font-candidate-v1'))||19))}catch(e){}
 function setFont(n){fontSize=Math.min(28,Math.max(16,n));document.documentElement.style.setProperty('--reading-size',fontSize+'px');try{localStorage.setItem('totus-marial-font-candidate-v1',String(fontSize))}catch(e){}}
