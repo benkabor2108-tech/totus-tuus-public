@@ -4,13 +4,13 @@
 :root{--navy:#243d69;--ink:#16233c;--bg:#f6f8fc;--reading-size:19px}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{font:16px/1.55 system-ui,sans-serif;margin:0 auto;max-width:820px;padding:12px;background:var(--bg);color:var(--ink)}
 header{background:var(--navy);color:#fff;padding:22px;border-radius:16px}h1{font-size:clamp(1.6rem,6vw,2.5rem);line-height:1.2;margin:.3em 0}h2{font-size:1.35rem;margin:0 0 .7rem}h3{font-size:1.15rem}
-section{background:white;padding:18px;border-radius:16px;margin:14px 0}#daily-reading{background:#fffdf6;border:1px solid #e7ddc8;box-shadow:0 4px 20px #243d6912;min-height:65vh}#book-page{border-top:1px solid #e7ddc8;padding-top:12px;min-height:46vh}#page-indicator{font-weight:700;color:#475569;text-align:center;margin:10px 0}button,select,a{font:inherit}button,select{min-height:44px;border-radius:10px;padding:9px 13px}button{background:var(--navy);color:#fff;border:0;cursor:pointer}button:disabled{opacity:.4}button.secondary{background:#e8edf5;color:var(--ink)}button:focus-visible,a:focus-visible,select:focus-visible{outline:3px solid #d89930;outline-offset:3px}
+section{background:white;padding:18px;border-radius:16px;margin:14px 0}#daily-reading{background:#fffdf6;border:1px solid #e7ddc8;box-shadow:0 4px 20px #243d6912;min-height:65vh}#book-page{border-top:1px solid #e7ddc8;padding-top:12px;min-height:42vh}#page-indicator{font-weight:700;color:#475569;text-align:center;margin:10px 0}button,select,a{font:inherit}button,select{min-height:44px;border-radius:10px;padding:9px 13px}button{background:var(--navy);color:#fff;border:0;cursor:pointer}button:disabled{opacity:.4}button.secondary{background:#e8edf5;color:var(--ink)}button:focus-visible,a:focus-visible,select:focus-visible{outline:3px solid #d89930;outline-offset:3px}
 .controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.controls label{font-weight:600}select{max-width:100%;background:white;border:1px solid #a5acba}
 #status{font-weight:700;margin:10px 0 4px}progress{width:100%;height:13px;accent-color:var(--navy)}
 #reading{white-space:pre-wrap;overflow-wrap:anywhere;font-family:Georgia,'Times New Roman',serif;font-size:var(--reading-size);line-height:1.75;max-height:none;overflow:visible;margin:0}
 #reading p{margin:0 0 1.05em}#pages{color:#475569}#meditation,#prayer{font-size:1.08rem;line-height:1.75}
 #offline-status{font-size:.88rem;color:#475569}.reading-tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}.reading-tools button{min-width:48px}
-details{border:1px solid #d5dbe5;border-radius:12px;padding:12px}summary{cursor:pointer;font-weight:700}iframe{width:100%;height:65vh;border:1px solid #ccc;border-radius:8px}small{color:#58667d}.bottom-nav{display:flex;justify-content:space-between;gap:8px;margin-top:16px}
+details{border:1px solid #d5dbe5;border-radius:12px;padding:12px}summary{cursor:pointer;font-weight:700}iframe{width:100%;height:65vh;border:1px solid #ccc;border-radius:8px}small{color:#58667d}.bottom-nav{display:flex;justify-content:space-between;gap:8px;margin-top:16px;position:sticky;bottom:0;background:#fffdf6;padding:10px 0;border-top:1px solid #e7ddc8;z-index:5}.bottom-nav button{flex:1;min-width:0;font-size:.95rem}#page-indicator{font-variant-numeric:tabular-nums}
 @media(max-width:460px){section{padding:14px}body{padding:9px}.controls button{flex:1}header{padding:18px}}
 </style></head>
 <body><header><h1>Totus Tuus — 33 jours avec Marie</h1><p>Saint Louis-Marie Grignion de Montfort · Traité de la vraie dévotion</p></header>
@@ -26,7 +26,7 @@ details{border:1px solid #d5dbe5;border-radius:12px;padding:12px}summary{cursor:
 <section><details><summary>Consulter le livre intégral (PDF)</summary><p><a href="./traite-vraie-devotion-fr.pdf" download>Enregistrer le livre intégral</a> · <a href="./traite-vraie-devotion-fr.pdf" target="_blank" rel="noopener">Ouvrir le PDF sur le téléphone</a></p><p>Pour une lecture hors connexion, les fichiers doivent avoir été enregistrés sur l'appareil.</p><iframe loading="lazy" title="Traité de la vraie dévotion" data-src="./traite-vraie-devotion-fr.pdf"></iframe></details></section>
 <script src="./parcours-33.js"></script><script>
 const key='totus-marial-33-candidate-v1';
-const d=document.getElementById('day');let bookPages=[''];let bookPage=0;
+const d=document.getElementById('day');let bookPages=[''];let bookPage=0;let fontSize=19;
 const stages=[['Se préparer à accueillir Jésus par Marie',1,7],['Discerner la vraie dévotion',8,14],['Approfondir la consécration',15,21],['Vivre la consécration dans le Christ',22,33]];
 for(let i=1;i<=33;i++){const o=document.createElement('option');o.value=i;o.textContent='Jour '+i;d.append(o)}
 let state;try{state=JSON.parse(localStorage.getItem(key)||'{}')}catch{state={}}
@@ -56,15 +56,30 @@ document.getElementById('bottom-prev').onclick=()=>{if(bookPage>0){bookPage--;re
 document.getElementById('bottom-next').onclick=()=>{if(bookPage<bookPages.length-1){bookPage++;renderBook();}else changeDay(Number(d.value)+1)};
 document.getElementById('done').onclick=()=>{const n=Number(d.value);if(!state.completed.includes(n))state.completed.push(n);render()};
 document.getElementById('jump').onclick=()=>document.getElementById('daily-reading').scrollIntoView({behavior:'smooth'});
-function renderBook(){document.getElementById('reading').textContent=bookPages[bookPage]||'';state.bookPage=bookPage;persist();document.getElementById('page-indicator').textContent='Jour '+d.value+' · Page '+(bookPage+1)+' / '+bookPages.length;document.getElementById('reflection').hidden=bookPage!==bookPages.length-1;document.getElementById('bottom-prev').disabled=Number(d.value)===1&&bookPage===0;document.getElementById('bottom-next').disabled=Number(d.value)===33&&bookPage===bookPages.length-1;document.getElementById('bottom-next').textContent=bookPage===bookPages.length-1?'Jour suivant →':'Page suivante →';document.getElementById('daily-reading').scrollIntoView({behavior:'instant',block:'start'})}
-function paginateBook(text){const parts=text.split(/(?=\n\s*\d{1,3}\.\s)/).filter(Boolean);const result=[];let page='';for(const part of parts){if(page&&page.length+part.length>1500){result.push(page.trim());page=''}page+=part}if(page.trim())result.push(page.trim());return result.length?result:['Lecture indisponible']}
+function renderBook(){bookPage=Math.min(Math.max(0,bookPage),bookPages.length-1);document.getElementById('reading').textContent=bookPages[bookPage]||'';state.bookPage=bookPage;persist();document.getElementById('page-indicator').textContent='Jour '+d.value+' · Page '+(bookPage+1)+' / '+bookPages.length;document.getElementById('reflection').hidden=bookPage!==bookPages.length-1;document.getElementById('bottom-prev').disabled=Number(d.value)===1&&bookPage===0;document.getElementById('bottom-next').disabled=Number(d.value)===33&&bookPage===bookPages.length-1;document.getElementById('bottom-next').textContent=bookPage===bookPages.length-1?'Jour suivant →':'Page suivante →';document.getElementById('daily-reading').scrollIntoView({behavior:'instant',block:'start'})}
+function paginateBook(text){
+ // Keep all words and use shorter pages for mobile reading.
+ const maxChars=Math.max(340,Math.min(700,Math.round(560*19/fontSize)));
+ const paragraphs=text.split(/(?=\n\s*\d{1,3}\.\s)/).filter(Boolean);
+ const chunks=[];
+ for(const paragraph of paragraphs){
+   const words=paragraph.match(/\S+\s*/g)||[];
+   let chunk='';
+   for(const word of words){
+     if(chunk&&chunk.length+word.length>maxChars){chunks.push(chunk.trim());chunk=''}
+     chunk+=word;
+   }
+   if(chunk.trim())chunks.push(chunk.trim());
+ }
+ return chunks.length?chunks:['Lecture indisponible'];
+}
 let swipeX=0,swipeY=0;
 const bookSurface=document.getElementById('daily-reading');
 bookSurface.addEventListener('touchstart',e=>{if(e.touches.length!==1)return;swipeX=e.touches[0].clientX;swipeY=e.touches[0].clientY},{passive:true});
 bookSurface.addEventListener('touchend',e=>{if(e.changedTouches.length!==1)return;const dx=e.changedTouches[0].clientX-swipeX,dy=e.changedTouches[0].clientY-swipeY;if(Math.abs(dx)<90||Math.abs(dx)<Math.abs(dy)*1.5)return;if(e.target.closest('button,select,a,iframe'))return;if(dx<0)document.getElementById('bottom-next').click();else document.getElementById('bottom-prev').click()},{passive:true});
 document.getElementById('top').onclick=()=>document.getElementById('navigation').scrollIntoView({behavior:'smooth'});
-let fontSize=19;try{fontSize=Math.min(28,Math.max(16,Number(localStorage.getItem('totus-marial-font-candidate-v1'))||19))}catch(e){}
-function setFont(n){fontSize=Math.min(28,Math.max(16,n));document.documentElement.style.setProperty('--reading-size',fontSize+'px');try{localStorage.setItem('totus-marial-font-candidate-v1',String(fontSize))}catch(e){}}
+try{fontSize=Math.min(28,Math.max(16,Number(localStorage.getItem('totus-marial-font-candidate-v1'))||19))}catch(e){}
+function setFont(n){fontSize=Math.min(28,Math.max(16,n));document.documentElement.style.setProperty('--reading-size',fontSize+'px');const unit=window.TOTUS_MARIAL_READING?.days?.[Number(d.value)-1];if(unit){const oldRatio=bookPages.length>1?bookPage/(bookPages.length-1):0;bookPages=paginateBook(unit.text);bookPage=Math.min(bookPages.length-1,Math.round(oldRatio*(bookPages.length-1)));renderBook()}try{localStorage.setItem('totus-marial-font-candidate-v1',String(fontSize))}catch(e){}}
 document.getElementById('smaller').onclick=()=>setFont(fontSize-2);
 document.getElementById('larger').onclick=()=>setFont(fontSize+2);
 setFont(fontSize);
