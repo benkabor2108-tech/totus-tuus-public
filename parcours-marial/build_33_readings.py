@@ -2,6 +2,7 @@
 """Build 33 local reading units from the verified PDF, preserving page order."""
 import json, subprocess
 from meditations_33 import THEMES
+from explanations_33 import EXPLANATIONS
 from pathlib import Path
 root=Path('/tmp/marial')
 pdf=root/'traite-vraie-devotion-fr.pdf'
@@ -58,7 +59,7 @@ for i in range(33):
         assert re.match(r'^[ \t]*[0-9]{1,3}\.[ \t]+',full_text[cuts[i]:]), f'Day {i+1} starts inside paragraph'
     theme,meditation,prayer=THEMES[i]
     units.append({'day':i+1,'pdf_pages':[first,last],'theme':theme,'text':txt,
-                  'meditation':meditation,'prayer':prayer})
+                  'meditation':meditation,'prayer':prayer,'explanation':EXPLANATIONS[i]})
 assert ''.join(full_text[cuts[i]:cuts[i+1]] for i in range(33))==full_text
 assert units[0]['pdf_pages'][0]==1 and units[-1]['pdf_pages'][1]==pages
 data={'source':'PDF français La Porte Latine; pagination PDF et non pagination imprimée 1859',
@@ -79,6 +80,6 @@ insertion=("const unit=window.TOTUS_MARIAL_READING?.days?.[n-1];"
 h=h.replace(needle,insertion+needle,1)
 assert "window.TOTUS_MARIAL_READING?.days?.[n-1]" in h
 assert '<script src="./parcours-33.js"></script>' in h
-assert 'id="reading"' in h and 'id="meditation"' in h and 'id="prayer"' in h
+assert 'id="reading"' in h and 'function buildDayPages' in h
 (root/'index.html').write_text(h,encoding='utf-8')
 print(f'33 journées générées à partir de {pages} pages PDF; {sum(len(x["text"]) for x in units)} caractères.')
