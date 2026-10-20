@@ -15,6 +15,27 @@ details{border:1px solid #d5dbe5;border-radius:12px;padding:12px}summary{cursor:
 
 /* Livre relié : couverture, dos, pages et feuilletage physique. */
 #daily-reading{background:#e7e0d0;padding:12px;border:1px solid #c8bda7;box-shadow:0 15px 35px #14243d30}#book-stage{position:relative;perspective:1800px;padding:8px 10px 8px 16px;background:linear-gradient(90deg,#aa977a 0,#eadfca 2%,#fbf5e7 5%,#fdfaf0 96%,#b8a487 100%);border-radius:5px 12px 12px 5px;box-shadow:5px 8px 0 #b8a58b,10px 13px 24px #243d6940;min-height:57vh;isolation:isolate}#book-stage:before{content:'';position:absolute;inset:3px 5px 3px auto;width:8px;background:repeating-linear-gradient(to bottom,#d2c2a3 0 1px,#f9f2e2 1px 3px);border-radius:2px;pointer-events:none}.book-spine{position:absolute;top:0;bottom:0;left:10px;width:12px;background:linear-gradient(90deg,#8d7d66,#c7b79c 40%,#fff6e5 90%);box-shadow:3px 0 8px #5e513e38;z-index:2;pointer-events:none}#book-page{background:linear-gradient(90deg,#f3ead6 0,#fffcf4 7%,#fffcf4 93%,#f4ead6 100%);min-height:55vh;padding:10px 25px 56px 26px;margin:0 7px 0 6px;border:0;border-radius:2px 9px 9px 2px;box-shadow:inset 5px 0 10px #6c563319;overflow:hidden}#book-page h2{font-family:Georgia,serif;font-size:1.1rem;text-align:center;color:#765c38;border-bottom:1px solid #c6b899;padding-bottom:12px}#reading{line-height:1.65}.book-title{text-align:center;letter-spacing:.14em;color:#6b5535;font-size:.8rem;font-weight:700}.page-ornament{text-align:center;color:#9d865b;font-size:1.5rem}.page-foot{position:absolute;bottom:20px;left:35px;right:35px;text-align:center;border-top:1px solid #dacbb0;padding-top:8px;color:#8b7756;font:italic .72rem Georgia,serif}.page-corner{position:absolute;z-index:4;bottom:12px;border-radius:50%;min-width:38px;width:38px;height:38px;padding:0;background:#e8d7b9;color:#463a2b;box-shadow:0 2px 7px #0002}.page-corner-left{left:16px}.page-corner-right{right:16px}.flip-sheet{inset:8px 17px 8px 25px;transform-style:preserve-3d;background:linear-gradient(90deg,#eee2cc,#fffcf4 10%,#fff8e9 90%,#d2bfa2);border:1px solid #d3c4a6;box-shadow:5px 6px 20px #372b1940;padding:46px 28px 60px;line-height:1.65;border-radius:3px 9px 9px 3px;transform-origin:left center}.flip-prev{transform-origin:right center}.flip-next{animation:turn-next .7s cubic-bezier(.3,.04,.3,1) forwards}.flip-prev{animation:turn-prev .7s cubic-bezier(.3,.04,.3,1) forwards}@keyframes turn-next{0%{transform:rotateY(0deg);opacity:1}55%{transform:rotateY(-100deg);opacity:.75}100%{transform:rotateY(-175deg);opacity:0}}@keyframes turn-prev{0%{transform:rotateY(0deg);opacity:1}55%{transform:rotateY(100deg);opacity:.75}100%{transform:rotateY(175deg);opacity:0}}#book-cover{position:absolute;inset:0;z-index:7;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;text-align:center;background:linear-gradient(115deg,#0d2444,#274773 70%,#132c51);border:5px double #bca272;border-left:15px solid #142943;border-radius:5px 12px 12px 5px;color:#f6e6c2;box-shadow:9px 10px 20px #0005;padding:25px 15px;transform-origin:left center;transition:transform .9s ease,opacity .9s ease;min-height:57vh}#book-cover.opened{transform:rotateY(-105deg);opacity:0;pointer-events:none}#book-cover[hidden]{display:none}.cover-cross{font-size:3rem;color:#e7c887}.cover-small{font-size:.78rem;letter-spacing:.22em}.cover-heading{font:bold clamp(2.2rem,8vw,4rem)/1.2 Georgia,serif}.cover-divider{font-size:1.5rem}.cover-subtitle{font:1rem/1.7 Georgia,serif}#open-book{background:#e8cf96;color:#132b50;font-weight:700;border:1px solid #fff0c3;box-shadow:0 4px 12px #0005}#reflection{background:#fffcf4;padding:10px 18px;margin:12px 2px;border-radius:5px}.bottom-nav{background:#e7e0d0}#tap-prev:disabled,#tap-next:disabled{opacity:.2}@media(min-width:800px){#book-stage{max-width:720px;margin:auto}#book-page{min-height:65vh;padding-left:60px;padding-right:60px}#book-stage:after{content:'';position:absolute;top:7px;bottom:7px;left:50%;width:2px;background:linear-gradient(90deg,#b8a78c,#fff3dc,#b8a78c);opacity:.22;pointer-events:none}}@media(max-width:460px){#daily-reading{padding:9px}#book-page{padding:8px 22px 58px 20px}#reading{font-size:var(--reading-size)}#book-stage{padding-left:12px}}
+
+/* V2: compact, readable book viewport; page content must fit inside its leaf. */
+#daily-reading{padding:10px}
+#book-stage{height:clamp(430px,67svh,650px);min-height:0;padding:7px 8px 7px 13px;overflow:visible}
+#book-page{height:100%;min-height:0;overflow:hidden;padding:12px 20px 45px 22px;display:flex;flex-direction:column}
+#book-page h2{font-size:1rem;margin:3px 0 12px;padding-bottom:8px;flex:none}
+#reading{white-space:pre-wrap;overflow:hidden;flex:1;min-height:0;line-height:1.55;font-size:var(--reading-size);word-break:normal;overflow-wrap:break-word}
+.page-ornament{font-size:1rem;line-height:1.2;flex:none}
+.page-foot{position:static;margin-top:9px;flex:none;font-size:.65rem;padding-top:5px}
+.book-title{margin:0}
+#pages{font-size:.78rem;margin:4px 0}
+#page-indicator{font-size:.86rem;margin:3px 0}
+#daily-reading>small{display:block}
+#book-stage .page-corner{bottom:5px;width:33px;height:33px;min-width:33px;min-height:33px;padding:0;opacity:.9}
+.bottom-nav{position:static;margin-top:12px;padding:6px 0;border:0}
+.bottom-nav button{padding:8px 4px;font-size:.84rem;min-height:40px}
+#book-cover{min-height:0;height:100%;gap:clamp(8px,2vh,18px);padding:18px 12px}
+.cover-cross{font-size:2rem}.cover-heading{font-size:clamp(1.8rem,7vw,3.2rem)}.cover-subtitle{font-size:.86rem}.cover-small{font-size:.65rem}
+.flip-sheet{inset:8px 17px 8px 20px;padding:40px 20px 42px;line-height:1.55;overflow:hidden}
+#reflection[hidden]{display:none}
+@media(max-width:460px){#book-stage{height:clamp(420px,66svh,620px)}#book-page{padding:10px 18px 43px 20px}#daily-reading{padding:8px}}
 </style></head>
 <body><header><h1>Totus Tuus — 33 jours avec Marie</h1><p>Saint Louis-Marie Grignion de Montfort · Traité de la vraie dévotion</p></header>
 <section id="navigation"><div class="controls"><label for="day">Journée</label><select id="day"></select><button id="prev" class="secondary">← Précédent</button><button id="next" class="secondary">Suivant →</button></div>
@@ -35,6 +56,7 @@ for(let i=1;i<=33;i++){const o=document.createElement('option');o.value=i;o.text
 let state;try{state=JSON.parse(localStorage.getItem(key)||'{}')}catch{state={}}
 state.completed=Array.isArray(state.completed)?state.completed.filter(n=>Number.isInteger(n)&&n>=1&&n<=33):[];
 bookPage=Math.max(0,Number.isInteger(state.bookPage)?state.bookPage:0);
+const cover=document.getElementById('book-cover');if(state.bookOpened||Number(state.day)>1||bookPage>0){cover.hidden=true;state.bookOpened=true}
 d.value=Math.min(33,Math.max(1,Number(state.day)||1));
 function persist(){try{localStorage.setItem(key,JSON.stringify(state));return true}catch(e){return false}}
 function render(){
@@ -51,7 +73,7 @@ document.getElementById('bottom-next').disabled=n===33&&bookPage===bookPages.len
 const unit=window.TOTUS_MARIAL_READING?.days?.[n-1];if(!unit){document.getElementById('reading').textContent='Lecture indisponible : actualisez la page.';return;}document.getElementById('guide').textContent=unit.theme+'. Lisez, méditez et priez à votre rythme.';document.getElementById('pages').textContent='Pages du PDF : '+unit.pdf_pages.join(' à ');bookPages=paginateBook(unit.text);bookPage=Math.min(bookPage,bookPages.length-1);renderBook();document.getElementById('meditation').textContent=unit.meditation;document.getElementById('prayer').textContent=unit.prayer;state.day=n;
 if(!persist())document.getElementById('status').textContent+=' · Sauvegarde indisponible';
 }
-function changeDay(n){d.value=Math.max(1,Math.min(33,n));bookPage=0;state.bookPage=0;render();document.getElementById('daily-reading').scrollIntoView({behavior:'instant',block:'start'})}
+function changeDay(n){d.value=Math.max(1,Math.min(33,n));bookPage=0;state.bookPage=0;render();document.getElementById('book-stage').scrollIntoView({behavior:'instant',block:'center'})}
 d.onchange=()=>changeDay(Number(d.value));
 document.getElementById('prev').onclick=()=>changeDay(Number(d.value)-1);
 document.getElementById('next').onclick=()=>changeDay(Number(d.value)+1);
@@ -59,7 +81,7 @@ document.getElementById('bottom-prev').onclick=()=>turnBook(-1);
 document.getElementById('bottom-next').onclick=()=>turnBook(1);
 document.getElementById('tap-prev').onclick=()=>turnBook(-1);
 document.getElementById('tap-next').onclick=()=>turnBook(1);
-document.getElementById('open-book').onclick=()=>{const cover=document.getElementById('book-cover');cover.classList.add('opened');cover.addEventListener('transitionend',()=>{cover.hidden=true},{once:true})};
+document.getElementById('open-book').onclick=()=>{state.bookOpened=true;persist();const cover=document.getElementById('book-cover');cover.classList.add('opened');cover.addEventListener('transitionend',()=>{cover.hidden=true},{once:true});setTimeout(()=>{cover.hidden=true},1050)};
 document.getElementById('done').onclick=()=>{const n=Number(d.value);if(!state.completed.includes(n))state.completed.push(n);render()};
 document.getElementById('jump').onclick=()=>document.getElementById('daily-reading').scrollIntoView({behavior:'smooth'});
 let turning=false;
@@ -82,22 +104,27 @@ function turnBook(direction){
  sheet.addEventListener('animationend',finish,{once:true});
  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)finish();
 }
-function renderBook(){bookPage=Math.min(Math.max(0,bookPage),bookPages.length-1);document.getElementById('reading').textContent=bookPages[bookPage]||'';state.bookPage=bookPage;persist();document.getElementById('page-indicator').textContent='Jour '+d.value+' · Page '+(bookPage+1)+' / '+bookPages.length;document.getElementById('reflection').hidden=bookPage!==bookPages.length-1;document.getElementById('bottom-prev').disabled=Number(d.value)===1&&bookPage===0;document.getElementById('bottom-next').disabled=Number(d.value)===33&&bookPage===bookPages.length-1;document.getElementById('tap-prev').disabled=Number(d.value)===1&&bookPage===0;document.getElementById('tap-next').disabled=Number(d.value)===33&&bookPage===bookPages.length-1;document.getElementById('bottom-next').textContent=bookPage===bookPages.length-1?'Jour suivant →':'Page suivante →';document.getElementById('daily-reading').scrollIntoView({behavior:'instant',block:'start'})}
+function renderBook(){bookPage=Math.min(Math.max(0,bookPage),bookPages.length-1);document.getElementById('reading').textContent=bookPages[bookPage]||'';state.bookPage=bookPage;persist();document.getElementById('page-indicator').textContent='Jour '+d.value+' · Page '+(bookPage+1)+' / '+bookPages.length;document.getElementById('reflection').hidden=bookPage!==bookPages.length-1;document.getElementById('bottom-prev').disabled=Number(d.value)===1&&bookPage===0;document.getElementById('bottom-next').disabled=Number(d.value)===33&&bookPage===bookPages.length-1;document.getElementById('tap-prev').disabled=Number(d.value)===1&&bookPage===0;document.getElementById('tap-next').disabled=Number(d.value)===33&&bookPage===bookPages.length-1;document.getElementById('bottom-next').textContent=bookPage===bookPages.length-1?'Jour suivant →':'Page suivante →';document.getElementById('book-stage').scrollIntoView({behavior:'instant',block:'center'})}
 function paginateBook(text){
- // Keep all words and use shorter pages for mobile reading.
- const maxChars=Math.max(340,Math.min(700,Math.round(560*19/fontSize)));
- const paragraphs=text.split(/(?=\n\s*\d{1,3}\.\s)/).filter(Boolean);
- const chunks=[];
- for(const paragraph of paragraphs){
-   const words=paragraph.match(/\S+\s*/g)||[];
-   let chunk='';
-   for(const word of words){
-     if(chunk&&chunk.length+word.length>maxChars){chunks.push(chunk.trim());chunk=''}
-     chunk+=word;
+ // Measure the actual page area: never hide unread words below the page edge.
+ const reader=document.getElementById('reading');
+ const previous=reader.textContent;
+ const words=text.match(/\S+\s*/g)||[];
+ const result=[];
+ let offset=0;
+ const fits=sample=>{reader.textContent=sample;return reader.scrollHeight<=reader.clientHeight+1};
+ while(offset<words.length){
+   let low=1,high=Math.min(250,words.length-offset),best=1;
+   while(low<=high){
+     const mid=(low+high)>>1;
+     const sample=words.slice(offset,offset+mid).join('').trim();
+     if(fits(sample)){best=mid;low=mid+1}else high=mid-1;
    }
-   if(chunk.trim())chunks.push(chunk.trim());
+   result.push(words.slice(offset,offset+best).join('').trim());
+   offset+=best;
  }
- return chunks.length?chunks:['Lecture indisponible'];
+ reader.textContent=previous;
+ return result.length?result:['Lecture indisponible'];
 }
 let swipeX=0,swipeY=0;
 const bookSurface=document.getElementById('daily-reading');
