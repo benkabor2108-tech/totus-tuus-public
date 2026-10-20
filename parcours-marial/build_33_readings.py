@@ -38,6 +38,17 @@ data={'source':'PDF français La Porte Latine; pagination PDF et non pagination 
 h=(root/'index.html').read_text(encoding='utf-8')
 h=h.replace('<script>','<script src="./parcours-33.js"></script><script>',1)
 h=h.replace('<p id="guide"></p>','<p id="guide"></p><p id="pages"></p><h2>Lecture du jour</h2><pre id="reading" style="white-space:pre-wrap;overflow-wrap:anywhere;font:inherit;max-height:50vh;overflow:auto"></pre><h3>Méditation</h3><p id="meditation"></p><h3>Prière</h3><p id="prayer"></p>',1)
-h=h.replace("state.day=n;localStorage.setItem", "let unit=window.TOTUS_MARIAL_READING.days[n-1];document.getElementById('pages').textContent='Pages du PDF : '+unit.pdf_pages.join(' à ');document.getElementById('reading').textContent=unit.text;document.getElementById('meditation').textContent=unit.meditation;document.getElementById('prayer').textContent=unit.prayer;state.day=n;localStorage.setItem",1)
+needle="state.day=n;try{localStorage.setItem"
+assert needle in h, "Point d'insertion des lectures introuvable"
+insertion=("const unit=window.TOTUS_MARIAL_READING?.days?.[n-1];"
+           "if(!unit){document.getElementById('reading').textContent='Lecture indisponible : actualisez la page.';return;}"
+           "document.getElementById('pages').textContent='Pages du PDF : '+unit.pdf_pages.join(' à ');"
+           "document.getElementById('reading').textContent=unit.text;"
+           "document.getElementById('meditation').textContent=unit.meditation;"
+           "document.getElementById('prayer').textContent=unit.prayer;")
+h=h.replace(needle,insertion+needle,1)
+assert "window.TOTUS_MARIAL_READING?.days?.[n-1]" in h
+assert '<script src="./parcours-33.js"></script>' in h
+assert 'id="reading"' in h and 'id="meditation"' in h and 'id="prayer"' in h
 (root/'index.html').write_text(h,encoding='utf-8')
 print(f'33 journées générées à partir de {pages} pages PDF; {sum(len(x["text"]) for x in units)} caractères.')
