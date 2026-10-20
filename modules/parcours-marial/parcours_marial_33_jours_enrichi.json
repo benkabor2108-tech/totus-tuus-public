@@ -1,0 +1,872 @@
+{
+  "projet": "Totus Tuus",
+  "module": "Parcours marial",
+  "version_cible": "candidate-editoriale-33-jours-v1",
+  "oeuvre": "Traité de la vraie dévotion à la Sainte Vierge",
+  "auteur": "Louis-Marie Grignion de Montfort",
+  "edition": "Gaume frères, Paris, 1859",
+  "source": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
+  "facsimile": "https://commons.wikimedia.org/wiki/File:Grignion_de_Montfort_-_Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge,_1859.djvu",
+  "avertissement": "Contenu éditorial original en complément des références bibliques. Les textes bibliques intégraux ne sont pas reproduits ici ; lecture externe dans une traduction autorisée. Pagination du Traité indicative, à vérifier sur fac-similé. Aucun déploiement public.",
+  "jours": [
+    {
+      "jour": 1,
+      "phase": "Découverte et préparation",
+      "titre": "Entrer dans le mystère de Marie",
+      "edition": "Gaume frères, Paris, 1859",
+      "pages_imprimees": {
+        "debut": 1,
+        "fin": 7
+      },
+      "reference_biblique": "Lc 1,26-38",
+      "source_texte_integral": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
+      "statut": "proposition_a_valider_sur_facsimile",
+      "lecture_biblique": {
+        "reference": "Lc 1,26-38",
+        "resume_original": "L'ange annonce à Marie la naissance de Jésus. Son consentement ouvre un chemin de confiance dans l'œuvre de Dieu.",
+        "texte_integral_inclus": false,
+        "url_lecture": "https://www.biblegateway.com/passage/?search=Lc%201%2C26-38&version=LSG",
+        "traduction_cible": "Louis Segond 1910 (lien externe, disponibilité à vérifier)"
+      },
+      "explication_spirituelle": "La foi de Marie ne consiste pas à tout comprendre d'avance, mais à accueillir une parole et à y répondre librement. Le parcours commence par cette disponibilité, qui conduit toujours au Christ.",
+      "priere_du_jour": "Seigneur Jésus, par l'intercession de Marie, délivre-moi de la peur qui ferme mon cœur. Donne-moi d'écouter ta Parole et d'y répondre avec confiance, aujourd'hui et chaque jour. Amen.",
+      "question_meditation": "Quelle invitation de Dieu ai-je du mal à accueillir ?",
+      "resolution_facultative": "Prendre cinq minutes de silence pour dire librement oui à Dieu.",
+      "statut_editorial": "redige_a_relire",
+      "texte_traite_inclus": false
+    },
+    {
+      "jour": 2,
+      "phase": "Découverte et préparation",
+      "titre": "La place de Marie dans le dessein de Dieu",
+      "edition": "Gaume frères, Paris, 1859",
+      "pages_imprimees": {
+        "debut": 8,
+        "fin": 14
+      },
+      "reference_biblique": "Jn 2,1-11",
+      "source_texte_integral": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
+      "statut": "proposition_a_valider_sur_facsimile",
+      "lecture_biblique": {
+        "reference": "Jn 2,1-11",
+        "resume_original": "À Cana, Marie remarque le manque de vin et invite les serviteurs à écouter Jésus, qui accomplit le signe.",
+        "texte_integral_inclus": false,
+        "url_lecture": "https://www.biblegateway.com/passage/?search=Jn%202%2C1-11&version=LSG",
+        "traduction_cible": "Louis Segond 1910 (lien externe, disponibilité à vérifier)"
+      },
+      "explication_spirituelle": "L'attention de Marie ne détourne pas du Seigneur : elle oriente vers sa parole. La vraie dévotion mariale rend plus disponible à ce que Jésus demande.",
+      "priere_du_jour": "Jésus, toi qui connais mes manques, apprends-moi à te présenter mes besoins sans vouloir te dicter ta réponse. Avec Marie, rends-moi attentif à ta parole et prêt à la mettre en pratique. Amen.",
+      "question_meditation": "Dans quelle situation dois-je davantage écouter Jésus ?",
+      "resolution_facultative": "Accomplir aujourd'hui un acte discret de service.",
+      "statut_editorial": "redige_a_relire",
+      "texte_traite_inclus": false
+    },
+    {
+      "jour": 3,
+      "phase": "Découverte et préparation",
+      "titre": "Marie, mère et disciple",
+      "edition": "Gaume frères, Paris, 1859",
+      "pages_imprimees": {
+        "debut": 15,
+        "fin": 21
+      },
+      "reference_biblique": "Lc 2,19",
+      "source_texte_integral": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
+      "statut": "proposition_a_valider_sur_facsimile",
+      "lecture_biblique": {
+        "reference": "Lc 2,19",
+        "resume_original": "Marie garde dans son cœur les événements entourant Jésus et les médite.",
+        "texte_integral_inclus": false,
+        "url_lecture": "https://www.biblegateway.com/passage/?search=Lc%202%2C19&version=LSG",
+        "traduction_cible": "Louis Segond 1910 (lien externe, disponibilité à vérifier)"
+      },
+      "explication_spirituelle": "Le silence de Marie est une fidélité active : elle laisse les événements mûrir à la lumière de Dieu. La méditation apprend à ne pas confondre précipitation et discernement.",
+      "priere_du_jour": "Marie, femme de l'écoute, accompagne ma prière. Seigneur, apaise mes pensées dispersées et fais grandir en moi le goût de ta Parole, même lorsque je ne comprends pas tout. Amen.",
+      "question_meditation": "Quelle parole ou expérience dois-je méditer plutôt que juger trop vite ?",
+      "resolution_facultative": "Relire calmement un événement de la journée devant Dieu.",
+      "statut_editorial": "redige_a_relire",
+      "texte_traite_inclus": false
+    },
+    {
+      "jour": 4,
+      "phase": "Découverte et préparation",
+      "titre": "La vie chrétienne avec Marie",
+      "edition": "Gaume frères, Paris, 1859",
+      "pages_imprimees": {
+        "debut": 22,
+        "fin": 27
+      },
+      "reference_biblique": "Jn 19,25-27",
+      "source_texte_integral": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
+      "statut": "proposition_a_valider_sur_facsimile",
+      "lecture_biblique": {
+        "reference": "Jn 19,25-27",
+        "resume_original": "Au pied de la croix, Jésus confie sa mère au disciple bien-aimé et le disciple à sa mère.",
+        "texte_integral_inclus": false,
+        "url_lecture": "https://www.biblegateway.com/passage/?search=Jn%2019%2C25-27&version=LSG",
+        "traduction_cible": "Louis Segond 1910 (lien externe, disponibilité à vérifier)"
+      },
+      "explication_spirituelle": "La maternité spirituelle de Marie se comprend à la lumière de la croix et du don de Jésus. Accueillir Marie, c'est demeurer disciple du Christ crucifié et ressuscité.",
+      "priere_du_jour": "Jésus crucifié, apprends-moi à rester fidèle dans l'épreuve. Que l'exemple de Marie m'aide à accueillir ceux que tu me confies et à vivre dans ton amour. Amen.",
+      "question_meditation": "Qui suis-je appelé à accueillir avec plus de compassion ?",
+      "resolution_facultative": "Prendre des nouvelles d'une personne éprouvée.",
+      "statut_editorial": "redige_a_relire",
+      "texte_traite_inclus": false
+    },
+    {
+      "jour": 5,
+      "phase": "Découverte et préparation",
+      "titre": "Une dévotion centrée sur Jésus",
+      "edition": "Gaume frères, Paris, 1859",
+      "pages_imprimees": {
+        "debut": 28,
+        "fin": 34
+      },
+      "reference_biblique": "Jn 15,1-8",
+      "source_texte_integral": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
+      "statut": "proposition_a_valider_sur_facsimile",
+      "lecture_biblique": {
+        "reference": "Jn 15,1-8",
+        "resume_original": "Jésus se présente comme la vraie vigne ; ses disciples portent du fruit en demeurant unis à lui.",
+        "texte_integral_inclus": false,
+        "url_lecture": "https://www.biblegateway.com/passage/?search=Jn%2015%2C1-8&version=LSG",
+        "traduction_cible": "Louis Segond 1910 (lien externe, disponibilité à vérifier)"
+      },
+      "explication_spirituelle": "Toute dévotion chrétienne reçoit sa vie du Christ. Marie n'est pas une fin parallèle : elle aide à demeurer dans la vigne et à laisser la grâce porter du fruit.",
+      "priere_du_jour": "Seigneur Jésus, sans toi je ne peux porter le fruit durable que tu attends. Purifie mes intentions et unis mes pensées, mes paroles et mes actes à ton amour. Amen.",
+      "question_meditation": "Quel attachement m'éloigne de la vie du Christ ?",
+      "resolution_facultative": "Commencer la journée par une courte prière au Christ.",
+      "statut_editorial": "redige_a_relire",
+      "texte_traite_inclus": false
+    },
+    {
+      "jour": 6,
+      "phase": "Découverte et préparation",
+      "titre": "Accueillir la grâce avec humilité",
+      "edition": "Gaume frères, Paris, 1859",
+      "pages_imprimees": {
+        "debut": 35,
+        "fin": 40
+      },
+      "reference_biblique": "Lc 1,46-55",
+      "source_texte_integral": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
+      "statut": "proposition_a_valider_sur_facsimile",
+      "lecture_biblique": {
+        "reference": "Lc 1,46-55",
+        "resume_original": "Dans le Magnificat, Marie célèbre les merveilles accomplies par Dieu en faveur des humbles.",
+        "texte_integral_inclus": false,
+        "url_lecture": "https://www.biblegateway.com/passage/?search=Lc%201%2C46-55&version=LSG",
+        "traduction_cible": "Louis Segond 1910 (lien externe, disponibilité à vérifier)"
+      },
+      "explication_spirituelle": "L'humilité de Marie reconnaît la grandeur de Dieu plutôt que de s'attribuer ses dons. La gratitude transforme notre manière de regarder les autres et nous-mêmes.",
+      "priere_du_jour": "Dieu de miséricorde, ouvre mes yeux à tes bienfaits. Éloigne de moi l'orgueil et apprends-moi à te rendre grâce avec un cœur humble et joyeux. Amen.",
+      "question_meditation": "Pour quel don puis-je rendre grâce sans me mettre au centre ?",
+      "resolution_facultative": "Nommer trois motifs de gratitude.",
+      "statut_editorial": "redige_a_relire",
+      "texte_traite_inclus": false
+    },
+    {
+      "jour": 7,
+      "phase": "Découverte et préparation",
+      "titre": "Les vérités fondamentales (I)",
+      "edition": "Gaume frères, Paris, 1859",
+      "pages_imprimees": {
+        "debut": 41,
+        "fin": 46
+      },
+      "reference_biblique": "1 Tm 2,5-6",
+      "source_texte_integral": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
+      "statut": "proposition_a_valider_sur_facsimile",
+      "lecture_biblique": {
+        "reference": "1 Tm 2,5-6",
+        "resume_original": "Paul rappelle qu'il n'y a qu'un seul médiateur entre Dieu et les hommes : Jésus-Christ.",
+        "texte_integral_inclus": false,
+        "url_lecture": "https://www.biblegateway.com/passage/?search=1%20Tm%202%2C5-6&version=LSG",
+        "traduction_cible": "Louis Segond 1910 (lien externe, disponibilité à vérifier)"
+      },
+      "explication_spirituelle": "Cette affirmation est fondamentale : l'intercession de Marie dépend entièrement de l'unique médiation salvifique du Christ. Une spiritualité mariale authentique ne diminue jamais sa place centrale.",
+      "priere_du_jour": "Jésus-Christ, unique Sauveur, affermis ma foi en ton œuvre. Que toute prière adressée avec Marie me conduise plus profondément vers toi et vers le Père. Amen.",
+      "question_meditation": "Ma prière garde-t-elle Jésus au centre ?",
+      "resolution_facultative": "Prier lentement le Notre Père.",
+      "statut_editorial": "redige_a_relire",
+      "texte_traite_inclus": false
+    },
+    {
+      "jour": 8,
+      "phase": "Discernement et conversion",
+      "titre": "Les vérités fondamentales (II)",
+      "edition": "Gaume frères, Paris, 1859",
+      "pages_imprimees": {
+        "debut": 47,
+        "fin": 53
+      },
+      "reference_biblique": "Rm 8,28-30",
+      "source_texte_integral": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
+      "statut": "proposition_a_valider_sur_facsimile",
+      "lecture_biblique": {
+        "reference": "Rm 8,28-30",
+        "resume_original": "Paul évoque l'appel de Dieu à être conformés à l'image de son Fils.",
+        "texte_integral_inclus": false,
+        "url_lecture": "https://www.biblegateway.com/passage/?search=Rm%208%2C28-30&version=LSG",
+        "traduction_cible": "Louis Segond 1910 (lien externe, disponibilité à vérifier)"
+      },
+      "explication_spirituelle": "La vie spirituelle n'est pas d'abord la recherche d'émotions religieuses : elle est transformation progressive à l'image de Jésus. Marie accompagne cette croissance sans s'y substituer.",
+      "priere_du_jour": "Père très bon, façonne en moi les traits de ton Fils. Quand je résiste à ta grâce, donne-moi patience, confiance et courage pour recommencer. Amen.",
+      "question_meditation": "Quel trait du Christ ai-je besoin de laisser grandir en moi ?",
+      "resolution_facultative": "Choisir un geste concret de patience.",
+      "statut_editorial": "redige_a_relire",
+      "texte_traite_inclus": false
+    },
+    {
+      "jour": 9,
+      "phase": "Discernement et conversion",
+      "titre": "Les vérités fondamentales (III)",
+      "edition": "Gaume frères, Paris, 1859",
+      "pages_imprimees": {
+        "debut": 54,
+        "fin": 60
+      },
+      "reference_biblique": "Ph 2,5-11",
+      "source_texte_integral": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
+      "statut": "proposition_a_valider_sur_facsimile",
+      "lecture_biblique": {
+        "reference": "Ph 2,5-11",
+        "resume_original": "L'hymne aux Philippiens contemple l'abaissement du Christ et son exaltation par le Père.",
+        "texte_integral_inclus": false,
+        "url_lecture": "https://www.biblegateway.com/passage/?search=Ph%202%2C5-11&version=LSG",
+        "traduction_cible": "Louis Segond 1910 (lien externe, disponibilité à vérifier)"
+      },
+      "explication_spirituelle": "Le modèle de la vraie grandeur est Jésus serviteur. L'humilité mariale devient féconde lorsqu'elle nous apprend à prendre le même chemin de don de soi.",
+      "priere_du_jour": "Seigneur Jésus, doux et humble de cœur, libère-moi de la recherche des honneurs. Fais de moi un serviteur qui aime sans calcul et qui reçoit tout du Père. Amen.",
+      "question_meditation": "Où puis-je choisir le service plutôt que la reconnaissance ?",
+      "resolution_facultative": "Rendre un service sans le faire savoir.",
+      "statut_editorial": "redige_a_relire",
+      "texte_traite_inclus": false
+    },
+    {
+      "jour": 10,
+      "phase": "Discernement et conversion",
+      "titre": "Discerner son chemin spirituel",
+      "edition": "Gaume frères, Paris, 1859",
+      "pages_imprimees": {
+        "debut": 61,
+        "fin": 68
+      },
+      "reference_biblique": "1 Jn 4,1-6",
+      "source_texte_integral": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
+      "statut": "proposition_a_valider_sur_facsimile",
+      "lecture_biblique": {
+        "reference": "1 Jn 4,1-6",
+        "resume_original": "La première lettre de Jean invite à éprouver les esprits et à confesser Jésus-Christ venu dans la chair.",
+        "texte_integral_inclus": false,
+        "url_lecture": "https://www.biblegateway.com/passage/?search=1%20Jn%204%2C1-6&version=LSG",
+        "traduction_cible": "Louis Segond 1910 (lien externe, disponibilité à vérifier)"
+      },
+      "explication_spirituelle": "Le discernement chrétien s'appuie sur la foi au Christ et sur des fruits vérifiables. Une pratique mariale ne doit pas se nourrir de peur, de crédulité ou de promesses de pouvoirs.",
+      "priere_du_jour": "Esprit Saint, donne-moi un cœur lucide et paisible. Préserve-moi des illusions et conduis-moi vers la vérité de Jésus, avec la sagesse de l'Église. Amen.",
+      "question_meditation": "Quelles pratiques dois-je examiner à la lumière de l'Évangile ?",
+      "resolution_facultative": "Vérifier une affirmation spirituelle avant de la transmettre.",
+      "statut_editorial": "redige_a_relire",
+      "texte_traite_inclus": false
+    },
+    {
+      "jour": 11,
+      "phase": "Discernement et conversion",
+      "titre": "Reconnaître les fausses dévotions (I)",
+      "edition": "Gaume frères, Paris, 1859",
+      "pages_imprimees": {
+        "debut": 69,
+        "fin": 73
+      },
+      "reference_biblique": "Mt 7,15-20",
+      "source_texte_integral": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
+      "statut": "proposition_a_valider_sur_facsimile",
+      "lecture_biblique": {
+        "reference": "Mt 7,15-20",
+        "resume_original": "Jésus avertit contre les faux prophètes et demande de reconnaître l'arbre à ses fruits.",
+        "texte_integral_inclus": false,
+        "url_lecture": "https://www.biblegateway.com/passage/?search=Mt%207%2C15-20&version=LSG",
+        "traduction_cible": "Louis Segond 1910 (lien externe, disponibilité à vérifier)"
+      },
+      "explication_spirituelle": "Une dévotion ne se juge pas à l'apparence ni au nombre de gestes accomplis, mais à la conversion, à la charité et à la vérité qu'elle fait grandir.",
+      "priere_du_jour": "Seigneur, rends ma foi vraie dans les actes. Éloigne de moi l'hypocrisie et fais mûrir les fruits de la justice, de la paix et de l'amour. Amen.",
+      "question_meditation": "Quels fruits ma pratique religieuse produit-elle réellement ?",
+      "resolution_facultative": "Poser un acte de réconciliation possible.",
+      "statut_editorial": "redige_a_relire",
+      "texte_traite_inclus": false
+    },
+    {
+      "jour": 12,
+      "phase": "Discernement et conversion",
+      "titre": "Reconnaître les fausses dévotions (II)",
+      "edition": "Gaume frères, Paris, 1859",
+      "pages_imprimees": {
+        "debut": 74,
+        "fin": 77
+      },
+      "reference_biblique": "Mt 6,5-8",
+      "source_texte_integral": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
+      "statut": "proposition_a_valider_sur_facsimile",
+      "lecture_biblique": {
+        "reference": "Mt 6,5-8",
+        "resume_original": "Jésus enseigne à prier sans chercher à être vu et sans multiplier des paroles vaines.",
+        "texte_integral_inclus": false,
+        "url_lecture": "https://www.biblegateway.com/passage/?search=Mt%206%2C5-8&version=LSG",
+        "traduction_cible": "Louis Segond 1910 (lien externe, disponibilité à vérifier)"
+      },
+      "explication_spirituelle": "La prière n'est ni spectacle ni formule magique. Les répétitions peuvent soutenir l'attention, mais leur valeur dépend de la foi et de l'amour qui les animent.",
+      "priere_du_jour": "Père, apprends-moi la simplicité de la prière. Que mes paroles expriment un cœur sincère et que mes silences deviennent une écoute confiante. Amen.",
+      "question_meditation": "Ma prière cherche-t-elle Dieu ou le regard des autres ?",
+      "resolution_facultative": "Prier quelques instants seul et sans distraction.",
+      "statut_editorial": "redige_a_relire",
+      "texte_traite_inclus": false
+    },
+    {
+      "jour": 13,
+      "phase": "Discernement et conversion",
+      "titre": "Les caractères de la vraie dévotion (I)",
+      "edition": "Gaume frères, Paris, 1859",
+      "pages_imprimees": {
+        "debut": 78,
+        "fin": 81
+      },
+      "reference_biblique": "Ga 5,22-25",
+      "source_texte_integral": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
+      "statut": "proposition_a_valider_sur_facsimile",
+      "lecture_biblique": {
+        "reference": "Ga 5,22-25",
+        "resume_original": "Paul décrit le fruit de l'Esprit : amour, joie, paix, patience et autres dispositions saintes.",
+        "texte_integral_inclus": false,
+        "url_lecture": "https://www.biblegateway.com/passage/?search=Ga%205%2C22-25&version=LSG",
+        "traduction_cible": "Louis Segond 1910 (lien externe, disponibilité à vérifier)"
+      },
+      "explication_spirituelle": "Les fruits de l'Esprit donnent un critère concret de la vraie dévotion. La proximité avec Marie doit nous rendre plus dociles à l'Esprit de son Fils.",
+      "priere_du_jour": "Esprit de Dieu, fais grandir en moi l'amour, la douceur et la maîtrise de soi. Que ma dévotion porte du fruit dans ma famille et dans mes engagements. Amen.",
+      "question_meditation": "Quel fruit de l'Esprit manque le plus dans mes relations ?",
+      "resolution_facultative": "Exercer consciemment la douceur dans une conversation.",
+      "statut_editorial": "redige_a_relire",
+      "texte_traite_inclus": false
+    },
+    {
+      "jour": 14,
+      "phase": "Discernement et conversion",
+      "titre": "Les caractères de la vraie dévotion (II)",
+      "edition": "Gaume frères, Paris, 1859",
+      "pages_imprimees": {
+        "debut": 82,
+        "fin": 84
+      },
+      "reference_biblique": "Jn 14,21-23",
+      "source_texte_integral": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
+      "statut": "proposition_a_valider_sur_facsimile",
+      "lecture_biblique": {
+        "reference": "Jn 14,21-23",
+        "resume_original": "Jésus associe l'amour pour lui à l'observance de sa parole et promet la demeure du Père.",
+        "texte_integral_inclus": false,
+        "url_lecture": "https://www.biblegateway.com/passage/?search=Jn%2014%2C21-23&version=LSG",
+        "traduction_cible": "Louis Segond 1910 (lien externe, disponibilité à vérifier)"
+      },
+      "explication_spirituelle": "La fidélité ne se réduit pas à des sentiments : elle engage les décisions quotidiennes. L'amour de Marie pour Dieu éclaire cette cohérence entre écoute et obéissance.",
+      "priere_du_jour": "Jésus, apprends-moi à t'aimer en gardant ta parole. Que mes choix te fassent une place réelle et que ma maison devienne un lieu de paix. Amen.",
+      "question_meditation": "Quelle parole de Jésus dois-je traduire en acte ?",
+      "resolution_facultative": "Mettre en pratique un commandement d'amour aujourd'hui.",
+      "statut_editorial": "redige_a_relire",
+      "texte_traite_inclus": false
+    },
+    {
+      "jour": 15,
+      "phase": "Consécration à Jésus par Marie",
+      "titre": "Les chemins de la dévotion mariale",
+      "edition": "Gaume frères, Paris, 1859",
+      "pages_imprimees": {
+        "debut": 85,
+        "fin": 89
+      },
+      "reference_biblique": "Lc 11,27-28",
+      "source_texte_integral": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
+      "statut": "proposition_a_valider_sur_facsimile",
+      "lecture_biblique": {
+        "reference": "Lc 11,27-28",
+        "resume_original": "Jésus proclame heureux ceux qui écoutent la parole de Dieu et la gardent.",
+        "texte_integral_inclus": false,
+        "url_lecture": "https://www.biblegateway.com/passage/?search=Lc%2011%2C27-28&version=LSG",
+        "traduction_cible": "Louis Segond 1910 (lien externe, disponibilité à vérifier)"
+      },
+      "explication_spirituelle": "La grandeur de Marie ne repose pas seulement sur un lien familial avec Jésus, mais sur sa foi obéissante. Toute personne baptisée est invitée à cette même écoute.",
+      "priere_du_jour": "Seigneur, fais de moi un disciple attentif. Avec Marie, donne-moi d'accueillir ta parole, de la garder et de la faire fructifier. Amen.",
+      "question_meditation": "Suis-je davantage attaché aux habitudes qu'à l'Évangile ?",
+      "resolution_facultative": "Lire à nouveau le passage biblique à voix basse.",
+      "statut_editorial": "redige_a_relire",
+      "texte_traite_inclus": false
+    },
+    {
+      "jour": 16,
+      "phase": "Consécration à Jésus par Marie",
+      "titre": "Le sens de la consécration",
+      "edition": "Gaume frères, Paris, 1859",
+      "pages_imprimees": {
+        "debut": 90,
+        "fin": 94
+      },
+      "reference_biblique": "Rm 12,1-2",
+      "source_texte_integral": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
+      "statut": "proposition_a_valider_sur_facsimile",
+      "lecture_biblique": {
+        "reference": "Rm 12,1-2",
+        "resume_original": "Paul invite à offrir sa personne à Dieu et à renouveler son intelligence pour discerner sa volonté.",
+        "texte_integral_inclus": false,
+        "url_lecture": "https://www.biblegateway.com/passage/?search=Rm%2012%2C1-2&version=LSG",
+        "traduction_cible": "Louis Segond 1910 (lien externe, disponibilité à vérifier)"
+      },
+      "explication_spirituelle": "Se consacrer ne signifie pas fuir ses responsabilités : c'est orienter sa vie entière vers Dieu. Le renouvellement du cœur se vérifie dans des choix libres et responsables.",
+      "priere_du_jour": "Père, je t'offre ce que je suis, avec mes forces et mes limites. Renouvelle mon regard et aide-moi à choisir ce qui est bon, juste et agréable à tes yeux. Amen.",
+      "question_meditation": "Quel domaine de ma vie ai-je du mal à offrir à Dieu ?",
+      "resolution_facultative": "Confier à Dieu une décision concrète.",
+      "statut_editorial": "redige_a_relire",
+      "texte_traite_inclus": false
+    },
+    {
+      "jour": 17,
+      "phase": "Consécration à Jésus par Marie",
+      "titre": "Se donner à Jésus par Marie",
+      "edition": "Gaume frères, Paris, 1859",
+      "pages_imprimees": {
+        "debut": 95,
+        "fin": 100
+      },
+      "reference_biblique": "Lc 1,38",
+      "source_texte_integral": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
+      "statut": "proposition_a_valider_sur_facsimile",
+      "lecture_biblique": {
+        "reference": "Lc 1,38",
+        "resume_original": "Marie répond à l'ange par un consentement libre à la parole reçue.",
+        "texte_integral_inclus": false,
+        "url_lecture": "https://www.biblegateway.com/passage/?search=Lc%201%2C38&version=LSG",
+        "traduction_cible": "Louis Segond 1910 (lien externe, disponibilité à vérifier)"
+      },
+      "explication_spirituelle": "Le oui de Marie inspire la consécration à Jésus : un acte de confiance, jamais une contrainte. La liberté chrétienne grandit dans le don aimant de soi.",
+      "priere_du_jour": "Seigneur Jésus, je désire t'appartenir plus pleinement. Avec Marie, apprends-moi à dire oui sans peur et à demeurer fidèle dans les petites choses. Amen.",
+      "question_meditation": "Mon engagement est-il libre et réfléchi ?",
+      "resolution_facultative": "Écrire une intention personnelle pour la consécration.",
+      "statut_editorial": "redige_a_relire",
+      "texte_traite_inclus": false
+    },
+    {
+      "jour": 18,
+      "phase": "Consécration à Jésus par Marie",
+      "titre": "Les motifs de la consécration (I)",
+      "edition": "Gaume frères, Paris, 1859",
+      "pages_imprimees": {
+        "debut": 101,
+        "fin": 106
+      },
+      "reference_biblique": "2 Co 5,14-15",
+      "source_texte_integral": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
+      "statut": "proposition_a_valider_sur_facsimile",
+      "lecture_biblique": {
+        "reference": "2 Co 5,14-15",
+        "resume_original": "Paul affirme que l'amour du Christ le presse et que ceux qui vivent ne doivent plus vivre pour eux-mêmes.",
+        "texte_integral_inclus": false,
+        "url_lecture": "https://www.biblegateway.com/passage/?search=2%20Co%205%2C14-15&version=LSG",
+        "traduction_cible": "Louis Segond 1910 (lien externe, disponibilité à vérifier)"
+      },
+      "explication_spirituelle": "La source du don de soi n'est pas la culpabilité, mais l'amour reçu du Christ mort et ressuscité. La consécration devient une réponse reconnaissante à cette grâce.",
+      "priere_du_jour": "Jésus, ton amour me précède. Délivre-moi du repli sur moi-même et rends-moi disponible à ceux que tu places sur ma route. Amen.",
+      "question_meditation": "Qu'est-ce qui me pousse réellement à me donner ?",
+      "resolution_facultative": "Faire un acte généreux sans attendre de retour.",
+      "statut_editorial": "redige_a_relire",
+      "texte_traite_inclus": false
+    },
+    {
+      "jour": 19,
+      "phase": "Consécration à Jésus par Marie",
+      "titre": "Les motifs de la consécration (II)",
+      "edition": "Gaume frères, Paris, 1859",
+      "pages_imprimees": {
+        "debut": 107,
+        "fin": 112
+      },
+      "reference_biblique": "Jn 15,4-5",
+      "source_texte_integral": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
+      "statut": "proposition_a_valider_sur_facsimile",
+      "lecture_biblique": {
+        "reference": "Jn 15,4-5",
+        "resume_original": "Jésus demande de demeurer en lui, comme le sarment demeure attaché à la vigne.",
+        "texte_integral_inclus": false,
+        "url_lecture": "https://www.biblegateway.com/passage/?search=Jn%2015%2C4-5&version=LSG",
+        "traduction_cible": "Louis Segond 1910 (lien externe, disponibilité à vérifier)"
+      },
+      "explication_spirituelle": "La fécondité de la consécration dépend d'une communion vivante avec Jésus. La fidélité dans les gestes simples vaut davantage que la recherche d'expériences extraordinaires.",
+      "priere_du_jour": "Seigneur Jésus, garde-moi uni à toi dans la joie comme dans l'aridité. Que ma prière et mon travail reçoivent de toi leur force et leur sens. Amen.",
+      "question_meditation": "Comment entretenir chaque jour mon union au Christ ?",
+      "resolution_facultative": "Prévoir un temps de prière réaliste et régulier.",
+      "statut_editorial": "redige_a_relire",
+      "texte_traite_inclus": false
+    },
+    {
+      "jour": 20,
+      "phase": "Consécration à Jésus par Marie",
+      "titre": "Les motifs de la consécration (III)",
+      "edition": "Gaume frères, Paris, 1859",
+      "pages_imprimees": {
+        "debut": 113,
+        "fin": 125
+      },
+      "reference_biblique": "He 12,1-3",
+      "source_texte_integral": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
+      "statut": "proposition_a_valider_sur_facsimile",
+      "lecture_biblique": {
+        "reference": "He 12,1-3",
+        "resume_original": "La lettre aux Hébreux invite à courir avec persévérance, les yeux fixés sur Jésus.",
+        "texte_integral_inclus": false,
+        "url_lecture": "https://www.biblegateway.com/passage/?search=He%2012%2C1-3&version=LSG",
+        "traduction_cible": "Louis Segond 1910 (lien externe, disponibilité à vérifier)"
+      },
+      "explication_spirituelle": "La vie consacrée connaît des épreuves et des lenteurs. Fixer les yeux sur Jésus évite le découragement et l'illusion d'une perfection immédiate.",
+      "priere_du_jour": "Jésus fidèle, soutiens mes pas lorsque la route devient difficile. Donne-moi de persévérer sans dureté envers moi-même ni envers les autres. Amen.",
+      "question_meditation": "Quelle difficulté m'invite aujourd'hui à persévérer ?",
+      "resolution_facultative": "Reprendre avec calme une bonne habitude abandonnée.",
+      "statut_editorial": "redige_a_relire",
+      "texte_traite_inclus": false
+    },
+    {
+      "jour": 21,
+      "phase": "Consécration à Jésus par Marie",
+      "titre": "Les motifs de la consécration (IV)",
+      "edition": "Gaume frères, Paris, 1859",
+      "pages_imprimees": {
+        "debut": 126,
+        "fin": 139
+      },
+      "reference_biblique": "Ep 3,14-21",
+      "source_texte_integral": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
+      "statut": "proposition_a_valider_sur_facsimile",
+      "lecture_biblique": {
+        "reference": "Ep 3,14-21",
+        "resume_original": "Paul prie pour que les croyants soient fortifiés intérieurement et enracinés dans l'amour du Christ.",
+        "texte_integral_inclus": false,
+        "url_lecture": "https://www.biblegateway.com/passage/?search=Ep%203%2C14-21&version=LSG",
+        "traduction_cible": "Louis Segond 1910 (lien externe, disponibilité à vérifier)"
+      },
+      "explication_spirituelle": "La consécration vise un cœur habité par le Christ et ouvert à l'immensité de son amour. Elle n'est pas une performance, mais un accueil de la grâce.",
+      "priere_du_jour": "Père, par ton Esprit, fortifie mon être intérieur. Que le Christ habite mon cœur et m'enracine dans un amour plus large que mes peurs. Amen.",
+      "question_meditation": "Quelle peur limite ma confiance dans l'amour de Dieu ?",
+      "resolution_facultative": "Prier pour une personne avec laquelle je suis en désaccord.",
+      "statut_editorial": "redige_a_relire",
+      "texte_traite_inclus": false
+    },
+    {
+      "jour": 22,
+      "phase": "Approfondissement et engagement",
+      "titre": "Jacob et Rébecca : figure biblique (I)",
+      "edition": "Gaume frères, Paris, 1859",
+      "pages_imprimees": {
+        "debut": 140,
+        "fin": 145
+      },
+      "reference_biblique": "Gn 27,1-17",
+      "source_texte_integral": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
+      "statut": "proposition_a_valider_sur_facsimile",
+      "lecture_biblique": {
+        "reference": "Gn 27,1-17",
+        "resume_original": "Rébecca prépare Jacob à recevoir la bénédiction d'Isaac, dans un récit familial complexe.",
+        "texte_integral_inclus": false,
+        "url_lecture": "https://www.biblegateway.com/passage/?search=Gn%2027%2C1-17&version=LSG",
+        "traduction_cible": "Louis Segond 1910 (lien externe, disponibilité à vérifier)"
+      },
+      "explication_spirituelle": "Ce récit comporte ruse et conflit : il ne faut pas présenter la tromperie comme une vertu. La lecture figurative proposée dans la tradition montfortaine doit être distinguée du sens littéral et relue à la lumière du Christ.",
+      "priere_du_jour": "Dieu de vérité, éclaire mes lectures difficiles. Garde-moi de justifier le mensonge et apprends-moi à chercher ta bénédiction par des chemins droits. Amen.",
+      "question_meditation": "Comment distinguer une figure spirituelle du comportement moral des personnages ?",
+      "resolution_facultative": "Lire le passage en relevant ses tensions morales.",
+      "statut_editorial": "redige_a_relire",
+      "texte_traite_inclus": false
+    },
+    {
+      "jour": 23,
+      "phase": "Approfondissement et engagement",
+      "titre": "Jacob et Rébecca : figure biblique (II)",
+      "edition": "Gaume frères, Paris, 1859",
+      "pages_imprimees": {
+        "debut": 146,
+        "fin": 151
+      },
+      "reference_biblique": "Gn 27,18-29",
+      "source_texte_integral": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
+      "statut": "proposition_a_valider_sur_facsimile",
+      "lecture_biblique": {
+        "reference": "Gn 27,18-29",
+        "resume_original": "Jacob reçoit la bénédiction de son père en se faisant passer pour son frère.",
+        "texte_integral_inclus": false,
+        "url_lecture": "https://www.biblegateway.com/passage/?search=Gn%2027%2C18-29&version=LSG",
+        "traduction_cible": "Louis Segond 1910 (lien externe, disponibilité à vérifier)"
+      },
+      "explication_spirituelle": "La bénédiction obtenue dans ce récit n'efface pas la faute ni ses conséquences. Une interprétation mariale ne saurait encourager la manipulation : le Christ appelle à la vérité.",
+      "priere_du_jour": "Seigneur, toi qui agis au milieu des histoires humaines blessées, guéris mes désirs de contrôle. Conduis-moi vers la franchise, la justice et la confiance. Amen.",
+      "question_meditation": "Ai-je déjà cherché un bien par un moyen injuste ?",
+      "resolution_facultative": "Reconnaître honnêtement une erreur, si cela est possible.",
+      "statut_editorial": "redige_a_relire",
+      "texte_traite_inclus": false
+    },
+    {
+      "jour": 24,
+      "phase": "Approfondissement et engagement",
+      "titre": "Jacob et Rébecca : lecture spirituelle (III)",
+      "edition": "Gaume frères, Paris, 1859",
+      "pages_imprimees": {
+        "debut": 152,
+        "fin": 158
+      },
+      "reference_biblique": "Lc 1,39-45",
+      "source_texte_integral": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
+      "statut": "proposition_a_valider_sur_facsimile",
+      "lecture_biblique": {
+        "reference": "Lc 1,39-45",
+        "resume_original": "Élisabeth reconnaît la bénédiction de Marie et sa foi en la promesse du Seigneur.",
+        "texte_integral_inclus": false,
+        "url_lecture": "https://www.biblegateway.com/passage/?search=Lc%201%2C39-45&version=LSG",
+        "traduction_cible": "Louis Segond 1910 (lien externe, disponibilité à vérifier)"
+      },
+      "explication_spirituelle": "Contrairement à la ruse du récit de Jacob, la visitation montre la fécondité d'une foi accueillante. Marie porte Jésus et sa présence devient occasion de joie et de bénédiction.",
+      "priere_du_jour": "Jésus, que ma présence apporte paix et encouragement. Avec Marie, donne-moi une foi qui se traduit en disponibilité et en joie partagée. Amen.",
+      "question_meditation": "À qui puis-je apporter une présence attentive ?",
+      "resolution_facultative": "Visiter ou contacter une personne isolée.",
+      "statut_editorial": "redige_a_relire",
+      "texte_traite_inclus": false
+    },
+    {
+      "jour": 25,
+      "phase": "Approfondissement et engagement",
+      "titre": "Jacob et Rébecca : lecture spirituelle (IV)",
+      "edition": "Gaume frères, Paris, 1859",
+      "pages_imprimees": {
+        "debut": 159,
+        "fin": 164
+      },
+      "reference_biblique": "Jn 2,1-11",
+      "source_texte_integral": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
+      "statut": "proposition_a_valider_sur_facsimile",
+      "lecture_biblique": {
+        "reference": "Jn 2,1-11",
+        "resume_original": "À Cana, la parole de Marie conduit les serviteurs à l'obéissance à Jésus.",
+        "texte_integral_inclus": false,
+        "url_lecture": "https://www.biblegateway.com/passage/?search=Jn%202%2C1-11&version=LSG",
+        "traduction_cible": "Louis Segond 1910 (lien externe, disponibilité à vérifier)"
+      },
+      "explication_spirituelle": "L'image d'une médiation maternelle se comprend ici comme orientation vers le Seigneur. Le signe vient de Jésus ; Marie invite à faire ce qu'il dit.",
+      "priere_du_jour": "Marie, mère attentive, aide-moi à présenter mes besoins à Jésus avec simplicité. Seigneur, rends-moi obéissant à ta parole et sensible aux besoins d'autrui. Amen.",
+      "question_meditation": "Ma dévotion me rend-elle plus disponible au Christ ?",
+      "resolution_facultative": "Accomplir une tâche utile avec une intention de service.",
+      "statut_editorial": "redige_a_relire",
+      "texte_traite_inclus": false
+    },
+    {
+      "jour": 26,
+      "phase": "Approfondissement et engagement",
+      "titre": "Les fruits de la consécration (I)",
+      "edition": "Gaume frères, Paris, 1859",
+      "pages_imprimees": {
+        "debut": 165,
+        "fin": 170
+      },
+      "reference_biblique": "Ga 2,19-20",
+      "source_texte_integral": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
+      "statut": "proposition_a_valider_sur_facsimile",
+      "lecture_biblique": {
+        "reference": "Ga 2,19-20",
+        "resume_original": "Paul exprime son union au Christ crucifié : sa vie est désormais animée par la foi au Fils de Dieu.",
+        "texte_integral_inclus": false,
+        "url_lecture": "https://www.biblegateway.com/passage/?search=Ga%202%2C19-20&version=LSG",
+        "traduction_cible": "Louis Segond 1910 (lien externe, disponibilité à vérifier)"
+      },
+      "explication_spirituelle": "Le fruit de la consécration est une vie davantage configurée au Christ. Il ne s'agit pas de perdre sa personnalité, mais de laisser l'amour du Seigneur renouveler ses choix.",
+      "priere_du_jour": "Christ vivant, que ta grâce transforme mes habitudes et mes intentions. Apprends-moi à aimer avec ton cœur et à vivre dans la confiance en toi. Amen.",
+      "question_meditation": "Qu'est-ce qui doit changer pour que le Christ vive davantage en moi ?",
+      "resolution_facultative": "Renoncer aujourd'hui à une réaction égoïste.",
+      "statut_editorial": "redige_a_relire",
+      "texte_traite_inclus": false
+    },
+    {
+      "jour": 27,
+      "phase": "Approfondissement et engagement",
+      "titre": "Les fruits de la consécration (II)",
+      "edition": "Gaume frères, Paris, 1859",
+      "pages_imprimees": {
+        "debut": 171,
+        "fin": 176
+      },
+      "reference_biblique": "Col 3,12-17",
+      "source_texte_integral": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
+      "statut": "proposition_a_valider_sur_facsimile",
+      "lecture_biblique": {
+        "reference": "Col 3,12-17",
+        "resume_original": "Paul exhorte les croyants à revêtir compassion, bonté, humilité, douceur et pardon.",
+        "texte_integral_inclus": false,
+        "url_lecture": "https://www.biblegateway.com/passage/?search=Col%203%2C12-17&version=LSG",
+        "traduction_cible": "Louis Segond 1910 (lien externe, disponibilité à vérifier)"
+      },
+      "explication_spirituelle": "Une consécration authentique se mesure à la qualité des relations. La charité, la paix et la reconnaissance donnent une forme visible à la vie intérieure.",
+      "priere_du_jour": "Seigneur, revêts-moi de compassion et de patience. Apprends-moi à pardonner et à faire de mes paroles un instrument de paix. Amen.",
+      "question_meditation": "Quelle relation a besoin de plus de patience ou de pardon ?",
+      "resolution_facultative": "Exprimer une parole de gratitude sincère.",
+      "statut_editorial": "redige_a_relire",
+      "texte_traite_inclus": false
+    },
+    {
+      "jour": 28,
+      "phase": "Approfondissement et engagement",
+      "titre": "Les pratiques extérieures (I)",
+      "edition": "Gaume frères, Paris, 1859",
+      "pages_imprimees": {
+        "debut": 177,
+        "fin": 182
+      },
+      "reference_biblique": "Mt 6,1-6",
+      "source_texte_integral": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
+      "statut": "proposition_a_valider_sur_facsimile",
+      "lecture_biblique": {
+        "reference": "Mt 6,1-6",
+        "resume_original": "Jésus invite à faire l'aumône et à prier sans chercher l'admiration des autres.",
+        "texte_integral_inclus": false,
+        "url_lecture": "https://www.biblegateway.com/passage/?search=Mt%206%2C1-6&version=LSG",
+        "traduction_cible": "Louis Segond 1910 (lien externe, disponibilité à vérifier)"
+      },
+      "explication_spirituelle": "Les pratiques extérieures sont utiles lorsqu'elles expriment une foi intérieure. Elles deviennent stériles si elles servent à se faire remarquer ou à se croire supérieur.",
+      "priere_du_jour": "Père qui vois dans le secret, purifie mes gestes de piété. Que ma prière et mon partage soient simples, joyeux et désintéressés. Amen.",
+      "question_meditation": "Quelle intention anime mes pratiques visibles ?",
+      "resolution_facultative": "Faire un geste de charité dans la discrétion.",
+      "statut_editorial": "redige_a_relire",
+      "texte_traite_inclus": false
+    },
+    {
+      "jour": 29,
+      "phase": "Approfondissement et engagement",
+      "titre": "Les pratiques extérieures (II)",
+      "edition": "Gaume frères, Paris, 1859",
+      "pages_imprimees": {
+        "debut": 183,
+        "fin": 189
+      },
+      "reference_biblique": "Lc 2,41-52",
+      "source_texte_integral": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
+      "statut": "proposition_a_valider_sur_facsimile",
+      "lecture_biblique": {
+        "reference": "Lc 2,41-52",
+        "resume_original": "Marie et Joseph cherchent Jésus, puis le retrouvent au Temple occupé aux affaires de son Père.",
+        "texte_integral_inclus": false,
+        "url_lecture": "https://www.biblegateway.com/passage/?search=Lc%202%2C41-52&version=LSG",
+        "traduction_cible": "Louis Segond 1910 (lien externe, disponibilité à vérifier)"
+      },
+      "explication_spirituelle": "La fidélité religieuse ne supprime ni les questions ni les incompréhensions. Marie garde ces événements dans son cœur : elle apprend à accompagner sans posséder.",
+      "priere_du_jour": "Seigneur Jésus, lorsque je ne comprends pas tes chemins, garde-moi dans la confiance. Donne-moi un cœur patient et disponible à la volonté du Père. Amen.",
+      "question_meditation": "Quelle incompréhension puis-je confier à Dieu ?",
+      "resolution_facultative": "Relire une difficulté sans précipiter de conclusion.",
+      "statut_editorial": "redige_a_relire",
+      "texte_traite_inclus": false
+    },
+    {
+      "jour": 30,
+      "phase": "Approfondissement et engagement",
+      "titre": "Les pratiques intérieures (I)",
+      "edition": "Gaume frères, Paris, 1859",
+      "pages_imprimees": {
+        "debut": 190,
+        "fin": 196
+      },
+      "reference_biblique": "Jn 15,9-17",
+      "source_texte_integral": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
+      "statut": "proposition_a_valider_sur_facsimile",
+      "lecture_biblique": {
+        "reference": "Jn 15,9-17",
+        "resume_original": "Jésus appelle ses disciples à demeurer dans son amour et à s'aimer les uns les autres.",
+        "texte_integral_inclus": false,
+        "url_lecture": "https://www.biblegateway.com/passage/?search=Jn%2015%2C9-17&version=LSG",
+        "traduction_cible": "Louis Segond 1910 (lien externe, disponibilité à vérifier)"
+      },
+      "explication_spirituelle": "La vie intérieure ne se replie pas sur elle-même : elle conduit à l'amitié avec le Christ et à l'amour fraternel. La dévotion à Marie soutient cette disponibilité.",
+      "priere_du_jour": "Jésus, fais-moi demeurer dans ton amour. Que ma prière se prolonge en actes de bonté et que je sache aimer comme tu nous aimes. Amen.",
+      "question_meditation": "Mon union au Christ se traduit-elle en charité ?",
+      "resolution_facultative": "Prendre l'initiative d'une parole de paix.",
+      "statut_editorial": "redige_a_relire",
+      "texte_traite_inclus": false
+    },
+    {
+      "jour": 31,
+      "phase": "Approfondissement et engagement",
+      "titre": "Les pratiques intérieures (II)",
+      "edition": "Gaume frères, Paris, 1859",
+      "pages_imprimees": {
+        "debut": 197,
+        "fin": 205
+      },
+      "reference_biblique": "Col 3,17",
+      "source_texte_integral": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
+      "statut": "proposition_a_valider_sur_facsimile",
+      "lecture_biblique": {
+        "reference": "Col 3,17",
+        "resume_original": "Paul demande de tout accomplir au nom du Seigneur Jésus, en rendant grâce au Père.",
+        "texte_integral_inclus": false,
+        "url_lecture": "https://www.biblegateway.com/passage/?search=Col%203%2C17&version=LSG",
+        "traduction_cible": "Louis Segond 1910 (lien externe, disponibilité à vérifier)"
+      },
+      "explication_spirituelle": "La consécration embrasse les activités ordinaires : travail, repos, famille et engagements. Tout peut devenir offrande lorsque c'est vécu dans la vérité et l'amour.",
+      "priere_du_jour": "Seigneur Jésus, reçois mes travaux, mes rencontres et mes fatigues. Que rien ne soit séparé de ton amour et que ma journée devienne une action de grâce. Amen.",
+      "question_meditation": "Quelle activité quotidienne puis-je vivre davantage avec Jésus ?",
+      "resolution_facultative": "Offrir explicitement à Dieu une tâche habituelle.",
+      "statut_editorial": "redige_a_relire",
+      "texte_traite_inclus": false
+    },
+    {
+      "jour": 32,
+      "phase": "Approfondissement et engagement",
+      "titre": "Vivre la communion avec Marie",
+      "edition": "Gaume frères, Paris, 1859",
+      "pages_imprimees": {
+        "debut": 206,
+        "fin": 211
+      },
+      "reference_biblique": "Jn 6,51-58",
+      "source_texte_integral": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
+      "statut": "proposition_a_valider_sur_facsimile",
+      "lecture_biblique": {
+        "reference": "Jn 6,51-58",
+        "resume_original": "Jésus se révèle comme le pain vivant descendu du ciel et annonce le don de sa chair pour la vie du monde.",
+        "texte_integral_inclus": false,
+        "url_lecture": "https://www.biblegateway.com/passage/?search=Jn%206%2C51-58&version=LSG",
+        "traduction_cible": "Louis Segond 1910 (lien externe, disponibilité à vérifier)"
+      },
+      "explication_spirituelle": "La communion avec le Christ trouve une expression centrale dans l'Eucharistie. Marie conduit à son Fils ; elle ne remplace ni les sacrements ni la vie de l'Église.",
+      "priere_du_jour": "Jésus, pain de vie, creuse en moi la faim de ta présence. Prépare mon cœur à te recevoir avec foi et à partager ta vie dans le service des autres. Amen.",
+      "question_meditation": "Quelle place l'Eucharistie tient-elle dans ma vie chrétienne ?",
+      "resolution_facultative": "Préparer avec attention une prochaine participation à la messe.",
+      "statut_editorial": "redige_a_relire",
+      "texte_traite_inclus": false
+    },
+    {
+      "jour": 33,
+      "phase": "Approfondissement et engagement",
+      "titre": "Prière de consécration et action de grâce",
+      "edition": "Gaume frères, Paris, 1859",
+      "pages_imprimees": {
+        "debut": 212,
+        "fin": 217
+      },
+      "reference_biblique": "Lc 1,46-55",
+      "source_texte_integral": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
+      "statut": "proposition_a_valider_sur_facsimile",
+      "lecture_biblique": {
+        "reference": "Lc 1,46-55",
+        "resume_original": "Dans le Magnificat, Marie rend grâce à Dieu pour sa miséricorde et sa fidélité.",
+        "texte_integral_inclus": false,
+        "url_lecture": "https://www.biblegateway.com/passage/?search=Lc%201%2C46-55&version=LSG",
+        "traduction_cible": "Louis Segond 1910 (lien externe, disponibilité à vérifier)"
+      },
+      "explication_spirituelle": "Au terme du parcours, la consécration est proposée comme un acte libre d'appartenance au Christ, avec l'aide maternelle de Marie. Elle ne constitue ni une garantie automatique ni une obligation imposée.",
+      "priere_du_jour": "Seigneur Jésus-Christ, je te remets librement ma vie, mes joies, mes blessures et mes projets. Avec l'aide de la Vierge Marie, je désire te suivre plus fidèlement, servir mes frères et demeurer dans ton amour. Reçois mon offrande et conduis-moi vers le Père, dans l'Esprit Saint. Amen.",
+      "question_meditation": "Suis-je prêt à renouveler librement mon engagement envers le Christ ?",
+      "resolution_facultative": "Relire son intention et, si on le souhaite, prononcer personnellement une prière de consécration.",
+      "statut_editorial": "redige_a_relire",
+      "texte_traite_inclus": false
+    }
+  ],
+  "schema_version": "1.1"
+}
