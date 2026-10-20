@@ -74,9 +74,8 @@ insertion=("const unit=window.TOTUS_MARIAL_READING?.days?.[n-1];"
            "if(!unit){document.getElementById('reading').textContent='Lecture indisponible : actualisez la page.';return;}"
            "document.getElementById('guide').textContent=unit.theme+'. Lisez, méditez et priez à votre rythme.';"
            "document.getElementById('pages').textContent='Pages du PDF : '+unit.pdf_pages.join(' à ');"
-           "bookPages=paginateBook(unit.text);bookPage=Math.min(bookPage,bookPages.length-1);renderBook();"
-           "document.getElementById('meditation').textContent=unit.meditation;"
-           "document.getElementById('prayer').textContent=unit.prayer;")
+           "bookPages=buildDayPages(unit);bookPage=Math.min(bookPage,bookPages.length-1);renderBook();"
+)
 h=h.replace(needle,insertion+needle,1)
 assert "window.TOTUS_MARIAL_READING?.days?.[n-1]" in h
 assert '<script src="./parcours-33.js"></script>' in h
