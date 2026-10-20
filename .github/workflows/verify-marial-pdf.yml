@@ -75,6 +75,7 @@ jobs:
         if: success()
         run: |
           cp parcours-marial/lecteur-candidat.html /tmp/marial/index.html
+          python3 parcours-marial/build_33_readings.py
           test -s /tmp/marial/traite-vraie-devotion-fr.pdf
           test -s /tmp/marial/manifest.json
           python3 - <<'PY'
@@ -83,6 +84,8 @@ jobs:
           h=(p/'index.html').read_text()
           assert 'traite-vraie-devotion-fr.pdf' in h
           assert 'totus-marial-33-candidate-v1' in h
+          assert (p/'parcours-33.js').stat().st_size > 100000
+          assert (p/'parcours-33.json').stat().st_size > 100000
           assert (p/'traite-vraie-devotion-fr.pdf').read_bytes().startswith(b'%PDF-')
           print('Candidat autonome HTML + PDF pret pour essais locaux')
           PY
