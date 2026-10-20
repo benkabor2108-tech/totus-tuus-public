@@ -48,7 +48,8 @@ for i in range(33):
     last=bisect_right(page_offsets,cuts[i+1]-1)
     txt=full_text[cuts[i]:cuts[i+1]].strip()
     # Remove isolated PDF folio numbers from the reading view only; the source PDF remains intact.
-    txt=re.sub(r'(?m)^[ \\t]*(?:[1-9]|[1-4][0-9]|5[0-3])[ \\t]*
+    txt=re.sub(r'(?m)^[ \t]*(?:[1-9]|[1-4][0-9]|5[0-3])[ \t]*(?=\n|\Z)', '', txt)
+    txt=re.sub(r'\n{3,}', '\n\n', txt).strip()
     assert len(txt)>100, f'Insufficient text on day {i+1}'
     if i>0:
         assert re.match(r'^[ \t]*[0-9]{1,3}\.[ \t]+',full_text[cuts[i]:]), f'Day {i+1} starts inside paragraph'
