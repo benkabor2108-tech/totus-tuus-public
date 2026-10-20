@@ -6,9 +6,6 @@ on:
   workflow_dispatch:
 concurrency:
   group: marial-candidate-preview
-  cancel-in-progress: true
-concurrency:
-  group: marial-candidate-preview
   cancel-in-progress: false
 permissions:
   contents: write
