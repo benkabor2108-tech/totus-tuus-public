@@ -21,15 +21,12 @@ jobs:
           from urllib.parse import urlencode
           from pathlib import Path
           urls=[
-            "https://ws-export.wmcloud.org/?"+urlencode({"format":"pdf","lang":"fr","page":"Traité de la vraie dévotion à la Sainte Vierge"}),
-            "https://fr.wikisource.org/w/index.php?"+urlencode({"title":"Spécial:DownloadAsPdf","page":"Traité de la vraie dévotion à la Sainte Vierge","action":"download"}),
-            "https://laportelatine.org/wp-content/uploads/2020/07/traite_vraie_devotion.pdf",
-            "https://upload.wikimedia.org/wikipedia/commons/c/ce/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_sainte_Vierge_%28microforme%29_%28IA_cihm_06362%29.pdf"
+            "https://laportelatine.org/wp-content/uploads/2020/07/traite_vraie_devotion.pdf"
           ]
           for i,url in enumerate(urls,1):
             try:
               req=Request(url,headers={"User-Agent":"TotusTuusPublic/1.0 (public-domain book preservation; GitHub Actions)"})
-              with urlopen(req,timeout=110) as response:
+              with urlopen(req,timeout=35) as response:
                 data=response.read(45*1024*1024+1)
                 mime=response.headers.get("Content-Type","")
               print("Source",i,"bytes",len(data),"mime",mime)
@@ -73,6 +70,21 @@ jobs:
           meta={'sha256':hashlib.sha256(data).hexdigest(),'bytes':len(data),'pdf_pages':pages,'text_chars':len(txt),'keyword_hits':keyword_hits,'extracted_text_characters':extracted,'source':Path('/tmp/marial/source.txt').read_text().strip(),'verified_in_github_actions':True,'edition_pagination_verified':False,'android_tests_performed':False}
           Path('/tmp/marial/manifest.json').write_text(json.dumps(meta,ensure_ascii=False,indent=2))
           print(json.dumps(meta,indent=2))
+          PY
+      - name: Constituer le dossier lecteur + PDF hors ligne
+        if: success()
+        run: |
+          cp parcours-marial/lecteur-candidat.html /tmp/marial/index.html
+          test -s /tmp/marial/traite-vraie-devotion-fr.pdf
+          test -s /tmp/marial/manifest.json
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('/tmp/marial')
+          h=(p/'index.html').read_text()
+          assert 'traite-vraie-devotion-fr.pdf' in h
+          assert 'totus-marial-33-candidate-v1' in h
+          assert (p/'traite-vraie-devotion-fr.pdf').read_bytes().startswith(b'%PDF-')
+          print('Candidat autonome HTML + PDF pret pour essais locaux')
           PY
       - uses: actions/upload-artifact@v4
         if: always()
