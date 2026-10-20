@@ -76,6 +76,7 @@ jobs:
         run: |
           cp parcours-marial/lecteur-candidat.html /tmp/marial/index.html
           cp parcours-marial/TEST_ANDROID.md /tmp/marial/TEST_ANDROID.md
+          cp parcours-marial/sw.js /tmp/marial/sw.js
           python3 parcours-marial/build_33_readings.py
           test -s /tmp/marial/traite-vraie-devotion-fr.pdf
           test -s /tmp/marial/manifest.json
@@ -107,18 +108,21 @@ jobs:
           print('Controle lecteur: 33 jours, stockage isole et PDF local')
           PY
           node --check /tmp/marial/reader-check.js
+          node --check /tmp/marial/sw.js
+          test -s /tmp/marial/sw.js
           (cd /tmp/marial && python3 -m http.server 8765 >/tmp/marial-http.log 2>&1 &)
           sleep 2
           curl --fail --silent --show-error http://127.0.0.1:8765/index.html -o /tmp/marial/index-served.html
           curl --fail --silent --show-error http://127.0.0.1:8765/traite-vraie-devotion-fr.pdf -o /tmp/marial/pdf-served.pdf
           cmp /tmp/marial/traite-vraie-devotion-fr.pdf /tmp/marial/pdf-served.pdf
+          curl --fail --silent --show-error http://127.0.0.1:8765/sw.js | grep -q 'totus-marial-preview-'
           rm /tmp/marial/index-served.html /tmp/marial/pdf-served.pdf /tmp/marial/reader-check.js
           echo "Test HTTP local: lecteur et PDF servis sans dépendance externe"
       - name: Publier les fichiers de previsualisation sur la branche candidate seulement
         if: success()
         run: |
           mkdir -p preview-marial
-          cp /tmp/marial/index.html /tmp/marial/parcours-33.js /tmp/marial/parcours-33.json /tmp/marial/traite-vraie-devotion-fr.pdf /tmp/marial/TEST_ANDROID.md preview-marial/
+          cp /tmp/marial/index.html /tmp/marial/sw.js /tmp/marial/parcours-33.js /tmp/marial/parcours-33.json /tmp/marial/traite-vraie-devotion-fr.pdf /tmp/marial/TEST_ANDROID.md preview-marial/
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add preview-marial/
