@@ -128,7 +128,7 @@ function buildDayPages(unit){
  for(const text of paginateBook(unit.text))pages.push({kind:'reading',text});
  const reflection='JOUR '+n+' — '+unit.theme+'\n\nÉclairage pour la méditation\n\n'+unit.explanation+'\n\nQuestion personnelle\n\n'+unit.meditation+'\n\nPrenez quelques instants pour formuler une résolution concrète.';
  for(const text of paginateBook(reflection))pages.push({kind:'reflection',text});
- pages.push({kind:'prayer',text:'JOUR '+n+' — PRIÈRE\n\n'+unit.prayer.replace(/\\s*Amen\\.?\\s*$/i,'')+'\n\nAmen.\n\nFin du jour '+n+' sur 33.\n\nVous pouvez marquer cette journée comme lue, puis ouvrir la suivante.'});
+ pages.push({kind:'prayer',text:'JOUR '+n+' — PRIÈRE\n\n'+unit.prayer.replace(/\s*Amen\.?\s*$/i,'')+'\n\nAmen.\n\nFin du jour '+n+' sur 33.\n\nVous pouvez marquer cette journée comme lue, puis ouvrir la suivante.'});
  return pages;
 }
 function paginateBook(text){
