@@ -90,6 +90,7 @@ jobs:
           assert h.count('id="reading"')==1 and h.count('id="meditation"')==1 and h.count('id="prayer"')==1
           assert 'id="larger"' in h and 'id="bottom-next"' in h and '<details>' in h
           assert 'function paginateBook' in h and 'function renderBook' in h and 'bookPages=paginateBook(unit.text)' in h
+          assert 'state.bookPage=bookPage' in h and "addEventListener('touchend'" in h
           assert (p/'parcours-33.js').stat().st_size > 100000
           assert (p/'parcours-33.json').stat().st_size > 100000
           import json
