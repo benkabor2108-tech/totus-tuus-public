@@ -7,6 +7,9 @@ on:
 concurrency:
   group: marial-candidate-preview
   cancel-in-progress: true
+concurrency:
+  group: marial-candidate-preview
+  cancel-in-progress: false
 permissions:
   contents: write
 jobs:
@@ -142,17 +145,28 @@ jobs:
       - name: Publier les fichiers de previsualisation sur la branche candidate seulement
         if: success()
         run: |
-          mkdir -p preview-marial
-          cp /tmp/marial/index.html /tmp/marial/sw.js /tmp/marial/parcours-33.js /tmp/marial/parcours-33.json /tmp/marial/traite-vraie-devotion-fr.pdf /tmp/marial/TEST_ANDROID.md preview-marial/
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add preview-marial/
-          if ! git diff --cached --quiet; then
-            git commit -m "Build isolated 33-day Marian preview assets"
+          for attempt in 1 2 3 4 5; do
             git fetch origin candidate/parcours-marial-33
-            git rebase origin/candidate/parcours-marial-33
-            git push origin HEAD:candidate/parcours-marial-33
-          fi
+            git reset --hard origin/candidate/parcours-marial-33
+            mkdir -p preview-marial
+            cp /tmp/marial/index.html /tmp/marial/sw.js /tmp/marial/parcours-33.js /tmp/marial/parcours-33.json /tmp/marial/traite-vraie-devotion-fr.pdf /tmp/marial/TEST_ANDROID.md preview-marial/
+            git add preview-marial/
+            if git diff --cached --quiet; then
+              echo "Preview already current"
+              exit 0
+            fi
+            git commit -m "Build isolated 33-day Marian preview assets"
+            if git push origin HEAD:candidate/parcours-marial-33; then
+              echo "Preview published"
+              exit 0
+            fi
+            echo "Concurrent candidate update, retrying publication: ${attempt}/5"
+            sleep 3
+          done
+          echo "Failed to publish candidate preview after retries"
+          exit 1
       - uses: actions/upload-artifact@v4
         if: always()
         with:
