@@ -11,6 +11,7 @@ Saint Louis-Marie Grignion de Montfort, *Traité de la vraie dévotion à la Sai
 
 ## État
 - Plan de lecture : 33 journées, pages imprimées 1 à 217, couverture continue vérifiée par script.
+- Contrôles V3 locaux : 33 jours ordonnés, 217 pages contiguës, métadonnées et références bibliques présentes, isolation du stockage, syntaxe JavaScript valide. Prototype V3 archivé hors production.
 - Prototype V2 du lecteur PDF externe et progression locale : préparé dans un paquet autonome.
 - **Bloquant** : le téléchargement et la vérification du PDF complet n'ont pas encore réussi dans l'environnement d'exécution.
 - Tests Android/PWA et hors connexion : **non exécutés**.
