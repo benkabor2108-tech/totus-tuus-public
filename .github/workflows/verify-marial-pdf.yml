@@ -91,6 +91,71 @@ jobs:
           assert 'id="larger"' in h and 'id="bottom-next"' in h and '<details>' in h
           assert 'function paginateBook' in h and 'function renderBook' in h and 'bookPages=paginateBook(unit.text)' in h
           assert 'state.bookPage=bookPage' in h and "addEventListener('touchend'" in h
+          assert 'position:sticky' in h and 'maxChars=Math.max(340' in h
+          assert not any(__import__('re').search(r'(?m)^\\s*(?:[1-9]|[1-4][0-9]|5[0-3])\\s*
+          assert (p/'parcours-33.js').stat().st_size > 100000
+          assert (p/'parcours-33.json').stat().st_size > 100000
+          import json
+          units=json.loads((p/'parcours-33.json').read_text())['days']
+          assert len(units)==33
+          assert len({x['meditation'] for x in units})==33
+          assert len({x['prayer'] for x in units})==33
+          assert len({x['theme'] for x in units})==33
+          import re
+          assert all(re.match(r'^[0-9]{1,3}\.\s',x['text']) for x in units[1:]), 'Lecture commencant au milieu dun paragraphe'
+          assert all(x['pdf_pages'][0]<=x['pdf_pages'][1] for x in units)
+          assert (p/'traite-vraie-devotion-fr.pdf').read_bytes().startswith(b'%PDF-')
+          print('Candidat autonome HTML + PDF pret pour essais locaux')
+          PY
+      - name: Verifier lecture locale et code du lecteur
+        if: success()
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from html.parser import HTMLParser
+          p=Path('/tmp/marial')
+          h=(p/'index.html').read_text(encoding='utf-8')
+          assert h.count('id="day"')==1
+          assert 'localStorage.setItem(key' in h
+          assert 'totus-marial-33-candidate-v1' in h
+          assert (p/'traite-vraie-devotion-fr.pdf').stat().st_size>100000
+          js=h.split('<script>',1)[1].split('</script>',1)[0]
+          (p/'reader-check.js').write_text(js,encoding='utf-8')
+          print('Controle lecteur: 33 jours, stockage isole et PDF local')
+          PY
+          node --check /tmp/marial/reader-check.js
+          node --check /tmp/marial/sw.js
+          test -s /tmp/marial/sw.js
+          (cd /tmp/marial && python3 -m http.server 8765 >/tmp/marial-http.log 2>&1 &)
+          sleep 2
+          curl --fail --silent --show-error http://127.0.0.1:8765/index.html -o /tmp/marial/index-served.html
+          curl --fail --silent --show-error http://127.0.0.1:8765/traite-vraie-devotion-fr.pdf -o /tmp/marial/pdf-served.pdf
+          cmp /tmp/marial/traite-vraie-devotion-fr.pdf /tmp/marial/pdf-served.pdf
+          curl --fail --silent --show-error http://127.0.0.1:8765/sw.js | grep -q 'totus-marial-preview-'
+          rm /tmp/marial/index-served.html /tmp/marial/pdf-served.pdf /tmp/marial/reader-check.js
+          echo "Test HTTP local: lecteur et PDF servis sans dépendance externe"
+      - name: Publier les fichiers de previsualisation sur la branche candidate seulement
+        if: success()
+        run: |
+          mkdir -p preview-marial
+          cp /tmp/marial/index.html /tmp/marial/sw.js /tmp/marial/parcours-33.js /tmp/marial/parcours-33.json /tmp/marial/traite-vraie-devotion-fr.pdf /tmp/marial/TEST_ANDROID.md preview-marial/
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add preview-marial/
+          if ! git diff --cached --quiet; then
+            git commit -m "Build isolated 33-day Marian preview assets"
+            git fetch origin candidate/parcours-marial-33
+            git rebase origin/candidate/parcours-marial-33
+            git push origin HEAD:candidate/parcours-marial-33
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: marial-pdf-source-candidat
+          path: /tmp/marial/
+          retention-days: 14
+          if-no-files-found: error
+,x['text']) for x in units), 'Numéro de folio PDF restant'
           assert (p/'parcours-33.js').stat().st_size > 100000
           assert (p/'parcours-33.json').stat().st_size > 100000
           import json
