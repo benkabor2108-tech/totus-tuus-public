@@ -1,0 +1,55 @@
+name: Vérifier la prévisualisation isolée du parcours marial 33 jours
+on:
+  push:
+    branches:
+      - candidate/parcours-marial-33-jours
+    paths:
+      - 'modules/parcours-marial/**'
+      - '.github/workflows/preview-parcours-marial.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  construire:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Importer une copie du site historique (lecture seule)
+        run: python3 scripts/import_public_site.py
+      - name: Ajouter le module candidat sans toucher aux scripts historiques
+        run: |
+          mkdir -p site/modules/parcours-marial
+          cp modules/parcours-marial/*.js modules/parcours-marial/*.json site/modules/parcours-marial/
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          p=Path('site')
+          data=json.loads((p/'modules/parcours-marial/parcours_marial_33_jours_enrichi.json').read_text())
+          assert len(data['jours'])==33
+          assert [j['jour'] for j in data['jours']]==list(range(1,34))
+          assert all(j.get('priere_du_jour') and j.get('explication_spirituelle') and j.get('lecture_biblique') for j in data['jours'])
+          html=p/'index.html'
+          content=html.read_text(encoding='utf-8')
+          tag='<script src="./modules/parcours-marial/parcours-marial.js?v=candidate-33" defer></script>'
+          assert tag not in content
+          assert '</body>' in content
+          html.write_text(content.replace('</body>',tag+'</body>',1),encoding='utf-8')
+          # Isoler le cache de prévisualisation de la version publique.
+          sw=p/'service-worker.js'
+          worker=sw.read_text(encoding='utf-8')
+          worker=worker.replace('totus-tuus-pages-v5-9-1','totus-tuus-parcours-marial-candidate-33')
+          sw.write_text(worker,encoding='utf-8')
+          (p/'version.json').write_text(json.dumps({'version':'candidate-parcours-marial-33','release':'preview-only'}),encoding='utf-8')
+          print('33 journées intégrées à une copie autonome du site')
+          PY
+      - name: Contrôles de la copie et du JavaScript
+        run: |
+          python3 scripts/check_site.py site
+          for file in site/*.js site/modules/parcours-marial/*.js; do node --check "$file"; done
+      - name: Livrer uniquement un artefact de test, sans publication
+        uses: actions/upload-artifact@v4
+        with:
+          name: totus-tuus-parcours-marial-33-preview
+          path: site/
+          include-hidden-files: true
+          retention-days: 14
