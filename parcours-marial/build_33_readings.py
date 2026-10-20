@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Build 33 local reading units from the verified PDF, preserving page order."""
 import json, subprocess
+from meditations_33 import THEMES
 from pathlib import Path
 root=Path('/tmp/marial')
 pdf=root/'traite-vraie-devotion-fr.pdf'
@@ -21,13 +22,9 @@ for day in range(1,34):
     txt=(subprocess.check_output(['pdftotext','-f',str(first),'-l',str(last),'-layout',str(pdf),'-'],text=True) if doc is None else '\\n'.join(doc[i].get_text() for i in range(first-1,last)))
     txt=txt.replace('\\x00','').strip()
     assert len(txt)>100, f'No readable text on day {day}'
-    stage= ('Se préparer à la rencontre de Jésus par Marie' if day<=7 else
-            'Discerner et approfondir la vraie dévotion' if day<=14 else
-            'Comprendre le don de soi à Jésus par Marie' if day<=21 else
-            'Grandir dans la consécration au Christ')
-    units.append({'day':day,'pdf_pages':[first,last],'theme':stage,'text':txt,
-      'meditation':"Quel appel concret à aimer davantage Jésus et à suivre son Évangile ce passage m'adresse-t-il aujourd'hui ?",
-      'prayer':"Seigneur Jésus, par l'intercession de la Vierge Marie, apprends-moi à t'aimer et à te servir avec fidélité. Amen."})
+    theme,meditation,prayer=THEMES[day-1]
+    units.append({'day':day,'pdf_pages':[first,last],'theme':theme,'text':txt,
+      'meditation':meditation,'prayer':prayer})
 assert units[0]['pdf_pages'][0]==1 and units[-1]['pdf_pages'][1]==pages
 assert all(units[i]['pdf_pages'][1]+1==units[i+1]['pdf_pages'][0] for i in range(32))
 data={'source':'PDF français La Porte Latine; pagination PDF et non pagination imprimée 1859',
