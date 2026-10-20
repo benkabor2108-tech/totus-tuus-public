@@ -123,10 +123,12 @@ function renderBook(){
 function buildDayPages(unit){
  const n=unit.day;
  const intro='JOUR '+n+' SUR 33\n\n'+unit.theme+'\n\nPour entrer dans cette journée, prenez un moment de silence. Lisez attentivement le passage proposé du Traité de la vraie dévotion. Accueillez ce qu’il vous inspire et présentez votre journée au Seigneur.\n\nLes pages suivantes contiennent la lecture originale ; les réflexions et prières sont des propositions rédigées pour ce parcours.';
- const pages=[{kind:'intro',text:intro}];
+ const pages=[];
+ for(const text of paginateBook(intro))pages.push({kind:'intro',text});
  for(const text of paginateBook(unit.text))pages.push({kind:'reading',text});
- pages.push({kind:'reflection',text:'JOUR '+n+' — '+unit.theme+'\n\nÉclairage pour la méditation\n\n'+unit.explanation+'\n\nQuestion personnelle\n\n'+unit.meditation+'\n\nPrenez quelques instants pour formuler une résolution concrète.'});
- pages.push({kind:'prayer',text:'JOUR '+n+' — PRIÈRE\n\n'+unit.prayer+'\n\nAmen.\n\nFin du jour '+n+' sur 33.\n\nVous pouvez marquer cette journée comme lue, puis ouvrir la suivante.'});
+ const reflection='JOUR '+n+' — '+unit.theme+'\n\nÉclairage pour la méditation\n\n'+unit.explanation+'\n\nQuestion personnelle\n\n'+unit.meditation+'\n\nPrenez quelques instants pour formuler une résolution concrète.';
+ for(const text of paginateBook(reflection))pages.push({kind:'reflection',text});
+ pages.push({kind:'prayer',text:'JOUR '+n+' — PRIÈRE\n\n'+unit.prayer.replace(/\\s*Amen\\.?\\s*$/i,'')+'\n\nAmen.\n\nFin du jour '+n+' sur 33.\n\nVous pouvez marquer cette journée comme lue, puis ouvrir la suivante.'});
  return pages;
 }
 function paginateBook(text){
