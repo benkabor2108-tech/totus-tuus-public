@@ -86,6 +86,30 @@ jobs:
           assert (p/'traite-vraie-devotion-fr.pdf').read_bytes().startswith(b'%PDF-')
           print('Candidat autonome HTML + PDF pret pour essais locaux')
           PY
+      - name: Verifier lecture locale et code du lecteur
+        if: success()
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from html.parser import HTMLParser
+          p=Path('/tmp/marial')
+          h=(p/'index.html').read_text(encoding='utf-8')
+          assert h.count('id="day"')==1
+          assert 'localStorage.setItem(key' in h
+          assert 'totus-marial-33-candidate-v1' in h
+          assert (p/'traite-vraie-devotion-fr.pdf').stat().st_size>100000
+          js=h.split('<script>',1)[1].split('</script>',1)[0]
+          (p/'reader-check.js').write_text(js,encoding='utf-8')
+          print('Controle lecteur: 33 jours, stockage isole et PDF local')
+          PY
+          node --check /tmp/marial/reader-check.js
+          (cd /tmp/marial && python3 -m http.server 8765 >/tmp/marial-http.log 2>&1 &)
+          sleep 2
+          curl --fail --silent --show-error http://127.0.0.1:8765/index.html -o /tmp/marial/index-served.html
+          curl --fail --silent --show-error http://127.0.0.1:8765/traite-vraie-devotion-fr.pdf -o /tmp/marial/pdf-served.pdf
+          cmp /tmp/marial/traite-vraie-devotion-fr.pdf /tmp/marial/pdf-served.pdf
+          rm /tmp/marial/index-served.html /tmp/marial/pdf-served.pdf /tmp/marial/reader-check.js
+          echo "Test HTTP local: lecteur et PDF servis sans dépendance externe"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
