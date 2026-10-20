@@ -75,6 +75,7 @@ jobs:
         if: success()
         run: |
           cp parcours-marial/lecteur-candidat.html /tmp/marial/index.html
+          cp parcours-marial/TEST_ANDROID.md /tmp/marial/TEST_ANDROID.md
           python3 parcours-marial/build_33_readings.py
           test -s /tmp/marial/traite-vraie-devotion-fr.pdf
           test -s /tmp/marial/manifest.json
