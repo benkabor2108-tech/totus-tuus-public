@@ -44,7 +44,7 @@ document.getElementById('prev').disabled=n===1;
 document.getElementById('bottom-prev').disabled=n===1;
 document.getElementById('next').disabled=n===33;
 document.getElementById('bottom-next').disabled=n===33;
-const unit=window.TOTUS_MARIAL_READING?.days?.[n-1];if(!unit){document.getElementById('reading').textContent='Lecture indisponible : actualisez la page.';return;}document.getElementById('pages').textContent='Pages du PDF : '+unit.pdf_pages.join(' à ');document.getElementById('reading').textContent=unit.text;document.getElementById('meditation').textContent=unit.meditation;document.getElementById('prayer').textContent=unit.prayer;state.day=n;
+const unit=window.TOTUS_MARIAL_READING?.days?.[n-1];if(!unit){document.getElementById('reading').textContent='Lecture indisponible : actualisez la page.';return;}document.getElementById('guide').textContent=unit.theme+'. Lisez, méditez et priez à votre rythme.';document.getElementById('pages').textContent='Pages du PDF : '+unit.pdf_pages.join(' à ');document.getElementById('reading').textContent=unit.text;document.getElementById('meditation').textContent=unit.meditation;document.getElementById('prayer').textContent=unit.prayer;state.day=n;
 if(!persist())document.getElementById('status').textContent+=' · Sauvegarde indisponible';
 }
 function changeDay(n){d.value=Math.max(1,Math.min(33,n));render();document.getElementById('navigation').scrollIntoView({behavior:'smooth',block:'start'})}
