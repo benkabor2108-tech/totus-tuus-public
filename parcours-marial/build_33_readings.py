@@ -37,8 +37,7 @@ data={'source':'PDF français La Porte Latine; pagination PDF et non pagination 
 (root/'parcours-33.js').write_text('window.TOTUS_MARIAL_READING='+json.dumps(data,ensure_ascii=False)+';',encoding='utf-8')
 h=(root/'index.html').read_text(encoding='utf-8')
 h=h.replace('<script>','<script src="./parcours-33.js"></script><script>',1)
-h=h.replace('<p id="guide"></p>','<p id="guide"></p><p id="pages"></p><h2>Lecture du jour</h2><pre id="reading" style="white-space:pre-wrap;overflow-wrap:anywhere;font:inherit;max-height:50vh;overflow:auto"></pre><h3>Méditation</h3><p id="meditation"></p><h3>Prière</h3><p id="prayer"></p>',1)
-needle="state.day=n;try{localStorage.setItem"
+needle="state.day=n;\nif(!persist())"
 assert needle in h, "Point d'insertion des lectures introuvable"
 insertion=("const unit=window.TOTUS_MARIAL_READING?.days?.[n-1];"
            "if(!unit){document.getElementById('reading').textContent='Lecture indisponible : actualisez la page.';return;}"
