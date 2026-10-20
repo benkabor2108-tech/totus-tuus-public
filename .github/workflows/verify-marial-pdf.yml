@@ -40,6 +40,8 @@ jobs:
             except Exception as exc: print("Source",i,"error",str(exc)[:200])
           else: raise SystemExit("Aucun PDF valide disponible")
           PY
+      - name: Installer les outils PDF
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
       - name: Examiner les metadonnees et les pages
         run: |
           python3 - <<'PY'
