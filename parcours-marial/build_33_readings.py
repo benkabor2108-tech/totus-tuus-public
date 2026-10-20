@@ -4,15 +4,21 @@ import json, subprocess
 from pathlib import Path
 root=Path('/tmp/marial')
 pdf=root/'traite-vraie-devotion-fr.pdf'
-info=subprocess.check_output(['pdfinfo',str(pdf)],text=True)
-pages=int(next(line.split(':',1)[1] for line in info.splitlines() if line.startswith('Pages:')))
+try:
+    info=subprocess.check_output(['pdfinfo',str(pdf)],text=True)
+    pages=int(next(line.split(':',1)[1] for line in info.splitlines() if line.startswith('Pages:')))
+    doc=None
+except FileNotFoundError:
+    import fitz
+    doc=fitz.open(str(pdf))
+    pages=len(doc)
 assert pages>=33
 units=[]
 for day in range(1,34):
     first=((day-1)*pages)//33+1
     last=(day*pages)//33
     assert first<=last
-    txt=subprocess.check_output(['pdftotext','-f',str(first),'-l',str(last),'-layout',str(pdf),'-'],text=True)
+    txt=(subprocess.check_output(['pdftotext','-f',str(first),'-l',str(last),'-layout',str(pdf),'-'],text=True) if doc is None else '\\n'.join(doc[i].get_text() for i in range(first-1,last)))
     txt=txt.replace('\\x00','').strip()
     assert len(txt)>100, f'No readable text on day {day}'
     stage= ('Se préparer à la rencontre de Jésus par Marie' if day<=7 else
