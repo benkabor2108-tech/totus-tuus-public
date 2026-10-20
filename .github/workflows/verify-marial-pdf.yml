@@ -5,7 +5,7 @@ on:
     paths: ['.github/workflows/verify-marial-pdf.yml']
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
 jobs:
   pdf:
     runs-on: ubuntu-latest
@@ -114,6 +114,18 @@ jobs:
           cmp /tmp/marial/traite-vraie-devotion-fr.pdf /tmp/marial/pdf-served.pdf
           rm /tmp/marial/index-served.html /tmp/marial/pdf-served.pdf /tmp/marial/reader-check.js
           echo "Test HTTP local: lecteur et PDF servis sans dépendance externe"
+      - name: Publier les fichiers de previsualisation sur la branche candidate seulement
+        if: success()
+        run: |
+          mkdir -p preview-marial
+          cp /tmp/marial/index.html /tmp/marial/parcours-33.js /tmp/marial/parcours-33.json /tmp/marial/traite-vraie-devotion-fr.pdf /tmp/marial/TEST_ANDROID.md preview-marial/
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add preview-marial/
+          if ! git diff --cached --quiet; then
+            git commit -m "Build isolated 33-day Marian preview assets"
+            git push origin HEAD:candidate/parcours-marial-33
+          fi
       - uses: actions/upload-artifact@v4
         if: always()
         with:
