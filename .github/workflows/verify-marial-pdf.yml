@@ -91,7 +91,8 @@ jobs:
           assert 'id="larger"' in h and 'id="bottom-next"' in h and '<details>' in h
           assert 'function paginateBook' in h and 'function renderBook' in h and 'bookPages=paginateBook(unit.text)' in h
           assert 'state.bookPage=bookPage' in h and "addEventListener('touchend'" in h
-          assert 'position:sticky' in h and 'maxChars=Math.max(340' in h
+          assert 'function paginateBook' in h and 'reader.scrollHeight<=reader.clientHeight' in h
+          assert 'id="book-cover"' in h and 'id="book-stage"' in h
           assert (p/'parcours-33.js').stat().st_size > 100000
           assert (p/'parcours-33.json').stat().st_size > 100000
           import json
