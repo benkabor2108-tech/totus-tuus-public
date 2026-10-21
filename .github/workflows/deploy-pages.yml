@@ -126,3 +126,5 @@ jobs:
 # Preview candidate refreshed: automatic completion when moving to the next day.
 
 # Refresh isolated preview after correcting JavaScript syntax and cache version.
+
+# Isolated Marian preview refresh 2026-10-21: candidate editorial corrections only; root remains V5.10.0.
