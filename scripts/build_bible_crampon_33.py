@@ -36,7 +36,13 @@ def extract(xml):
   if not name:continue
   for key,aliases in ALIASES.items():
    if name in [norm(a) for a in aliases]:indexed[key]=book
- if len(indexed)<len(BOOKS):raise ValueError("Livres bibliques introuvables: "+repr(sorted(set(BOOKS.values())-set(indexed)))+"; échantillon XML: "+repr([(b.tag,b.attrib) for b in books[:3]]))
+ if len(indexed)<len(BOOKS):
+  # Beblia XML numérote les livres sans leur nom (canon de 66 livres).
+  if len(books)!=66:raise ValueError("Numérotation biblique inattendue: "+str(len(books)))
+  nums={"genese":1,"matthieu":40,"luc":42,"jean":43,"romains":45,"1 corinthiens":46,"2 corinthiens":47,"galates":48,"ephesiens":49,"philippiens":50,"colossiens":51,"1 timothee":54,"hebreux":58}
+  indexed={k:next(b for b in books if attr(b,"number","bnumber")==str(n)) for k,n in nums.items()}
+  print("Structure XML:",[(b.tag,b.attrib,[(c.tag,c.attrib) for c in list(b)[:1]]) for b in books[:1]])
+
  out={}
  for day in json.loads(DATA.read_text(encoding="utf-8"))["jours"]:
   ref=day["lecture_biblique"]["reference"];key,chapter,start,end=parse_ref(ref)
