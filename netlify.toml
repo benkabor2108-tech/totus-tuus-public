@@ -1,0 +1,11 @@
+[build]
+  command = "bash scripts/build_netlify_preview.sh"
+  publish = "site"
+
+[build.environment]
+  PYTHONUNBUFFERED = "1"
+
+[[headers]]
+  for = "/modules/parcours-marial/*.json"
+  [headers.values]
+    Content-Type = "application/json; charset=utf-8"
