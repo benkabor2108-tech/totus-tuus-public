@@ -36,7 +36,7 @@ def extract(xml):
   if not name:continue
   for key,aliases in ALIASES.items():
    if name in [norm(a) for a in aliases]:indexed[key]=book
- if len(indexed)<len(BOOKS):raise ValueError("Livres bibliques introuvables: "+repr(sorted(set(BOOKS.values())-set(indexed))))
+ if len(indexed)<len(BOOKS):raise ValueError("Livres bibliques introuvables: "+repr(sorted(set(BOOKS.values())-set(indexed)))+"; échantillon XML: "+repr([(b.tag,b.attrib) for b in books[:3]]))
  out={}
  for day in json.loads(DATA.read_text(encoding="utf-8"))["jours"]:
   ref=day["lecture_biblique"]["reference"];key,chapter,start,end=parse_ref(ref)
