@@ -4,8 +4,10 @@ on:
     branches: [candidate/parcours-marial-33-jours]
     paths:
       - 'scripts/prepare_marial_release_candidate.py'
+      - 'scripts/build_traite_33_lectures.py'
       - '.github/workflows/prepare-marial-release.yml'
       - 'modules/parcours-marial/**'
+      - 'scripts/build_traite_33_lectures.py'
   workflow_dispatch:
 permissions:
   contents: read
@@ -27,6 +29,7 @@ jobs:
         run: |
           mkdir -p site/modules/parcours-marial
           cp modules/parcours-marial/*.js modules/parcours-marial/*.json site/modules/parcours-marial/
+          python3 scripts/build_traite_33_lectures.py site/modules/parcours-marial/traite_33_lectures.json
           python3 scripts/prepare_marial_release_candidate.py site
       - name: Vérifier la structure, le code et les données
         run: |
@@ -43,7 +46,7 @@ jobs:
           assert 'totus-intercession-v51' in (p/'interventions.js').read_text()
           assert (p/'intercession-prayers.js').stat().st_size>1000
           sw=(p/'service-worker.js').read_text()
-          assert "key.startsWith('totus-tuus-pages-v5-11-0-rc')" in sw
+          assert "key.startsWith('totus-tuus-pages-v5-11-0-rc2')" in sw
           assert 'totus-tuus-parcours-marial-33-v1' in (p/'modules/parcours-marial/parcours-marial.js').read_text()
           print('PASS: 33 journées, 108 prières intégrées, clés historiques et caches préservés')
           PY
