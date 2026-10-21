@@ -140,6 +140,10 @@ bookCSS.textContent+=`
 #tt33-dialog .tt33-page-contents{scrollbar-width:none}
 #tt33-dialog .tt33-page-contents::-webkit-scrollbar{display:none}
 `;
+bookCSS.textContent+=`
+#tt33-dialog .tt33-book-notice:empty{display:none}
+#tt33-dialog .tt33-book-notice:not(:empty){font:600 .78rem/1.35 system-ui;color:#2e5738;background:#eaf3e7;border-radius:7px;padding:6px 9px;margin:3px 0}
+`;
 document.head.append(bookCSS);
 const dlg=document.createElement('dialog');dlg.id='tt33-dialog';dlg.setAttribute('aria-label','Parcours marial de 33 jours');dlg.innerHTML='<div class="tt33-top"><strong>Totus Tuus · Parcours marial</strong><button type="button" id="tt33-close" aria-label="Fermer">Fermer ✕</button></div><div class="tt33-pad" id="tt33-content">Chargement…</div>';document.body.append(dlg);
 const root=dlg.querySelector('#tt33-content');
@@ -177,7 +181,18 @@ function splitPages(book){
  flush();return pages.length?pages:[['Texte indisponible.']];
 }
 
-try{const x=JSON.parse(localStorage.getItem(KEY)||'{}');if(x&&typeof x==='object'&&!Array.isArray(x))done=x;}catch(e){}
+try{
+ const x=JSON.parse(localStorage.getItem(KEY)||'{}');
+ if(x&&typeof x==='object'&&!Array.isArray(x)){
+  // Une journée ultérieure cochée pendant les essais ne doit pas sauter les précédentes.
+  let continuous=true,changed=false;
+  for(let day=1;day<=33;day++){
+   if(x[day]===true&&continuous)done[day]=true;
+   else{if(x[day])changed=true;continuous=false;}
+  }
+  if(changed)localStorage.setItem(KEY,JSON.stringify(done));
+ }
+}catch(e){}
 function makeDayPages(d,book){
  const read=d.lecture_biblique||{};
  const invocationPages=[
@@ -216,12 +231,34 @@ function render(){
  pageIndex=Math.max(0,Math.min(pageIndex,pages.length-1));savePlace();
  const pg=pages[pageIndex],finished=Object.values(done).filter(Boolean).length;
  root.innerHTML='<div class="tt33-book-toolbar"><label for="tt33-day">Chapitre <select id="tt33-day">'+days.map((x,i)=>'<option value="'+i+'" '+(i===index?'selected':'')+'>Jour '+safe(x.jour)+' — '+safe(x.titre)+'</option>').join('')+'</select></label><span class="tt33-meta">'+finished+' / 33</span></div>'+
- '<div class="tt33-book-heading"><span>JOUR '+safe(d.jour)+' · '+safe(pg.label)+'</span><h2>'+safe(d.titre)+'</h2></div>'+
+ '<div id="tt33-book-notice" role="status" aria-live="polite" class="tt33-book-notice"></div><div class="tt33-book-heading"><span>JOUR '+safe(d.jour)+' · '+safe(pg.label)+'</span><h2>'+safe(d.titre)+'</h2></div>'+
  '<article class="tt33-page" id="tt33-page" aria-label="Page '+(pageIndex+1)+' du jour '+d.jour+'" tabindex="0"><div class="tt33-page-contents">'+pg.html+'</div><div class="tt33-page-number">Jour '+d.jour+' · Page '+(pageIndex+1)+' / '+pages.length+'</div></article>'+
  '<div class="tt33-page-nav"><button id="tt33-back" type="button" '+(index===0&&pageIndex===0?'disabled':'')+' aria-label="Tourner la page précédente">‹ Précédente</button><span class="tt33-font-tools"><button id="tt33-smaller" type="button" aria-label="Réduire les caractères">A−</button><button id="tt33-larger" type="button" aria-label="Agrandir les caractères">A+</button></span><button id="tt33-forward" type="button" '+(index===32&&pageIndex===pages.length-1?'disabled':'')+' aria-label="Tourner la page suivante">Suivante ›</button></div>'+
  '<label class="tt33-check"><input type="checkbox" id="tt33-done" '+(done[d.jour]?'checked':'')+'> Journée accomplie</label>'+ '<button id="tt33-reset" type="button" class="tt33-reset" aria-label="Effacer uniquement les journées marquées accomplies">Recommencer le parcours à 0/33</button>';
  root.querySelector('#tt33-day').onchange=e=>{index=Number(e.target.value);pageIndex=0;chapter='book';render();};
- root.querySelector('#tt33-done').onchange=e=>{done[d.jour]=e.target.checked;try{localStorage.setItem(KEY,JSON.stringify(done));}catch(err){}render();};
+ root.querySelector('#tt33-done').onchange=e=>{
+  const checked=e.target.checked;
+  const next=Array.from({length:33},(_,i)=>i+1).find(n=>done[n]!==true);
+  if(checked&&next!==undefined&&d.jour!==next){
+   // Les autres jours restent consultables, mais ne peuvent être accomplis hors ordre.
+   index=next-1;pageIndex=0;chapter='book';render();
+   root.querySelector('#tt33-book-notice').textContent='Commencez par le jour '+next+'. Le livre vous y conduit automatiquement.';
+   return;
+  }
+  if(checked){
+   done[d.jour]=true;
+   try{localStorage.setItem(KEY,JSON.stringify(done));}catch(err){}
+   // Validation explicite => passage immédiat à l'invocation du prochain jour.
+   openAtCurrentDay();render();
+   root.querySelector('#tt33-book-notice').textContent=d.jour===33?'Parcours de 33 jours accompli.':'Jour '+d.jour+' accompli. Voici l’invocation du jour '+(d.jour+1)+'.';
+  }else{
+   delete done[d.jour];
+   // En cas de correction, supprimer les coches suivantes pour conserver un parcours ordonné.
+   for(let n=d.jour+1;n<=33;n++)delete done[n];
+   try{localStorage.setItem(KEY,JSON.stringify(done));}catch(err){}
+   openAtCurrentDay();render();
+  }
+ };
  root.querySelector('#tt33-reset').onclick=()=>{if(!confirm('Recommencer tout le parcours à 0/33 ? Cette action effacera les journées accomplies. Les textes et prières seront conservés.'))return;done={};index=0;pageIndex=0;chapter='book';try{localStorage.setItem(KEY,'{}');}catch(e){}render();};
  root.querySelector('#tt33-back').onclick=()=>turn(-1);
  root.querySelector('#tt33-forward').onclick=()=>turn(1);
