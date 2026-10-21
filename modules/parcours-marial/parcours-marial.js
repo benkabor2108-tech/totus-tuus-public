@@ -75,6 +75,8 @@ bookCSS.textContent+=`
 `;
 bookCSS.textContent+=`
 /* Livre continu : les rubriques deviennent des pages, non des onglets. */
+#tt33-dialog .tt33-verse{line-height:1.65}#tt33-dialog .tt33-verse sup{color:#806333;font-size:.65em;margin-right:.2em}
+
 #tt33-dialog .tt33-top{background:#fbf7ef;border-bottom:1px solid #e7dcc8}
 #tt33-dialog .tt33-pad{background:#f4ecdc}
 #tt33-dialog .tt33-book-toolbar select{background:transparent;border:1px solid #d2c5ae;color:#263c58}
@@ -127,12 +129,25 @@ try{const x=JSON.parse(localStorage.getItem(KEY)||'{}');if(x&&typeof x==='object
 function makeDayPages(d,book){
  const read=d.lecture_biblique||{};
  const invocation='<h3>Invocation au Saint-Esprit</h3><p>Viens, Esprit Saint, remplis mon cœur de ta lumière et de ton amour.</p><p>Ouvre mon intelligence à la Parole de Dieu, dispose mon cœur à accueillir la vérité et guide-moi dans la lecture et la méditation de ce jour.</p><p>Par l’intercession de la Très Sainte Vierge Marie, apprends-moi à écouter Jésus, à comprendre sa volonté et à la mettre en pratique dans ma vie.</p><p>Esprit de sagesse et de sainteté, conduis-moi chaque jour plus près de Jésus-Christ.</p><p><strong>Amen.</strong></p>';
- const bible='<h3>Parole de Dieu</h3><p><strong>'+safe(read.reference||d.reference_biblique)+'</strong></p><p class="tt33-note">Présentation du passage (ce résumé n’est pas le texte biblique intégral).</p><p>'+safe(read.resume_original)+'</p><p class="tt33-note">Pour lire les versets dans une Bible, consultez la référence indiquée. Le lien externe peut être momentanément indisponible.</p>';
+ const passage=bibleDays[String(d.jour)];
+ const verses=passage?.versets||[];
+ const biblePages=[];
+ if(verses.length){
+  let group=[],count=0;
+  for(const v of verses){
+   const line='<p class="tt33-verse"><sup>'+safe(v.numero)+'</sup> '+safe(v.texte)+'</p>';
+   if(group.length&&count+v.texte.length>530){biblePages.push({label:'Parole de Dieu',html:'<h3>Parole de Dieu · '+safe(read.reference)+'</h3>'+group.join('')});group=[];count=0;}
+   group.push(line);count+=v.texte.length;
+  }
+  if(group.length)biblePages.push({label:'Parole de Dieu',html:'<h3>Parole de Dieu · '+safe(read.reference)+'</h3>'+group.join('')});
+ }else{
+  biblePages.push({label:'Parole de Dieu',html:'<h3>Parole de Dieu · '+safe(read.reference)+'</h3><p>Le texte biblique n’est pas disponible dans cette édition du livre.</p>'});
+ }
  const meditation='<h3>Méditation</h3><p>'+safe(d.explication_spirituelle)+'</p><h3>Pour réfléchir</h3><p>'+safe(d.question_meditation)+'</p>';
  const texts=splitPages(book).map((parts,i)=>({label:'Traité · '+(i+1),html:parts.map(t=>'<p>'+safe(t)+'</p>').join('')}));
  return [
   {label:'Invocation',html:invocation},
-  {label:'Parole de Dieu',html:bible},
+  ...biblePages,
   {label:'Méditation',html:meditation},
   ...texts,
   {label:'Prière du jour',html:'<h3>Prière du jour</h3><p>'+safe(d.priere_du_jour)+'</p><h3>Résolution facultative</h3><p>'+safe(d.resolution_facultative)+'</p>'}
@@ -142,7 +157,7 @@ function render(){
  const d=days[index];if(!d)return;
  const pages=makeDayPages(d,bookDays[index]);
  // Compatibilité avec les anciennes positions sauvegardées, sans toucher aux journées accomplies.
- if(chapter!=='book'){const targets={bible:1,meditation:2,priere:pages.length-1};pageIndex=targets[chapter]??0;chapter='book';}
+ if(chapter!=='book'){const targets={bible:1,meditation:1+(bibleDays[String(d.jour)]?.versets?.length?Math.ceil(bibleDays[String(d.jour)].versets.length/5):1),priere:pages.length-1};pageIndex=targets[chapter]??0;chapter='book';}
  pageIndex=Math.max(0,Math.min(pageIndex,pages.length-1));savePlace();
  const pg=pages[pageIndex],finished=Object.values(done).filter(Boolean).length;
  root.innerHTML='<div class="tt33-book-toolbar"><label for="tt33-day">Chapitre <select id="tt33-day">'+days.map((x,i)=>'<option value="'+i+'" '+(i===index?'selected':'')+'>Jour '+safe(x.jour)+' — '+safe(x.titre)+'</option>').join('')+'</select></label><span class="tt33-meta">'+finished+' / 33</span></div>'+
@@ -177,5 +192,5 @@ function resize(delta){fontSize=Math.max(15,Math.min(28,fontSize+delta));dlg.sty
 dlg.style.setProperty('--tt33-font-size',fontSize+'px');
 
 let promise;
-btn.addEventListener('click',async()=>{if(!dlg.open)dlg.showModal();if(days.length){render();return;}root.textContent='Chargement du parcours…';try{promise ||= Promise.all([fetch(DATA).then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json();}),fetch('./modules/parcours-marial/traite_33_lectures.json').then(r=>{if(!r.ok)throw Error('Livre HTTP '+r.status);return r.json();})]);const [j,b]=await promise;if(!Array.isArray(j.jours)||j.jours.length!==33||!Array.isArray(b.jours)||b.jours.length!==33||b.jours.some(x=>!x.paragraphes?.length))throw Error('Données incomplètes');days=j.jours;bookDays=b.jours;render();}catch(e){promise=null;root.textContent='Impossible de charger le texte authentique du Traité et les 33 journées. Réessayez lorsque la connexion est disponible.';}});
+btn.addEventListener('click',async()=>{if(!dlg.open)dlg.showModal();if(days.length){render();return;}root.textContent='Chargement du parcours…';try{promise ||= Promise.all([fetch(DATA).then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json();}),fetch('./modules/parcours-marial/traite_33_lectures.json').then(r=>{if(!r.ok)throw Error('Livre HTTP '+r.status);return r.json();}),fetch('./modules/parcours-marial/bible_crampon_33_lectures.json').then(r=>{if(!r.ok)throw Error('Bible HTTP '+r.status);return r.json();})]);const [j,b,scripture]=await promise;if(!Array.isArray(j.jours)||j.jours.length!==33||!Array.isArray(b.jours)||b.jours.length!==33||b.jours.some(x=>!x.paragraphes?.length))throw Error('Données incomplètes');if(Object.keys(scripture.jours||{}).length!==33)throw Error('Passages bibliques incomplets');days=j.jours;bookDays=b.jours;bibleDays=scripture.jours;render();}catch(e){promise=null;root.textContent='Impossible de charger le livre, les passages bibliques et les 33 journées. Réessayez lorsque la connexion est disponible.';}});
 })();
