@@ -77,7 +77,7 @@ bookCSS.textContent+=`
 `;
 bookCSS.textContent+=`
 /* Livre continu : les rubriques deviennent des pages, non des onglets. */
-#tt33-dialog .tt33-page-contents{font-family:Georgia,'Times New Roman',serif;line-height:1.52;letter-spacing:.005em;hyphens:auto;overflow-wrap:break-word}
+#tt33-dialog .tt33-page-contents{font-family:Georgia,'Times New Roman',serif;line-height:1.52;letter-spacing:.005em;hyphens:none;overflow-wrap:normal;word-break:normal}
 #tt33-dialog .tt33-page-contents p{line-height:1.52;margin-bottom:.65em}
 #tt33-dialog .tt33-page-contents h3{font-size:1.06em;line-height:1.25;margin-bottom:.7em}
 #tt33-dialog .tt33-book-heading{padding:2px 0 5px}
@@ -131,6 +131,15 @@ bookCSS.textContent+=`
 #tt33-dialog .tt33-reset{font-size:.67rem;padding:4px 8px}
 @media(max-width:420px){#tt33-dialog .tt33-page-nav button{min-height:42px}#tt33-dialog .tt33-page{border-left-width:4px}}
 `;
+bookCSS.textContent+=`
+/* V5.11.2 : lecture naturelle sans césure automatique, pages de prière raccourcies. */
+#tt33-dialog .tt33-page-contents{font-size:var(--tt33-font-size);line-height:1.48;hyphens:none!important;overflow-wrap:normal!important;word-break:normal!important}
+#tt33-dialog .tt33-page-contents p{line-height:1.48;hyphens:none!important;overflow-wrap:normal!important;word-break:normal!important}
+#tt33-dialog .tt33-page-contents h3{font-size:1.03em;margin-bottom:.7em}
+#tt33-dialog .tt33-page{padding:clamp(12px,3.5vw,20px)}
+#tt33-dialog .tt33-page-contents{scrollbar-width:none}
+#tt33-dialog .tt33-page-contents::-webkit-scrollbar{display:none}
+`;
 document.head.append(bookCSS);
 const dlg=document.createElement('dialog');dlg.id='tt33-dialog';dlg.setAttribute('aria-label','Parcours marial de 33 jours');dlg.innerHTML='<div class="tt33-top"><strong>Totus Tuus · Parcours marial</strong><button type="button" id="tt33-close" aria-label="Fermer">Fermer ✕</button></div><div class="tt33-pad" id="tt33-content">Chargement…</div>';document.body.append(dlg);
 const root=dlg.querySelector('#tt33-content');
@@ -151,7 +160,7 @@ function openAtCurrentDay(){
 }
 
 function splitPages(book){
- const paragraphs=book?.paragraphes||[],pages=[];let current='',limit=345;
+ const paragraphs=book?.paragraphes||[],pages=[];let current='',limit=440;
  function flush(){if(current.trim()){pages.push([current.trim()]);current='';}}
  for(const p of paragraphs){
   const text=String(p.texte||'').trim();if(!text)continue;
@@ -171,7 +180,10 @@ function splitPages(book){
 try{const x=JSON.parse(localStorage.getItem(KEY)||'{}');if(x&&typeof x==='object'&&!Array.isArray(x))done=x;}catch(e){}
 function makeDayPages(d,book){
  const read=d.lecture_biblique||{};
- const invocation='<h3>Invocation au Saint-Esprit</h3><p>Viens, Esprit Saint, remplis mon cœur de ta lumière et de ton amour.</p><p>Ouvre mon intelligence à la Parole de Dieu, dispose mon cœur à accueillir la vérité et guide-moi dans la lecture et la méditation de ce jour.</p><p>Par l’intercession de la Très Sainte Vierge Marie, apprends-moi à écouter Jésus, à comprendre sa volonté et à la mettre en pratique dans ma vie.</p><p>Esprit de sagesse et de sainteté, conduis-moi chaque jour plus près de Jésus-Christ.</p><p><strong>Amen.</strong></p>';
+ const invocationPages=[
+  {label:'Invocation',html:'<h3>Invocation au Saint-Esprit</h3><p>Viens, Esprit Saint, remplis mon cœur de ta lumière et de ton amour.</p><p>Ouvre mon intelligence à la Parole de Dieu, dispose mon cœur à accueillir la vérité et guide-moi dans la lecture et la méditation de ce jour.</p>'},
+  {label:'Invocation · suite',html:'<h3>Invocation au Saint-Esprit (suite)</h3><p>Par l’intercession de la Très Sainte Vierge Marie, apprends-moi à écouter Jésus, à comprendre sa volonté et à la mettre en pratique dans ma vie.</p><p>Esprit de sagesse et de sainteté, conduis-moi chaque jour plus près de Jésus-Christ.</p><p><strong>Amen.</strong></p>'}
+ ];
  const passage=bibleDays[String(d.jour)];
  const verses=passage?.versets||[];
  const biblePages=[];
@@ -189,7 +201,7 @@ function makeDayPages(d,book){
  const meditation='<h3>Méditation</h3><p>'+safe(d.explication_spirituelle)+'</p><h3>Pour réfléchir</h3><p>'+safe(d.question_meditation)+'</p>';
  const texts=splitPages(book).map((parts,i)=>({label:'Traité · '+(i+1),html:parts.map(t=>'<p>'+safe(t)+'</p>').join('')}));
  return [
-  {label:'Invocation',html:invocation},
+  ...invocationPages,
   ...biblePages,
   {label:'Méditation',html:meditation},
   ...texts,
@@ -200,7 +212,7 @@ function render(){
  const d=days[index];if(!d)return;
  const pages=makeDayPages(d,bookDays[index]);
  // Compatibilité avec les anciennes positions sauvegardées, sans toucher aux journées accomplies.
- if(chapter!=='book'){const targets={bible:1,meditation:1+(bibleDays[String(d.jour)]?.versets?.length?Math.ceil(bibleDays[String(d.jour)].versets.length/5):1),priere:pages.length-1};pageIndex=targets[chapter]??0;chapter='book';}
+ if(chapter!=='book'){const targets={bible:2,meditation:2+(bibleDays[String(d.jour)]?.versets?.length?Math.ceil(bibleDays[String(d.jour)].versets.length/5):1),priere:pages.length-1};pageIndex=targets[chapter]??0;chapter='book';}
  pageIndex=Math.max(0,Math.min(pageIndex,pages.length-1));savePlace();
  const pg=pages[pageIndex],finished=Object.values(done).filter(Boolean).length;
  root.innerHTML='<div class="tt33-book-toolbar"><label for="tt33-day">Chapitre <select id="tt33-day">'+days.map((x,i)=>'<option value="'+i+'" '+(i===index?'selected':'')+'>Jour '+safe(x.jour)+' — '+safe(x.titre)+'</option>').join('')+'</select></label><span class="tt33-meta">'+finished+' / 33</span></div>'+
@@ -231,8 +243,8 @@ function turn(dir){
  chapter='book';render();
 }
 const FONT_KEY=KEY+'-font-size';
-let fontSize=Number(localStorage.getItem(FONT_KEY))||16;
-function resize(delta){fontSize=Math.max(14,Math.min(23,fontSize+delta));dlg.style.setProperty('--tt33-font-size',fontSize+'px');try{localStorage.setItem(FONT_KEY,String(fontSize));}catch(e){}}
+let fontSize=Number(localStorage.getItem(FONT_KEY))||15;
+function resize(delta){fontSize=Math.max(13,Math.min(21,fontSize+delta));dlg.style.setProperty('--tt33-font-size',fontSize+'px');try{localStorage.setItem(FONT_KEY,String(fontSize));}catch(e){}}
 dlg.style.setProperty('--tt33-font-size',fontSize+'px');
 
 let promise;
