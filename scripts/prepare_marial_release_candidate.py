@@ -20,6 +20,13 @@ assert "totus-intercession-v51" in interventions, "Historical intercession stora
 js = (module / "parcours-marial.js").read_text(encoding="utf-8")
 assert "totus-tuus-parcours-marial-33-v1" in js
 assert "cache:'no-store'" not in js
+# The isolated preview must never write to the same localStorage key as a future production release.
+# Preserve the original candidate source key for a later production release.
+preview_key='totus-tuus-parcours-marial-33-preview-rc2'
+assert preview_key not in js
+preview_js=js.replace('totus-tuus-parcours-marial-33-v1',preview_key)
+(module / 'parcours-marial.js').write_text(preview_js,encoding='utf-8')
+assert preview_key in (module / 'parcours-marial.js').read_text(encoding='utf-8')
 
 htmlfile = site / "index.html"
 html = htmlfile.read_text(encoding="utf-8")
@@ -42,7 +49,7 @@ assert "key.startsWith('totus-tuus-pages-v5-11-0-rc2')" in sw
 sw=sw.replace("caches.match(req).then(res=>res||caches.match('./index.html'))","caches.match(req).then(res=>res||(req.mode==='navigate'?caches.match('./index.html'):Response.error()))")
 assert "req.mode==='navigate'?caches.match('./index.html'):Response.error()" in sw
 # Ensure the browser detects a new service worker after the editorial corrections.
-sw += "\n// Marial editorial refresh 2026-10-21: 33 AELF links and revised meditations.\n"
+sw += "\n// Marial preview storage isolation 2026-10-21: unique progress key for RC2.\n"
 swfile.write_text(sw,encoding="utf-8")
 (site/"version.json").write_text(json.dumps({"version":"5.11.0-rc2","release":"release-candidate-not-deployed"},ensure_ascii=False),encoding="utf-8")
 assert htmlfile.read_text().count("intercession-prayers.js")==1
