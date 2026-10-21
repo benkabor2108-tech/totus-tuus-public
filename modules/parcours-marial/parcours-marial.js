@@ -12,7 +12,7 @@ coverCSS.textContent=`
 .tt33-cover{position:relative;isolation:isolate;display:block;width:min(100%,520px);min-height:330px;margin:24px auto;padding:0;border:0;border-radius:20px;overflow:hidden;cursor:pointer;background:#142944;color:#fff;box-shadow:0 18px 38px #10182d42;text-align:center;transform:translateZ(0)}
 .tt33-cover .tt33-cover-scene{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.06);animation:tt33-cover-fade 18s ease-in-out infinite}
 .tt33-cover .tt33-cover-scene:nth-child(1){background-image:linear-gradient(#09152c22,#07142e66),url('./couverture.png');animation-delay:0s}
-.tt33-cover .tt33-cover-scene:nth-child(2){background-image:linear-gradient(#09152c44,#07142e88),url('./icone-512.png');background-size:cover;animation-delay:6s}
+.tt33-cover .tt33-cover-scene:nth-child(2){background-image:linear-gradient(#09152c44,#07142e88),url('./couverture.png');background-size:cover;animation-delay:6s}
 .tt33-cover .tt33-cover-scene:nth-child(3){background-image:linear-gradient(#09152c22,#07142e66),url('./couverture.png');background-position:70% center;animation-delay:12s}
 .tt33-cover::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,#06132722 0%,#07132922 35%,#071329df 100%);z-index:1}
 .tt33-cover .tt33-cover-copy{position:relative;z-index:2;display:flex;min-height:330px;flex-direction:column;justify-content:flex-end;align-items:center;gap:9px;padding:26px 18px 30px;text-shadow:0 2px 8px #0009}
@@ -29,7 +29,7 @@ document.head.append(coverCSS);
 function installCover(){
  if(document.querySelector('.tt33-cover'))return;
  const heads=[...document.querySelectorAll('h1,h2,h3,h4')];
- const anchor=heads.find(h=>/la neuvaine guidée/i.test(h.textContent||''))||heads.find(h=>/quelle prière souhaitez-vous faire/i.test(h.textContent||''));
+ const anchor=heads.find(h=>/la neuvaine guidée/i.test(h.textContent||''))||heads.find(h=>/quelle prière souhaitez-vous faire/i.test(h.textContent||''))||heads.find(h=>/commencer/i.test(h.textContent||''));
  if(!anchor)return;
  const card=document.createElement('button');
  card.type='button';card.className='tt33-cover';card.setAttribute('aria-label','Ouvrir le livre 33 jours avec Marie');
@@ -39,32 +39,65 @@ function installCover(){
  btn.style.display='none';
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',installCover,{once:true});else installCover();
+const coverObserver=new MutationObserver(()=>{if(!document.querySelector('.tt33-cover'))installCover();});coverObserver.observe(document.body,{childList:true,subtree:true});
+const bookCSS=document.createElement('style');
+bookCSS.textContent=`
+#tt33-dialog{--tt33-font-size:18px;max-width:780px;background:#f6f0e5}
+#tt33-dialog .tt33-pad{padding:16px}
+#tt33-dialog .tt33-book-toolbar,#tt33-dialog .tt33-page-nav{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:9px}
+#tt33-dialog .tt33-chapters{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0}
+#tt33-dialog .tt33-chapters button[aria-pressed="true"]{background:#483263;color:white}
+#tt33-dialog .tt33-page{background:#fffdf7;border:1px solid #ded3bb;border-radius:8px;box-shadow:inset 8px 0 15px #947f5012,0 5px 20px #281c2a17;min-height:330px;margin:14px 0;padding:clamp(18px,4vw,38px);display:flex;flex-direction:column;justify-content:space-between}
+#tt33-dialog .tt33-page-contents{font:var(--tt33-font-size)/1.72 Georgia,'Times New Roman',serif;overflow-wrap:anywhere}
+#tt33-dialog .tt33-page-contents p{font-size:inherit;line-height:inherit}
+#tt33-dialog .tt33-page-number{font:12px system-ui;text-align:center;color:#7c6c5c;margin-top:25px}
+#tt33-dialog .tt33-font-tools{display:flex;gap:5px}
+#tt33-dialog .tt33-page-nav button{min-height:44px}
+@media(max-width:520px){#tt33-dialog .tt33-page-nav{justify-content:center}#tt33-dialog .tt33-page{min-height:360px}}
+`;
+document.head.append(bookCSS);
 const dlg=document.createElement('dialog');dlg.id='tt33-dialog';dlg.setAttribute('aria-label','Parcours marial de 33 jours');dlg.innerHTML='<div class="tt33-top"><strong>Totus Tuus · Parcours marial</strong><button type="button" id="tt33-close" aria-label="Fermer">Fermer ✕</button></div><div class="tt33-pad" id="tt33-content">Chargement…</div>';document.body.append(dlg);
 const root=dlg.querySelector('#tt33-content');
 dlg.querySelector('#tt33-close').addEventListener('click',()=>dlg.close());
 const safe=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const link=(u,label)=>{try{let p=new URL(u);if(p.protocol==='https:')return '<a target="_blank" rel="noopener noreferrer" href="'+safe(p.href)+'">'+safe(label)+'</a>';}catch(e){}return '';};
-let days=[],bookDays=[],index=0,done={};
+let days=[],bookDays=[],index=0,done={},pageIndex=0,chapter='book';
+const PLACE=KEY+'-reading-position';
+try{const p=JSON.parse(localStorage.getItem(PLACE)||'{}');if(Number.isInteger(p.day)&&p.day>=0&&p.day<33)index=p.day;if(Number.isInteger(p.page)&&p.page>=0)pageIndex=p.page;if(['book','bible','meditation','priere'].includes(p.chapter))chapter=p.chapter;}catch(e){}
+function savePlace(){try{localStorage.setItem(PLACE,JSON.stringify({day:index,page:pageIndex,chapter}));}catch(e){}}
+function splitPages(book){const paras=book?.paragraphes||[];const pages=[];let current=[],size=0;for(const p of paras){const t=String(p.texte||'');if(current.length&&size+t.length>1150){pages.push(current);current=[];size=0;}current.push(t);size+=t.length;}if(current.length)pages.push(current);return pages.length?pages:[['Texte indisponible.']];}
+
 try{const x=JSON.parse(localStorage.getItem(KEY)||'{}');if(x&&typeof x==='object'&&!Array.isArray(x))done=x;}catch(e){}
 function render(){const d=days[index];if(!d)return;
-const read=d.lecture_biblique||{},page=d.pages_imprimees||{},book=bookDays[index];
-root.innerHTML='<div class="tt33-nav"><label for="tt33-day">Jour <select id="tt33-day">'+days.map((x,i)=>'<option value="'+i+'" '+(i===index?'selected':'')+'>'+safe(x.jour)+' — '+safe(x.titre)+'</option>').join('')+'</select></label><span class="tt33-meta">'+Object.values(done).filter(Boolean).length+' / 33 accomplis</span></div>'+
-'<h2>Jour '+safe(d.jour)+' — '+safe(d.titre)+'</h2><p class="tt33-meta">'+safe(d.phase)+' · Traité, pages indicatives '+safe(page.debut)+'–'+safe(page.fin)+'</p>'+
-'<div class="tt33-jump"><button type="button" data-tt33-go="tt33-bible">Bible</button><button type="button" data-tt33-go="tt33-book">Livre</button><button type="button" data-tt33-go="tt33-meditation">Méditation</button><button type="button" data-tt33-go="tt33-priere">Prière</button></div>'+
-'<details class="tt33-section" id="tt33-bible"><summary>1 · Parole de Dieu</summary><div class="tt33-section-body"><p><strong>'+safe(read.reference||d.reference_biblique)+'</strong></p><p>'+safe(read.resume_original)+'</p><p>'+link(read.url_lecture,'Lire le passage biblique')+'</p></div></details>'+
-'<details class="tt33-section" id="tt33-book" open><summary>2 · Lecture du Traité — texte authentique ('+(book?book.paragraphes.length:0)+' paragraphes)</summary><div class="tt33-section-body"><p class="tt33-book-meta">Édition Gaume frères (1859), transcription Wikisource. Découpage éditorial provisoire en 33 lectures.</p>'+ (book?book.paragraphes.map(p=>'<p class="tt33-book">'+safe(p.texte)+'</p>').join(''):'<p>Texte du livre indisponible.</p>')+'<p>'+link(d.source_texte_integral,'Consulter le Traité sur le site source')+'</p></div></details>'+
-'<details class="tt33-section" id="tt33-meditation"><summary>3 · Méditation complémentaire</summary><div class="tt33-section-body"><p>'+safe(d.explication_spirituelle)+'</p><h3>Question pour méditer</h3><p>'+safe(d.question_meditation)+'</p></div></details>'+
-'<details class="tt33-section" id="tt33-priere"><summary>4 · Prière et résolution</summary><div class="tt33-section-body"><h3>Prière du jour</h3><p>'+safe(d.priere_du_jour)+'</p><h3>Résolution facultative</h3><p>'+safe(d.resolution_facultative)+'</p></div></details>'+
+const read=d.lecture_biblique||{},book=bookDays[index],pages=splitPages(book);
+pageIndex=Math.max(0,Math.min(pageIndex,pages.length-1));savePlace();
+const content={
+book:'<p class="tt33-book-meta">Lecture du Traité · transcription de l’édition Gaume frères (1859). Découpage en 33 jours à caractère éditorial.</p>'+pages[pageIndex].map(t=>'<p class="tt33-book">'+safe(t)+'</p>').join('')+'<p class="tt33-book-meta">'+link(d.source_texte_integral,'Consulter le texte source')+'</p>',
+bible:'<h3>Parole de Dieu</h3><p><strong>'+safe(read.reference||d.reference_biblique)+'</strong></p><p>'+safe(read.resume_original)+'</p><p>'+link(read.url_lecture,'Lire le passage biblique')+'</p>',
+meditation:'<h3>Méditation</h3><p>'+safe(d.explication_spirituelle)+'</p><h3>Question pour méditer</h3><p>'+safe(d.question_meditation)+'</p>',
+priere:'<h3>Prière du jour</h3><p>'+safe(d.priere_du_jour)+'</p><h3>Résolution facultative</h3><p>'+safe(d.resolution_facultative)+'</p>'
+};
+root.innerHTML='<div class="tt33-book-toolbar"><label for="tt33-day">Jour <select id="tt33-day">'+days.map((x,i)=>'<option value="'+i+'" '+(i===index?'selected':'')+'>'+safe(x.jour)+' — '+safe(x.titre)+'</option>').join('')+'</select></label><span class="tt33-meta">'+Object.values(done).filter(Boolean).length+' / 33 accomplis</span></div>'+
+'<h2>Jour '+safe(d.jour)+' — '+safe(d.titre)+'</h2>'+
+'<nav class="tt33-chapters" aria-label="Rubriques du jour">'+[['book','Livre'],['bible','Bible'],['meditation','Méditation'],['priere','Prière']].map(([id,label])=>'<button type="button" data-chapter="'+id+'" aria-pressed="'+(chapter===id)+'">'+label+'</button>').join('')+'</nav>'+
+'<article class="tt33-page" id="tt33-page" aria-label="Page du livre"><div class="tt33-page-contents">'+content[chapter]+'</div><div class="tt33-page-number">'+(chapter==='book'?'Page '+(pageIndex+1)+' / '+pages.length:'Jour '+d.jour)+'</div></article>'+
+'<div class="tt33-page-nav"><button id="tt33-back" type="button" '+(chapter==='book'&&index===0&&pageIndex===0?'disabled':'')+'>← Page précédente</button><span class="tt33-font-tools"><button id="tt33-smaller" type="button" aria-label="Réduire les caractères">A−</button><button id="tt33-larger" type="button" aria-label="Agrandir les caractères">A+</button></span><button id="tt33-forward" type="button">Page suivante →</button></div>'+
 '<label class="tt33-check"><input type="checkbox" id="tt33-done" '+(done[d.jour]?'checked':'')+'> Marquer ce jour comme accompli</label>'+
-'<div class="tt33-nav"><button id="tt33-prev" '+(index===0?'disabled':'')+'>← Précédent</button><button id="tt33-next">'+(index===days.length-1?'Terminer le parcours ✓':'Valider et passer au jour suivant →')+'</button></div>'+ 
-'<p class="tt33-meta">Parcours éditorial original inspiré du Traité, distinct d’une préparation officielle de consécration. Références bibliques et pages à vérifier avant publication.</p>';
-root.querySelectorAll('[data-tt33-go]').forEach(b=>b.onclick=()=>{const el=root.querySelector('#'+b.dataset.tt33Go);if(el){el.open=true;el.scrollIntoView({block:'start',behavior:'smooth'});}});
-root.querySelector('#tt33-day').onchange=e=>{index=Number(e.target.value);render();};
+'<p class="tt33-meta">Parcours spirituel original inspiré du Traité ; ce découpage ne constitue pas une édition officielle de préparation à la consécration.</p>';
+root.querySelector('#tt33-day').onchange=e=>{index=Number(e.target.value);pageIndex=0;chapter='book';render();};
+root.querySelectorAll('[data-chapter]').forEach(b=>b.onclick=()=>{chapter=b.dataset.chapter;render();});
 root.querySelector('#tt33-done').onchange=e=>{done[d.jour]=e.target.checked;try{localStorage.setItem(KEY,JSON.stringify(done));}catch(err){}render();};
-root.querySelector('#tt33-prev').onclick=()=>{index--;render();};
-root.querySelector('#tt33-next').onclick=()=>{done[d.jour]=true;try{localStorage.setItem(KEY,JSON.stringify(done));}catch(err){}if(index<days.length-1)index++;render();};
-root.scrollTop=0;dlg.scrollTop=0;
+root.querySelector('#tt33-back').onclick=()=>{if(chapter!=='book'){chapter='book';render();return;}if(pageIndex>0)pageIndex--;else if(index>0){index--;pageIndex=splitPages(bookDays[index]).length-1;}render();};
+root.querySelector('#tt33-forward').onclick=()=>{if(chapter!=='book'){chapter='book';render();return;}if(pageIndex<pages.length-1)pageIndex++;else if(index<32){index++;pageIndex=0;}else{done[d.jour]=true;try{localStorage.setItem(KEY,JSON.stringify(done));}catch(e){}}render();};
+root.querySelector('#tt33-smaller').onclick=()=>resize(-1);
+root.querySelector('#tt33-larger').onclick=()=>resize(1);
+dlg.scrollTop=0;
 }
+const FONT_KEY=KEY+'-font-size';
+let fontSize=Number(localStorage.getItem(FONT_KEY))||18;
+function resize(delta){fontSize=Math.max(15,Math.min(28,fontSize+delta));dlg.style.setProperty('--tt33-font-size',fontSize+'px');try{localStorage.setItem(FONT_KEY,String(fontSize));}catch(e){}}
+dlg.style.setProperty('--tt33-font-size',fontSize+'px');
+
 let promise;
 btn.addEventListener('click',async()=>{if(!dlg.open)dlg.showModal();if(days.length){render();return;}root.textContent='Chargement du parcours…';try{promise ||= Promise.all([fetch(DATA).then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json();}),fetch('./modules/parcours-marial/traite_33_lectures.json').then(r=>{if(!r.ok)throw Error('Livre HTTP '+r.status);return r.json();})]);const [j,b]=await promise;if(!Array.isArray(j.jours)||j.jours.length!==33||!Array.isArray(b.jours)||b.jours.length!==33||b.jours.some(x=>!x.paragraphes?.length))throw Error('Données incomplètes');days=j.jours;bookDays=b.jours;render();}catch(e){promise=null;root.textContent='Impossible de charger le texte authentique du Traité et les 33 journées. Réessayez lorsque la connexion est disponible.';}});
 })();
