@@ -37,6 +37,8 @@ const assert=require('node:assert/strict');
   assert.equal(await page.locator('#tt33-day').inputValue(),'0');
 
   await page.locator('#tt33-forward').click();
+  assert.match(await page.locator('#tt33-page').innerText(),/Invocation au Saint-Esprit/);
+  await page.locator('#tt33-forward').click();
   assert.match(await page.locator('#tt33-page').innerText(),/Parole de Dieu/);
   assert.match(await page.locator('#tt33-page').innerText(),/Gabriel/);
   assert.match(await page.locator('#tt33-page').innerText(),/26/);
@@ -44,6 +46,7 @@ const assert=require('node:assert/strict');
   assert.match(await page.locator('#tt33-page').innerText(),/Invocation/);
   await page.locator('#tt33-day').selectOption('32');
   assert.match(await page.locator('#tt33-page').innerText(),/Invocation/);
+  await page.locator('#tt33-forward').click();
   await page.locator('#tt33-forward').click();
   assert.match(await page.locator('#tt33-page').innerText(),/Corinthiens|Co 11/);
   await page.locator('#tt33-day').selectOption('0');
