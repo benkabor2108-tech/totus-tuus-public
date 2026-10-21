@@ -6,6 +6,7 @@ on:
       - 'scripts/prepare_marial_release_candidate.py'
       - 'scripts/build_traite_33_lectures.py'
       - 'scripts/build_bible_crampon_33.py'
+      - 'scripts/test_marial_reader.cjs'
       - '.github/workflows/prepare-marial-release.yml'
       - 'modules/parcours-marial/**'
       - 'scripts/build_traite_33_lectures.py'
@@ -53,6 +54,13 @@ jobs:
           assert 'totus-tuus-parcours-marial-33-v1' not in (p/'modules/parcours-marial/parcours-marial.js').read_text()
           print('PASS: 33 journées, 108 prières intégrées, clés historiques et caches préservés')
           PY
+      - name: Tester le feuilletage mobile avec Chromium
+        run: |
+          npm install --no-save --no-package-lock playwright@1.58.2
+          npx playwright install --with-deps chromium
+          (cd site && python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/totus-reader-http.log 2>&1) &
+          sleep 3
+          node scripts/test_marial_reader.cjs
       - name: Conserver le livrable pour validation manuelle (aucun déploiement)
         uses: actions/upload-artifact@v4
         with:
