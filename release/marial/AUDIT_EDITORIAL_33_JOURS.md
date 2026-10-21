@@ -63,3 +63,19 @@
 ## Portée de cet audit
 
 Cet audit est fondé sur les métadonnées et textes de méditation du fichier `parcours_marial_33_jours_enrichi.json` et sur la lecture du script de construction des 33 extraits. Il **ne certifie pas** la correspondance entre les plages imprimées, les extraits effectivement produits au build et l'édition de 1859. La vérification algorithmique de l'ordre des paragraphes dans le script de génération est distincte de la vérification indépendante de la source.
+
+## Contrôle complémentaire : confrontation des 33 extraits réellement publiés en prévisualisation
+
+Source de comparaison : `/preview-marial-livre-v5/modules/parcours-marial/traite_33_lectures.json`, contrôlée pour les 33 journées, avec lecture des débuts et fins et confrontation aux thèmes proposés. **Cette opération n'est pas une validation doctrinale exhaustive, phrase par phrase.**
+
+Huit fiches ont été corrigées dans `parcours_marial_33_jours_enrichi.json` : **14, 22, 28, 29, 30, 31, 32, 33**. Les titres et explications ont été rapprochés du contenu réel ; les prières ont été révisées aux jours 22 et 33. Le texte historique du Traité, le moteur de découpage, les clés de progression et la version publique n'ont pas été modifiés.
+
+- **J14** : commence la deuxième partie (consécration), et non une nouvelle séquence sur les caractères de la vraie dévotion.
+- **J22** : traite du huitième motif avant le récit figuratif de Jacob et Rébecca.
+- **J28** : achève les effets spirituels et introduit les pratiques.
+- **J29–J30** : développent les pratiques extérieures ; l'ancien titre « pratiques intérieures » du J30 était prématuré.
+- **J31** : fait la transition de la salutation angélique vers les pratiques intérieures.
+- **J32** : expose les quatre dispositions « par, avec, en, pour Marie », avant la communion.
+- **J33** : développe la préparation à la sainte Communion ; la prière de clôture est identifiée comme création originale.
+
+**Travail restant :** harmoniser les références bibliques et leurs résumés avec les nouveaux titres, approfondir les correspondances des jours 8 à 13 et 23 à 27, vérifier les limites éditoriales des extraits au regard des articulations du texte et faire relire le tout par une personne compétente en doctrine catholique. Les fiches corrigées restent marquées `corrige_a_relire` ; aucune n'est présentée comme approuvée pour publication.
