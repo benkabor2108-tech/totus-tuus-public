@@ -7,7 +7,7 @@
   "edition": "Gaume frères, Paris, 1859",
   "source": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
   "facsimile": "https://commons.wikimedia.org/wiki/File:Grignion_de_Montfort_-_Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge,_1859.djvu",
-  "avertissement": "Parcours éditorial original de 33 jours, distinct des exercices préparatoires montfortains historiques. Répartition journalière libre des pages de l'édition Gaume frères 1859. Les titres de grandes sections et leurs pages initiales ont été recoupés avec la table des matières de cette édition sur Wikisource; les limites de chaque journée restent éditoriales. Les textes bibliques et le Traité intégraux ne sont pas reproduits. Relecture pastorale et doctrinale locale recommandée avant publication.",
+  "avertissement": "Parcours éditorial original de 33 jours, distinct des exercices préparatoires montfortains historiques. Répartition journalière libre des pages de l'édition Gaume frères 1859. Les titres de grandes sections et leurs pages initiales ont été recoupés avec la table des matières de cette édition sur Wikisource; les limites de chaque journée restent éditoriales. Les textes bibliques et le Traité intégraux ne sont pas reproduits. Relecture pastorale et doctrinale locale recommandée avant publication. Les liens bibliques renvoient aux chapitres correspondants sur le site de l'AELF ; la référence du jour précise les versets. Les corrections thématiques restent soumises à relecture pastorale.",
   "jours": [
     {
       "jour": 1,
@@ -25,8 +25,8 @@
         "reference": "Lc 1,26-38",
         "resume_original": "L'ange annonce à Marie la naissance de Jésus. Son consentement ouvre un chemin de confiance dans l'œuvre de Dieu.",
         "texte_integral_inclus": false,
-        "url_lecture": "https://www.biblegateway.com/passage/?search=Luke%201%3A26-38&version=LSG",
-        "traduction_cible": "Louis Segond 1910 — traduction protestante, lien externe; vérifier l'accès au passage"
+        "url_lecture": "https://www.aelf.org/bible/Lc/1",
+        "traduction_cible": "AELF — traduction liturgique catholique, consultation externe du chapitre ; versets précisés dans la référence, sans reproduction du texte."
       },
       "explication_spirituelle": "La foi de Marie ne consiste pas à tout comprendre d'avance, mais à accueillir une parole et à y répondre librement. Le parcours commence par cette disponibilité, qui conduit toujours au Christ.",
       "priere_du_jour": "Seigneur Jésus, par l'intercession de Marie, délivre-moi de la peur qui ferme mon cœur. Donne-moi d'écouter ta Parole et d'y répondre avec confiance, aujourd'hui et chaque jour. Amen.",
@@ -51,8 +51,8 @@
         "reference": "Jn 2,1-11",
         "resume_original": "À Cana, Marie remarque le manque de vin et invite les serviteurs à écouter Jésus, qui accomplit le signe.",
         "texte_integral_inclus": false,
-        "url_lecture": "https://www.biblegateway.com/passage/?search=John%202%3A1-11&version=LSG",
-        "traduction_cible": "Louis Segond 1910 — traduction protestante, lien externe; vérifier l'accès au passage"
+        "url_lecture": "https://www.aelf.org/bible/Jn/2",
+        "traduction_cible": "AELF — traduction liturgique catholique, consultation externe du chapitre ; versets précisés dans la référence, sans reproduction du texte."
       },
       "explication_spirituelle": "L'attention de Marie ne détourne pas du Seigneur : elle oriente vers sa parole. La vraie dévotion mariale rend plus disponible à ce que Jésus demande.",
       "priere_du_jour": "Jésus, toi qui connais mes manques, apprends-moi à te présenter mes besoins sans vouloir te dicter ta réponse. Avec Marie, rends-moi attentif à ta parole et prêt à la mettre en pratique. Amen.",
@@ -77,8 +77,8 @@
         "reference": "Lc 2,19",
         "resume_original": "Marie garde dans son cœur les événements entourant Jésus et les médite.",
         "texte_integral_inclus": false,
-        "url_lecture": "https://www.biblegateway.com/passage/?search=Luke%202%3A19&version=LSG",
-        "traduction_cible": "Louis Segond 1910 — traduction protestante, lien externe; vérifier l'accès au passage"
+        "url_lecture": "https://www.aelf.org/bible/Lc/2",
+        "traduction_cible": "AELF — traduction liturgique catholique, consultation externe du chapitre ; versets précisés dans la référence, sans reproduction du texte."
       },
       "explication_spirituelle": "Le silence de Marie est une fidélité active : elle laisse les événements mûrir à la lumière de Dieu. La méditation apprend à ne pas confondre précipitation et discernement.",
       "priere_du_jour": "Marie, femme de l'écoute, accompagne ma prière. Seigneur, apaise mes pensées dispersées et fais grandir en moi le goût de ta Parole, même lorsque je ne comprends pas tout. Amen.",
@@ -103,8 +103,8 @@
         "reference": "Jn 19,25-27",
         "resume_original": "Au pied de la croix, Jésus confie sa mère au disciple bien-aimé et le disciple à sa mère.",
         "texte_integral_inclus": false,
-        "url_lecture": "https://www.biblegateway.com/passage/?search=John%2019%3A25-27&version=LSG",
-        "traduction_cible": "Louis Segond 1910 — traduction protestante, lien externe; vérifier l'accès au passage"
+        "url_lecture": "https://www.aelf.org/bible/Jn/19",
+        "traduction_cible": "AELF — traduction liturgique catholique, consultation externe du chapitre ; versets précisés dans la référence, sans reproduction du texte."
       },
       "explication_spirituelle": "La maternité spirituelle de Marie se comprend à la lumière de la croix et du don de Jésus. Accueillir Marie, c'est demeurer disciple du Christ crucifié et ressuscité.",
       "priere_du_jour": "Jésus crucifié, apprends-moi à rester fidèle dans l'épreuve. Que l'exemple de Marie m'aide à accueillir ceux que tu me confies et à vivre dans ton amour. Amen.",
@@ -129,8 +129,8 @@
         "reference": "Jn 15,1-8",
         "resume_original": "Jésus se présente comme la vraie vigne ; ses disciples portent du fruit en demeurant unis à lui.",
         "texte_integral_inclus": false,
-        "url_lecture": "https://www.biblegateway.com/passage/?search=John%2015%3A1-8&version=LSG",
-        "traduction_cible": "Louis Segond 1910 — traduction protestante, lien externe; vérifier l'accès au passage"
+        "url_lecture": "https://www.aelf.org/bible/Jn/15",
+        "traduction_cible": "AELF — traduction liturgique catholique, consultation externe du chapitre ; versets précisés dans la référence, sans reproduction du texte."
       },
       "explication_spirituelle": "Toute dévotion chrétienne reçoit sa vie du Christ. Marie n'est pas une fin parallèle : elle aide à demeurer dans la vigne et à laisser la grâce porter du fruit.",
       "priere_du_jour": "Seigneur Jésus, sans toi je ne peux porter le fruit durable que tu attends. Purifie mes intentions et unis mes pensées, mes paroles et mes actes à ton amour. Amen.",
@@ -155,8 +155,8 @@
         "reference": "Lc 1,46-55",
         "resume_original": "Dans le Magnificat, Marie célèbre les merveilles accomplies par Dieu en faveur des humbles.",
         "texte_integral_inclus": false,
-        "url_lecture": "https://www.biblegateway.com/passage/?search=Luke%201%3A46-55&version=LSG",
-        "traduction_cible": "Louis Segond 1910 — traduction protestante, lien externe; vérifier l'accès au passage"
+        "url_lecture": "https://www.aelf.org/bible/Lc/1",
+        "traduction_cible": "AELF — traduction liturgique catholique, consultation externe du chapitre ; versets précisés dans la référence, sans reproduction du texte."
       },
       "explication_spirituelle": "L'humilité de Marie reconnaît la grandeur de Dieu plutôt que de s'attribuer ses dons. La gratitude transforme notre manière de regarder les autres et nous-mêmes.",
       "priere_du_jour": "Dieu de miséricorde, ouvre mes yeux à tes bienfaits. Éloigne de moi l'orgueil et apprends-moi à te rendre grâce avec un cœur humble et joyeux. Amen.",
@@ -181,8 +181,8 @@
         "reference": "1 Tm 2,5-6",
         "resume_original": "Paul rappelle qu'il n'y a qu'un seul médiateur entre Dieu et les hommes : Jésus-Christ.",
         "texte_integral_inclus": false,
-        "url_lecture": "https://www.biblegateway.com/passage/?search=1%20Timothy%202%3A5-6&version=LSG",
-        "traduction_cible": "Louis Segond 1910 — traduction protestante, lien externe; vérifier l'accès au passage"
+        "url_lecture": "https://www.aelf.org/bible/1Tm/2",
+        "traduction_cible": "AELF — traduction liturgique catholique, consultation externe du chapitre ; versets précisés dans la référence, sans reproduction du texte."
       },
       "explication_spirituelle": "Cette affirmation est fondamentale : l'intercession de Marie dépend entièrement de l'unique médiation salvifique du Christ. Une spiritualité mariale authentique ne diminue jamais sa place centrale.",
       "priere_du_jour": "Jésus-Christ, unique Sauveur, affermis ma foi en ton œuvre. Que toute prière adressée avec Marie me conduise plus profondément vers toi et vers le Père. Amen.",
@@ -207,8 +207,8 @@
         "reference": "Rm 8,28-30",
         "resume_original": "Paul évoque l'appel de Dieu à être conformés à l'image de son Fils.",
         "texte_integral_inclus": false,
-        "url_lecture": "https://www.biblegateway.com/passage/?search=Romans%208%3A28-30&version=LSG",
-        "traduction_cible": "Louis Segond 1910 — traduction protestante, lien externe; vérifier l'accès au passage"
+        "url_lecture": "https://www.aelf.org/bible/Rm/8",
+        "traduction_cible": "AELF — traduction liturgique catholique, consultation externe du chapitre ; versets précisés dans la référence, sans reproduction du texte."
       },
       "explication_spirituelle": "La vie spirituelle n'est pas d'abord la recherche d'émotions religieuses : elle est transformation progressive à l'image de Jésus. Marie accompagne cette croissance sans s'y substituer.",
       "priere_du_jour": "Père très bon, façonne en moi les traits de ton Fils. Quand je résiste à ta grâce, donne-moi patience, confiance et courage pour recommencer. Amen.",
@@ -233,8 +233,8 @@
         "reference": "Ph 2,5-11",
         "resume_original": "L'hymne aux Philippiens contemple l'abaissement du Christ et son exaltation par le Père.",
         "texte_integral_inclus": false,
-        "url_lecture": "https://www.biblegateway.com/passage/?search=Philippians%202%3A5-11&version=LSG",
-        "traduction_cible": "Louis Segond 1910 — traduction protestante, lien externe; vérifier l'accès au passage"
+        "url_lecture": "https://www.aelf.org/bible/Ph/2",
+        "traduction_cible": "AELF — traduction liturgique catholique, consultation externe du chapitre ; versets précisés dans la référence, sans reproduction du texte."
       },
       "explication_spirituelle": "Le modèle de la vraie grandeur est Jésus serviteur. L'humilité mariale devient féconde lorsqu'elle nous apprend à prendre le même chemin de don de soi.",
       "priere_du_jour": "Seigneur Jésus, doux et humble de cœur, libère-moi de la recherche des honneurs. Fais de moi un serviteur qui aime sans calcul et qui reçoit tout du Père. Amen.",
@@ -259,8 +259,8 @@
         "reference": "1 Jn 4,1-6",
         "resume_original": "La première lettre de Jean invite à éprouver les esprits et à confesser Jésus-Christ venu dans la chair.",
         "texte_integral_inclus": false,
-        "url_lecture": "https://www.biblegateway.com/passage/?search=1%20John%204%3A1-6&version=LSG",
-        "traduction_cible": "Louis Segond 1910 — traduction protestante, lien externe; vérifier l'accès au passage"
+        "url_lecture": "https://www.aelf.org/bible/1Jn/4",
+        "traduction_cible": "AELF — traduction liturgique catholique, consultation externe du chapitre ; versets précisés dans la référence, sans reproduction du texte."
       },
       "explication_spirituelle": "Le discernement chrétien s'appuie sur la foi au Christ et sur des fruits vérifiables. Une pratique mariale ne doit pas se nourrir de peur, de crédulité ou de promesses de pouvoirs.",
       "priere_du_jour": "Esprit Saint, donne-moi un cœur lucide et paisible. Préserve-moi des illusions et conduis-moi vers la vérité de Jésus, avec la sagesse de l'Église. Amen.",
@@ -285,8 +285,8 @@
         "reference": "Mt 7,15-20",
         "resume_original": "Jésus avertit contre les faux prophètes et demande de reconnaître l'arbre à ses fruits.",
         "texte_integral_inclus": false,
-        "url_lecture": "https://www.biblegateway.com/passage/?search=Matthew%207%3A15-20&version=LSG",
-        "traduction_cible": "Louis Segond 1910 — traduction protestante, lien externe; vérifier l'accès au passage"
+        "url_lecture": "https://www.aelf.org/bible/Mt/7",
+        "traduction_cible": "AELF — traduction liturgique catholique, consultation externe du chapitre ; versets précisés dans la référence, sans reproduction du texte."
       },
       "explication_spirituelle": "Une dévotion ne se juge pas à l'apparence ni au nombre de gestes accomplis, mais à la conversion, à la charité et à la vérité qu'elle fait grandir.",
       "priere_du_jour": "Seigneur, rends ma foi vraie dans les actes. Éloigne de moi l'hypocrisie et fais mûrir les fruits de la justice, de la paix et de l'amour. Amen.",
@@ -311,8 +311,8 @@
         "reference": "Mt 6,5-8",
         "resume_original": "Jésus enseigne à prier sans chercher à être vu et sans multiplier des paroles vaines.",
         "texte_integral_inclus": false,
-        "url_lecture": "https://www.biblegateway.com/passage/?search=Matthew%206%3A5-8&version=LSG",
-        "traduction_cible": "Louis Segond 1910 — traduction protestante, lien externe; vérifier l'accès au passage"
+        "url_lecture": "https://www.aelf.org/bible/Mt/6",
+        "traduction_cible": "AELF — traduction liturgique catholique, consultation externe du chapitre ; versets précisés dans la référence, sans reproduction du texte."
       },
       "explication_spirituelle": "La prière n'est ni spectacle ni formule magique. Les répétitions peuvent soutenir l'attention, mais leur valeur dépend de la foi et de l'amour qui les animent.",
       "priere_du_jour": "Père, apprends-moi la simplicité de la prière. Que mes paroles expriment un cœur sincère et que mes silences deviennent une écoute confiante. Amen.",
@@ -337,8 +337,8 @@
         "reference": "Ga 5,22-25",
         "resume_original": "Paul décrit le fruit de l'Esprit : amour, joie, paix, patience et autres dispositions saintes.",
         "texte_integral_inclus": false,
-        "url_lecture": "https://www.biblegateway.com/passage/?search=Galatians%205%3A22-25&version=LSG",
-        "traduction_cible": "Louis Segond 1910 — traduction protestante, lien externe; vérifier l'accès au passage"
+        "url_lecture": "https://www.aelf.org/bible/Ga/5",
+        "traduction_cible": "AELF — traduction liturgique catholique, consultation externe du chapitre ; versets précisés dans la référence, sans reproduction du texte."
       },
       "explication_spirituelle": "Les fruits de l'Esprit donnent un critère concret de la vraie dévotion. La proximité avec Marie doit nous rendre plus dociles à l'Esprit de son Fils.",
       "priere_du_jour": "Esprit de Dieu, fais grandir en moi l'amour, la douceur et la maîtrise de soi. Que ma dévotion porte du fruit dans ma famille et dans mes engagements. Amen.",
@@ -356,21 +356,21 @@
         "debut": 82,
         "fin": 84
       },
-      "reference_biblique": "Jn 14,21-23",
+      "reference_biblique": "Rm 6,3-4",
       "source_texte_integral": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
       "statut": "proposition_a_valider_sur_facsimile",
       "lecture_biblique": {
-        "reference": "Jn 14,21-23",
-        "resume_original": "Jésus associe l'amour pour lui à l'observance de sa parole et promet la demeure du Père.",
+        "reference": "Rm 6,3-4",
+        "resume_original": "Paul rappelle que le baptême nous unit à la mort et à la résurrection du Christ, fondement de notre engagement chrétien.",
         "texte_integral_inclus": false,
-        "url_lecture": "https://www.biblegateway.com/passage/?search=John%2014%3A21-23&version=LSG",
-        "traduction_cible": "Louis Segond 1910 — traduction protestante, lien externe; vérifier l'accès au passage"
+        "url_lecture": "https://www.aelf.org/bible/Rm/6",
+        "traduction_cible": "AELF — traduction liturgique catholique, consultation externe du chapitre ; versets précisés dans la référence, sans reproduction du texte."
       },
       "explication_spirituelle": "Le texte ouvre la deuxième partie du Traité : Montfort présente la dévotion la plus excellente comme une consécration à Jésus par Marie, liée au renouvellement des promesses du baptême. Il faut distinguer cette introduction des caractères de la vraie dévotion abordés auparavant.",
       "priere_du_jour": "Jésus, apprends-moi à t'aimer en gardant ta parole. Que mes choix te fassent une place réelle et que ma maison devienne un lieu de paix. Amen.",
-      "question_meditation": "Quelle parole de Jésus dois-je traduire en acte ?",
-      "resolution_facultative": "Mettre en pratique un commandement d'amour aujourd'hui.",
-      "statut_editorial": "corrige_a_relire",
+      "question_meditation": "Comment renouveler aujourd'hui les promesses de mon baptême ?",
+      "resolution_facultative": "Renouveler librement une promesse baptismale dans la prière.",
+      "statut_editorial": "harmonise_a_relire",
       "texte_traite_inclus": false
     },
     {
@@ -389,8 +389,8 @@
         "reference": "Lc 11,27-28",
         "resume_original": "Jésus proclame heureux ceux qui écoutent la parole de Dieu et la gardent.",
         "texte_integral_inclus": false,
-        "url_lecture": "https://www.biblegateway.com/passage/?search=Luke%2011%3A27-28&version=LSG",
-        "traduction_cible": "Louis Segond 1910 — traduction protestante, lien externe; vérifier l'accès au passage"
+        "url_lecture": "https://www.aelf.org/bible/Lc/11",
+        "traduction_cible": "AELF — traduction liturgique catholique, consultation externe du chapitre ; versets précisés dans la référence, sans reproduction du texte."
       },
       "explication_spirituelle": "La grandeur de Marie ne repose pas seulement sur un lien familial avec Jésus, mais sur sa foi obéissante. Toute personne baptisée est invitée à cette même écoute.",
       "priere_du_jour": "Seigneur, fais de moi un disciple attentif. Avec Marie, donne-moi d'accueillir ta parole, de la garder et de la faire fructifier. Amen.",
@@ -415,8 +415,8 @@
         "reference": "Rm 12,1-2",
         "resume_original": "Paul invite à offrir sa personne à Dieu et à renouveler son intelligence pour discerner sa volonté.",
         "texte_integral_inclus": false,
-        "url_lecture": "https://www.biblegateway.com/passage/?search=Romans%2012%3A1-2&version=LSG",
-        "traduction_cible": "Louis Segond 1910 — traduction protestante, lien externe; vérifier l'accès au passage"
+        "url_lecture": "https://www.aelf.org/bible/Rm/12",
+        "traduction_cible": "AELF — traduction liturgique catholique, consultation externe du chapitre ; versets précisés dans la référence, sans reproduction du texte."
       },
       "explication_spirituelle": "Se consacrer ne signifie pas fuir ses responsabilités : c'est orienter sa vie entière vers Dieu. Le renouvellement du cœur se vérifie dans des choix libres et responsables.",
       "priere_du_jour": "Père, je t'offre ce que je suis, avec mes forces et mes limites. Renouvelle mon regard et aide-moi à choisir ce qui est bon, juste et agréable à tes yeux. Amen.",
@@ -441,8 +441,8 @@
         "reference": "Lc 1,38",
         "resume_original": "Marie répond à l'ange par un consentement libre à la parole reçue.",
         "texte_integral_inclus": false,
-        "url_lecture": "https://www.biblegateway.com/passage/?search=Luke%201%3A38&version=LSG",
-        "traduction_cible": "Louis Segond 1910 — traduction protestante, lien externe; vérifier l'accès au passage"
+        "url_lecture": "https://www.aelf.org/bible/Lc/1",
+        "traduction_cible": "AELF — traduction liturgique catholique, consultation externe du chapitre ; versets précisés dans la référence, sans reproduction du texte."
       },
       "explication_spirituelle": "Le oui de Marie inspire la consécration à Jésus : un acte de confiance, jamais une contrainte. La liberté chrétienne grandit dans le don aimant de soi.",
       "priere_du_jour": "Seigneur Jésus, je désire t'appartenir plus pleinement. Avec Marie, apprends-moi à dire oui sans peur et à demeurer fidèle dans les petites choses. Amen.",
@@ -467,8 +467,8 @@
         "reference": "2 Co 5,14-15",
         "resume_original": "Paul affirme que l'amour du Christ le presse et que ceux qui vivent ne doivent plus vivre pour eux-mêmes.",
         "texte_integral_inclus": false,
-        "url_lecture": "https://www.biblegateway.com/passage/?search=2%20Corinthians%205%3A14-15&version=LSG",
-        "traduction_cible": "Louis Segond 1910 — traduction protestante, lien externe; vérifier l'accès au passage"
+        "url_lecture": "https://www.aelf.org/bible/2Co/5",
+        "traduction_cible": "AELF — traduction liturgique catholique, consultation externe du chapitre ; versets précisés dans la référence, sans reproduction du texte."
       },
       "explication_spirituelle": "La source du don de soi n'est pas la culpabilité, mais l'amour reçu du Christ mort et ressuscité. La consécration devient une réponse reconnaissante à cette grâce.",
       "priere_du_jour": "Jésus, ton amour me précède. Délivre-moi du repli sur moi-même et rends-moi disponible à ceux que tu places sur ma route. Amen.",
@@ -493,8 +493,8 @@
         "reference": "Jn 15,4-5",
         "resume_original": "Jésus demande de demeurer en lui, comme le sarment demeure attaché à la vigne.",
         "texte_integral_inclus": false,
-        "url_lecture": "https://www.biblegateway.com/passage/?search=John%2015%3A4-5&version=LSG",
-        "traduction_cible": "Louis Segond 1910 — traduction protestante, lien externe; vérifier l'accès au passage"
+        "url_lecture": "https://www.aelf.org/bible/Jn/15",
+        "traduction_cible": "AELF — traduction liturgique catholique, consultation externe du chapitre ; versets précisés dans la référence, sans reproduction du texte."
       },
       "explication_spirituelle": "La fécondité de la consécration dépend d'une communion vivante avec Jésus. La fidélité dans les gestes simples vaut davantage que la recherche d'expériences extraordinaires.",
       "priere_du_jour": "Seigneur Jésus, garde-moi uni à toi dans la joie comme dans l'aridité. Que ma prière et mon travail reçoivent de toi leur force et leur sens. Amen.",
@@ -519,8 +519,8 @@
         "reference": "He 12,1-3",
         "resume_original": "La lettre aux Hébreux invite à courir avec persévérance, les yeux fixés sur Jésus.",
         "texte_integral_inclus": false,
-        "url_lecture": "https://www.biblegateway.com/passage/?search=Hebrews%2012%3A1-3&version=LSG",
-        "traduction_cible": "Louis Segond 1910 — traduction protestante, lien externe; vérifier l'accès au passage"
+        "url_lecture": "https://www.aelf.org/bible/He/12",
+        "traduction_cible": "AELF — traduction liturgique catholique, consultation externe du chapitre ; versets précisés dans la référence, sans reproduction du texte."
       },
       "explication_spirituelle": "La vie consacrée connaît des épreuves et des lenteurs. Fixer les yeux sur Jésus évite le découragement et l'illusion d'une perfection immédiate.",
       "priere_du_jour": "Jésus fidèle, soutiens mes pas lorsque la route devient difficile. Donne-moi de persévérer sans dureté envers moi-même ni envers les autres. Amen.",
@@ -545,8 +545,8 @@
         "reference": "Ep 3,14-21",
         "resume_original": "Paul prie pour que les croyants soient fortifiés intérieurement et enracinés dans l'amour du Christ.",
         "texte_integral_inclus": false,
-        "url_lecture": "https://www.biblegateway.com/passage/?search=Ephesians%203%3A14-21&version=LSG",
-        "traduction_cible": "Louis Segond 1910 — traduction protestante, lien externe; vérifier l'accès au passage"
+        "url_lecture": "https://www.aelf.org/bible/Ep/3",
+        "traduction_cible": "AELF — traduction liturgique catholique, consultation externe du chapitre ; versets précisés dans la référence, sans reproduction du texte."
       },
       "explication_spirituelle": "La consécration vise un cœur habité par le Christ et ouvert à l'immensité de son amour. Elle n'est pas une performance, mais un accueil de la grâce.",
       "priere_du_jour": "Père, par ton Esprit, fortifie mon être intérieur. Que le Christ habite mon cœur et m'enracine dans un amour plus large que mes peurs. Amen.",
@@ -564,21 +564,21 @@
         "debut": 140,
         "fin": 145
       },
-      "reference_biblique": "Gn 27,1-17",
+      "reference_biblique": "Mt 6,19-21",
       "source_texte_integral": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
       "statut": "proposition_a_valider_sur_facsimile",
       "lecture_biblique": {
-        "reference": "Gn 27,1-17",
-        "resume_original": "Rébecca prépare Jacob à recevoir la bénédiction d'Isaac, dans un récit familial complexe.",
+        "reference": "Mt 6,19-21",
+        "resume_original": "Jésus invite à placer son trésor dans le ciel : là où est notre trésor, là aussi sera notre cœur.",
         "texte_integral_inclus": false,
-        "url_lecture": "https://www.biblegateway.com/passage/?search=Genesis%2027%3A1-17&version=LSG",
-        "traduction_cible": "Louis Segond 1910 — traduction protestante, lien externe; vérifier l'accès au passage"
+        "url_lecture": "https://www.aelf.org/bible/Mt/6",
+        "traduction_cible": "AELF — traduction liturgique catholique, consultation externe du chapitre ; versets précisés dans la référence, sans reproduction du texte."
       },
       "explication_spirituelle": "Montfort développe ici le huitième motif de la consécration : remettre à Marie ses biens spirituels pour les conserver et les faire fructifier en Jésus-Christ. L'exemple de Jacob et Rébecca n'apparaît qu'ensuite ; il ne doit pas être annoncé comme le thème principal de cette journée.",
       "priere_du_jour": "Seigneur Jésus, apprends-moi à te confier les fruits de mes efforts et de ma prière. Par l'intercession de Marie, garde-moi de l'orgueil et fais grandir en moi la confiance. Amen.",
-      "question_meditation": "Comment distinguer une figure spirituelle du comportement moral des personnages ?",
-      "resolution_facultative": "Lire le passage en relevant ses tensions morales.",
-      "statut_editorial": "corrige_a_relire",
+      "question_meditation": "Quels biens spirituels ai-je du mal à remettre avec confiance au Christ ?",
+      "resolution_facultative": "Confier au Seigneur les fruits d'une bonne action sans chercher à en tirer gloire.",
+      "statut_editorial": "harmonise_a_relire",
       "texte_traite_inclus": false
     },
     {
@@ -597,8 +597,8 @@
         "reference": "Gn 27,18-29",
         "resume_original": "Jacob reçoit la bénédiction de son père en se faisant passer pour son frère.",
         "texte_integral_inclus": false,
-        "url_lecture": "https://www.biblegateway.com/passage/?search=Genesis%2027%3A18-29&version=LSG",
-        "traduction_cible": "Louis Segond 1910 — traduction protestante, lien externe; vérifier l'accès au passage"
+        "url_lecture": "https://www.aelf.org/bible/Gn/27",
+        "traduction_cible": "AELF — traduction liturgique catholique, consultation externe du chapitre ; versets précisés dans la référence, sans reproduction du texte."
       },
       "explication_spirituelle": "La bénédiction obtenue dans ce récit n'efface pas la faute ni ses conséquences. Une interprétation mariale ne saurait encourager la manipulation : le Christ appelle à la vérité.",
       "priere_du_jour": "Seigneur, toi qui agis au milieu des histoires humaines blessées, guéris mes désirs de contrôle. Conduis-moi vers la franchise, la justice et la confiance. Amen.",
@@ -623,8 +623,8 @@
         "reference": "Lc 1,39-45",
         "resume_original": "Élisabeth reconnaît la bénédiction de Marie et sa foi en la promesse du Seigneur.",
         "texte_integral_inclus": false,
-        "url_lecture": "https://www.biblegateway.com/passage/?search=Luke%201%3A39-45&version=LSG",
-        "traduction_cible": "Louis Segond 1910 — traduction protestante, lien externe; vérifier l'accès au passage"
+        "url_lecture": "https://www.aelf.org/bible/Lc/1",
+        "traduction_cible": "AELF — traduction liturgique catholique, consultation externe du chapitre ; versets précisés dans la référence, sans reproduction du texte."
       },
       "explication_spirituelle": "Contrairement à la ruse du récit de Jacob, la visitation montre la fécondité d'une foi accueillante. Marie porte Jésus et sa présence devient occasion de joie et de bénédiction.",
       "priere_du_jour": "Jésus, que ma présence apporte paix et encouragement. Avec Marie, donne-moi une foi qui se traduit en disponibilité et en joie partagée. Amen.",
@@ -649,8 +649,8 @@
         "reference": "Jn 2,1-11",
         "resume_original": "À Cana, la parole de Marie conduit les serviteurs à l'obéissance à Jésus.",
         "texte_integral_inclus": false,
-        "url_lecture": "https://www.biblegateway.com/passage/?search=John%202%3A1-11&version=LSG",
-        "traduction_cible": "Louis Segond 1910 — traduction protestante, lien externe; vérifier l'accès au passage"
+        "url_lecture": "https://www.aelf.org/bible/Jn/2",
+        "traduction_cible": "AELF — traduction liturgique catholique, consultation externe du chapitre ; versets précisés dans la référence, sans reproduction du texte."
       },
       "explication_spirituelle": "L'image d'une médiation maternelle se comprend ici comme orientation vers le Seigneur. Le signe vient de Jésus ; Marie invite à faire ce qu'il dit.",
       "priere_du_jour": "Marie, mère attentive, aide-moi à présenter mes besoins à Jésus avec simplicité. Seigneur, rends-moi obéissant à ta parole et sensible aux besoins d'autrui. Amen.",
@@ -675,8 +675,8 @@
         "reference": "Ga 2,19-20",
         "resume_original": "Paul exprime son union au Christ crucifié : sa vie est désormais animée par la foi au Fils de Dieu.",
         "texte_integral_inclus": false,
-        "url_lecture": "https://www.biblegateway.com/passage/?search=Galatians%202%3A19-20&version=LSG",
-        "traduction_cible": "Louis Segond 1910 — traduction protestante, lien externe; vérifier l'accès au passage"
+        "url_lecture": "https://www.aelf.org/bible/Ga/2",
+        "traduction_cible": "AELF — traduction liturgique catholique, consultation externe du chapitre ; versets précisés dans la référence, sans reproduction du texte."
       },
       "explication_spirituelle": "Le fruit de la consécration est une vie davantage configurée au Christ. Il ne s'agit pas de perdre sa personnalité, mais de laisser l'amour du Seigneur renouveler ses choix.",
       "priere_du_jour": "Christ vivant, que ta grâce transforme mes habitudes et mes intentions. Apprends-moi à aimer avec ton cœur et à vivre dans la confiance en toi. Amen.",
@@ -701,8 +701,8 @@
         "reference": "Col 3,12-17",
         "resume_original": "Paul exhorte les croyants à revêtir compassion, bonté, humilité, douceur et pardon.",
         "texte_integral_inclus": false,
-        "url_lecture": "https://www.biblegateway.com/passage/?search=Colossians%203%3A12-17&version=LSG",
-        "traduction_cible": "Louis Segond 1910 — traduction protestante, lien externe; vérifier l'accès au passage"
+        "url_lecture": "https://www.aelf.org/bible/Col/3",
+        "traduction_cible": "AELF — traduction liturgique catholique, consultation externe du chapitre ; versets précisés dans la référence, sans reproduction du texte."
       },
       "explication_spirituelle": "Une consécration authentique se mesure à la qualité des relations. La charité, la paix et la reconnaissance donnent une forme visible à la vie intérieure.",
       "priere_du_jour": "Seigneur, revêts-moi de compassion et de patience. Apprends-moi à pardonner et à faire de mes paroles un instrument de paix. Amen.",
@@ -720,21 +720,21 @@
         "debut": 177,
         "fin": 182
       },
-      "reference_biblique": "Mt 6,1-6",
+      "reference_biblique": "Ga 5,22-25",
       "source_texte_integral": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
       "statut": "proposition_a_valider_sur_facsimile",
       "lecture_biblique": {
-        "reference": "Mt 6,1-6",
-        "resume_original": "Jésus invite à faire l'aumône et à prier sans chercher l'admiration des autres.",
+        "reference": "Ga 5,22-25",
+        "resume_original": "Paul décrit le fruit de l'Esprit : amour, joie, paix, patience et autres dispositions qui manifestent une vie transformée.",
         "texte_integral_inclus": false,
-        "url_lecture": "https://www.biblegateway.com/passage/?search=Matthew%206%3A1-6&version=LSG",
-        "traduction_cible": "Louis Segond 1910 — traduction protestante, lien externe; vérifier l'accès au passage"
+        "url_lecture": "https://www.aelf.org/bible/Ga/5",
+        "traduction_cible": "AELF — traduction liturgique catholique, consultation externe du chapitre ; versets précisés dans la référence, sans reproduction du texte."
       },
       "explication_spirituelle": "Cette lecture achève l'exposé des effets spirituels de la dévotion et introduit les pratiques particulières. Elle ne développe pas encore principalement les pratiques extérieures, qui commencent dans la lecture suivante.",
       "priere_du_jour": "Père qui vois dans le secret, purifie mes gestes de piété. Que ma prière et mon partage soient simples, joyeux et désintéressés. Amen.",
-      "question_meditation": "Quelle intention anime mes pratiques visibles ?",
-      "resolution_facultative": "Faire un geste de charité dans la discrétion.",
-      "statut_editorial": "corrige_a_relire",
+      "question_meditation": "Quels fruits de l'Esprit ma dévotion fait-elle grandir ?",
+      "resolution_facultative": "Choisir aujourd'hui un geste concret de paix ou de patience.",
+      "statut_editorial": "harmonise_a_relire",
       "texte_traite_inclus": false
     },
     {
@@ -746,21 +746,21 @@
         "debut": 183,
         "fin": 189
       },
-      "reference_biblique": "Lc 2,41-52",
+      "reference_biblique": "Lc 1,26-38",
       "source_texte_integral": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
       "statut": "proposition_a_valider_sur_facsimile",
       "lecture_biblique": {
-        "reference": "Lc 2,41-52",
-        "resume_original": "Marie et Joseph cherchent Jésus, puis le retrouvent au Temple occupé aux affaires de son Père.",
+        "reference": "Lc 1,26-38",
+        "resume_original": "À l'Annonciation, Marie accueille la parole de Dieu et lui répond librement par la foi.",
         "texte_integral_inclus": false,
-        "url_lecture": "https://www.biblegateway.com/passage/?search=Luke%202%3A41-52&version=LSG",
-        "traduction_cible": "Louis Segond 1910 — traduction protestante, lien externe; vérifier l'accès au passage"
+        "url_lecture": "https://www.aelf.org/bible/Lc/1",
+        "traduction_cible": "AELF — traduction liturgique catholique, consultation externe du chapitre ; versets précisés dans la référence, sans reproduction du texte."
       },
       "explication_spirituelle": "Montfort présente plusieurs pratiques extérieures qui expriment l'engagement intérieur, notamment des signes de mémoire et d'appartenance au Christ. Ces gestes n'ont de valeur que s'ils conduisent à une fidélité véritable, sans ostentation.",
       "priere_du_jour": "Seigneur Jésus, lorsque je ne comprends pas tes chemins, garde-moi dans la confiance. Donne-moi un cœur patient et disponible à la volonté du Père. Amen.",
-      "question_meditation": "Quelle incompréhension puis-je confier à Dieu ?",
-      "resolution_facultative": "Relire une difficulté sans précipiter de conclusion.",
-      "statut_editorial": "corrige_a_relire",
+      "question_meditation": "Quel geste simple peut me rappeler mon engagement à suivre Jésus ?",
+      "resolution_facultative": "Prier une salutation angélique avec attention, sans rechercher les apparences.",
+      "statut_editorial": "harmonise_a_relire",
       "texte_traite_inclus": false
     },
     {
@@ -772,21 +772,21 @@
         "debut": 190,
         "fin": 196
       },
-      "reference_biblique": "Jn 15,9-17",
+      "reference_biblique": "Mt 6,5-6",
       "source_texte_integral": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
       "statut": "proposition_a_valider_sur_facsimile",
       "lecture_biblique": {
-        "reference": "Jn 15,9-17",
-        "resume_original": "Jésus appelle ses disciples à demeurer dans son amour et à s'aimer les uns les autres.",
+        "reference": "Mt 6,5-6",
+        "resume_original": "Jésus enseigne une prière humble et sincère, tournée vers le Père plutôt que vers le regard des autres.",
         "texte_integral_inclus": false,
-        "url_lecture": "https://www.biblegateway.com/passage/?search=John%2015%3A9-17&version=LSG",
-        "traduction_cible": "Louis Segond 1910 — traduction protestante, lien externe; vérifier l'accès au passage"
+        "url_lecture": "https://www.aelf.org/bible/Mt/6",
+        "traduction_cible": "AELF — traduction liturgique catholique, consultation externe du chapitre ; versets précisés dans la référence, sans reproduction du texte."
       },
       "explication_spirituelle": "Le passage poursuit les pratiques extérieures et leurs motivations, en rappelant les engagements du baptême et la louange rendue à Dieu. Les pratiques intérieures proprement dites sont introduites plus loin.",
       "priere_du_jour": "Jésus, fais-moi demeurer dans ton amour. Que ma prière se prolonge en actes de bonté et que je sache aimer comme tu nous aimes. Amen.",
-      "question_meditation": "Mon union au Christ se traduit-elle en charité ?",
-      "resolution_facultative": "Prendre l'initiative d'une parole de paix.",
-      "statut_editorial": "corrige_a_relire",
+      "question_meditation": "Mes pratiques de prière nourrissent-elles une fidélité intérieure ?",
+      "resolution_facultative": "Consacrer quelques minutes à une prière discrète et attentive.",
+      "statut_editorial": "harmonise_a_relire",
       "texte_traite_inclus": false
     },
     {
@@ -798,21 +798,21 @@
         "debut": 197,
         "fin": 205
       },
-      "reference_biblique": "Col 3,17",
+      "reference_biblique": "Lc 1,26-38",
       "source_texte_integral": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
       "statut": "proposition_a_valider_sur_facsimile",
       "lecture_biblique": {
-        "reference": "Col 3,17",
-        "resume_original": "Paul demande de tout accomplir au nom du Seigneur Jésus, en rendant grâce au Père.",
+        "reference": "Lc 1,26-38",
+        "resume_original": "L'ange salue Marie, qui accueille la parole de Dieu et répond par son consentement libre.",
         "texte_integral_inclus": false,
-        "url_lecture": "https://www.biblegateway.com/passage/?search=Colossians%203%3A17&version=LSG",
-        "traduction_cible": "Louis Segond 1910 — traduction protestante, lien externe; vérifier l'accès au passage"
+        "url_lecture": "https://www.aelf.org/bible/Lc/1",
+        "traduction_cible": "AELF — traduction liturgique catholique, consultation externe du chapitre ; versets précisés dans la référence, sans reproduction du texte."
       },
       "explication_spirituelle": "Montfort approfondit la salutation angélique et conduit progressivement à la manière de tout accomplir par Marie, avec Marie, en Marie et pour Marie, afin de mieux vivre en Jésus-Christ. Cette journée fait la transition entre pratiques extérieures et intérieures.",
       "priere_du_jour": "Seigneur Jésus, reçois mes travaux, mes rencontres et mes fatigues. Que rien ne soit séparé de ton amour et que ma journée devienne une action de grâce. Amen.",
-      "question_meditation": "Quelle activité quotidienne puis-je vivre davantage avec Jésus ?",
-      "resolution_facultative": "Offrir explicitement à Dieu une tâche habituelle.",
-      "statut_editorial": "corrige_a_relire",
+      "question_meditation": "Comment la salutation angélique peut-elle m'aider à faire toute chose pour Jésus ?",
+      "resolution_facultative": "Prier lentement un Je vous salue Marie, puis offrir une activité quotidienne au Christ.",
+      "statut_editorial": "harmonise_a_relire",
       "texte_traite_inclus": false
     },
     {
@@ -824,21 +824,21 @@
         "debut": 206,
         "fin": 211
       },
-      "reference_biblique": "Jn 6,51-58",
+      "reference_biblique": "Col 3,17",
       "source_texte_integral": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
       "statut": "proposition_a_valider_sur_facsimile",
       "lecture_biblique": {
-        "reference": "Jn 6,51-58",
-        "resume_original": "Jésus se révèle comme le pain vivant descendu du ciel et annonce le don de sa chair pour la vie du monde.",
+        "reference": "Col 3,17",
+        "resume_original": "Paul invite à accomplir toute parole et toute action au nom du Seigneur Jésus, en rendant grâce au Père.",
         "texte_integral_inclus": false,
-        "url_lecture": "https://www.biblegateway.com/passage/?search=John%206%3A51-58&version=LSG",
-        "traduction_cible": "Louis Segond 1910 — traduction protestante, lien externe; vérifier l'accès au passage"
+        "url_lecture": "https://www.aelf.org/bible/Col/3",
+        "traduction_cible": "AELF — traduction liturgique catholique, consultation externe du chapitre ; versets précisés dans la référence, sans reproduction du texte."
       },
       "explication_spirituelle": "Le passage développe les dispositions intérieures recommandées par Montfort : agir par Marie, avec Marie, en Marie et pour Marie, toujours en vue de Jésus-Christ. Il annonce seulement à la fin la pratique de cette dévotion lors de la sainte Communion.",
       "priere_du_jour": "Jésus, pain de vie, creuse en moi la faim de ta présence. Prépare mon cœur à te recevoir avec foi et à partager ta vie dans le service des autres. Amen.",
-      "question_meditation": "Quelle place l'Eucharistie tient-elle dans ma vie chrétienne ?",
-      "resolution_facultative": "Préparer avec attention une prochaine participation à la messe.",
-      "statut_editorial": "corrige_a_relire",
+      "question_meditation": "Dans quelle activité puis-je agir davantage par Marie et pour Jésus ?",
+      "resolution_facultative": "Offrir une tâche habituelle au Seigneur, avec l'aide de Marie.",
+      "statut_editorial": "harmonise_a_relire",
       "texte_traite_inclus": false
     },
     {
@@ -850,21 +850,21 @@
         "debut": 212,
         "fin": 217
       },
-      "reference_biblique": "Lc 1,46-55",
+      "reference_biblique": "1 Co 11,23-29",
       "source_texte_integral": "https://fr.wikisource.org/wiki/Trait%C3%A9_de_la_vraie_d%C3%A9votion_%C3%A0_la_Sainte_Vierge",
       "statut": "proposition_a_valider_sur_facsimile",
       "lecture_biblique": {
-        "reference": "Lc 1,46-55",
-        "resume_original": "Dans le Magnificat, Marie rend grâce à Dieu pour sa miséricorde et sa fidélité.",
+        "reference": "1 Co 11,23-29",
+        "resume_original": "Paul transmet l'institution de l'Eucharistie et invite à discerner avec sérieux le corps du Seigneur.",
         "texte_integral_inclus": false,
-        "url_lecture": "https://www.biblegateway.com/passage/?search=Luke%201%3A46-55&version=LSG",
-        "traduction_cible": "Louis Segond 1910 — traduction protestante, lien externe; vérifier l'accès au passage"
+        "url_lecture": "https://www.aelf.org/bible/1Co/11",
+        "traduction_cible": "AELF — traduction liturgique catholique, consultation externe du chapitre ; versets précisés dans la référence, sans reproduction du texte."
       },
       "explication_spirituelle": "Cette dernière lecture expose la manière de vivre la sainte Communion selon la dévotion enseignée par Montfort. La prière proposée ci-dessous est une prière originale de conclusion du parcours : elle ne doit pas être présentée comme l'acte traditionnel de consécration de Montfort.",
       "priere_du_jour": "Seigneur Jésus, toi qui te donnes à nous dans l'Eucharistie, prépare mon cœur à te recevoir avec foi, humilité et amour. Avec Marie, apprends-moi à demeurer uni à toi et à faire de ma vie une action de grâce. Amen.",
-      "question_meditation": "Suis-je prêt à renouveler librement mon engagement envers le Christ ?",
-      "resolution_facultative": "Relire son intention et, si on le souhaite, prononcer personnellement une prière de consécration.",
-      "statut_editorial": "corrige_a_relire",
+      "question_meditation": "Comment préparer mon cœur à communier avec foi et humilité ?",
+      "resolution_facultative": "Préparer dans la prière une prochaine communion, en respectant les dispositions demandées par l'Église.",
+      "statut_editorial": "harmonise_a_relire",
       "texte_traite_inclus": false,
       "note_pagination": "Pages 212-216 : formule de consécration; page 217 : début du cantique, lecture facultative."
     }
