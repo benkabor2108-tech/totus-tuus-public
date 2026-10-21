@@ -11,6 +11,9 @@ data = json.loads((module / "parcours_marial_33_jours_enrichi.json").read_text(e
 days = data["jours"]
 assert [d["jour"] for d in days] == list(range(1,34))
 assert all(d["lecture_biblique"]["reference"] and d["priere_du_jour"] and d["explication_spirituelle"] for d in days)
+book=json.loads((module / 'traite_33_lectures.json').read_text(encoding='utf-8'))
+assert len(book['jours'])==33 and all(d['paragraphes'] for d in book['jours'])
+assert sum(len(p['texte']) for d in book['jours'] for p in d['paragraphes']) > 120000
 assert (site / "intercession-prayers.js").stat().st_size > 1000
 interventions = (site / "interventions.js").read_text(encoding="utf-8")
 assert "totus-intercession-v51" in interventions, "Historical intercession storage key missing"
@@ -31,7 +34,7 @@ sw = swfile.read_text(encoding="utf-8")
 sw,n = re.subn(r"const CACHE=['\"][^'\"]+['\"]", "const CACHE='totus-tuus-pages-v5-11-0-rc2'", sw, count=1)
 assert n==1
 assert "const ASSETS=[" in sw
-sw=sw.replace("const ASSETS=[", "const ASSETS=['./intercession-prayers.js?v=5.10.0','./modules/parcours-marial/parcours-marial.js?v=5.11.0-rc2','./modules/parcours-marial/parcours_marial_33_jours_enrichi.json',",1)
+sw=sw.replace("const ASSETS=[", "const ASSETS=['./intercession-prayers.js?v=5.10.0','./modules/parcours-marial/parcours-marial.js?v=5.11.0-rc2','./modules/parcours-marial/parcours_marial_33_jours_enrichi.json','./modules/parcours-marial/traite_33_lectures.json',",1)
 # Only clean release-candidate caches. Never purge the historical PWA's caches.
 sw=sw.replace("key.startsWith('totus-tuus-')&&key!==CACHE","key.startsWith('totus-tuus-pages-v5-11-0-rc2')&&key!==CACHE")
 assert "key.startsWith('totus-tuus-pages-v5-11-0-rc2')" in sw
