@@ -171,3 +171,5 @@ jobs:
 # Publication V5.11.0 : couverture téléversée, invocation quotidienne et lecture paginée vérifiées en CI.
 
 # Correctif du bundle : inclure la couverture JPEG dans le répertoire de publication.
+
+# Publication finale V5.11.0 : livre marial, 33 lectures bibliques intégrées, reprise à l'invocation et remise à zéro des essais. Validations candidate Chromium PASS 2026-10-21.
