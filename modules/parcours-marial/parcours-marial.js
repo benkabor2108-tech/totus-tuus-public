@@ -242,7 +242,7 @@ function turn(dir){
  else{if(pageIndex>0)pageIndex--;else if(index>0){index--;pageIndex=makeDayPages(days[index],bookDays[index]).length-1;}else return;}
  chapter='book';render();
 }
-const FONT_KEY=KEY+'-font-size';
+const FONT_KEY=KEY+'-font-size-v2';
 let fontSize=Number(localStorage.getItem(FONT_KEY))||15;
 function resize(delta){fontSize=Math.max(13,Math.min(21,fontSize+delta));dlg.style.setProperty('--tt33-font-size',fontSize+'px');try{localStorage.setItem(FONT_KEY,String(fontSize));}catch(e){}}
 dlg.style.setProperty('--tt33-font-size',fontSize+'px');
