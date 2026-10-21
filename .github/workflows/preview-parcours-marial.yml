@@ -5,6 +5,7 @@ on:
       - candidate/parcours-marial-33-jours
     paths:
       - 'modules/parcours-marial/**'
+      - 'scripts/build_traite_33_lectures.py'
       - '.github/workflows/preview-parcours-marial.yml'
   workflow_dispatch:
 permissions:
@@ -28,6 +29,7 @@ jobs:
         run: |
           mkdir -p site/modules/parcours-marial
           cp modules/parcours-marial/*.js modules/parcours-marial/*.json site/modules/parcours-marial/
+          python3 scripts/build_traite_33_lectures.py site/modules/parcours-marial/traite_33_lectures.json
           python3 - <<'PY'
           from pathlib import Path
           import json
@@ -49,7 +51,7 @@ jobs:
           worker=sw.read_text(encoding='utf-8')
           worker=worker.replace('totus-tuus-pages-v5-9-1','totus-tuus-parcours-marial-candidate-33')
           assert "const ASSETS=[" in worker
-          worker=worker.replace("const ASSETS=[","const ASSETS=['./intercession-prayers.js?v=5.10.0','./modules/parcours-marial/parcours-marial.js?v=candidate-33','./modules/parcours-marial/parcours_marial_33_jours_enrichi.json',",1)
+          worker=worker.replace("const ASSETS=[","const ASSETS=['./intercession-prayers.js?v=5.10.0','./modules/parcours-marial/parcours-marial.js?v=candidate-33','./modules/parcours-marial/parcours_marial_33_jours_enrichi.json','./modules/parcours-marial/traite_33_lectures.json',",1)
           assert 'totus-intercession-v51' in (p/'interventions.js').read_text(encoding='utf-8')
           # Ne supprimer que les anciens caches de CE candidat, jamais ceux de V5.10.0.
           worker=worker.replace("key.startsWith('totus-tuus-')&&key!==CACHE","key.startsWith('totus-tuus-parcours-marial-candidate-')&&key!==CACHE")
