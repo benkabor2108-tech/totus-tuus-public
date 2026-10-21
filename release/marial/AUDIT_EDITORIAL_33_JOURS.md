@@ -79,3 +79,14 @@ Huit fiches ont été corrigées dans `parcours_marial_33_jours_enrichi.json` : 
 - **J33** : développe la préparation à la sainte Communion ; la prière de clôture est identifiée comme création originale.
 
 **Travail restant :** harmoniser les références bibliques et leurs résumés avec les nouveaux titres, approfondir les correspondances des jours 8 à 13 et 23 à 27, vérifier les limites éditoriales des extraits au regard des articulations du texte et faire relire le tout par une personne compétente en doctrine catholique. Les fiches corrigées restent marquées `corrige_a_relire` ; aucune n'est présentée comme approuvée pour publication.
+
+## Harmonisation biblique — correction candidate complémentaire
+
+- Les **33 liens externes** de lecture biblique renvoient désormais aux **chapitres correspondants sur le site de l'AELF**, traduction liturgique catholique ; les versets restent précisés dans les références des fiches. Aucun texte biblique sous droits n'est copié dans le dépôt.
+- Les jours **14, 22, 28, 29, 30, 31, 32 et 33** ont reçu des références et résumés bibliques plus directement adaptés à leurs passages réels du Traité. Leurs questions de méditation et résolutions ont été harmonisées.
+- Les fiches concernées portent le statut `harmonise_a_relire` et **ne sont pas approuvées pour publication**.
+- Les liens AELF ont été vérifiés sur un échantillon de chapitres, y compris des épîtres ; **les 33 URL n'ont pas été ouvertes individuellement**.
+- Les références répétées peuvent être pertinentes ; elles doivent être appréciées lors de la relecture pastorale.
+- Ce rapport conserve les constats historiques des étapes précédentes ; certains constats (liens Louis Segond, titres avant correction) décrivent l'état **antérieur** et ne représentent plus l'état courant du fichier JSON.
+
+**À poursuivre :** confrontation approfondie des jours 8–13 et 23–27, vérification exhaustive des 33 liens AELF, vérification éditoriale des pages imprimées et relecture doctrinale humaine. Le déploiement public V5.10.0 et les données utilisateurs restent inchangés.
