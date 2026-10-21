@@ -104,7 +104,7 @@ const root=dlg.querySelector('#tt33-content');
 dlg.querySelector('#tt33-close').addEventListener('click',()=>dlg.close());
 const safe=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const link=(u,label)=>{try{let p=new URL(u);if(p.protocol==='https:')return '<a target="_blank" rel="noopener noreferrer" href="'+safe(p.href)+'">'+safe(label)+'</a>';}catch(e){}return '';};
-let days=[],bookDays=[],index=0,done={},pageIndex=0,chapter='book';
+let days=[],bookDays=[],bibleDays={},index=0,done={},pageIndex=0,chapter='book';
 const PLACE=KEY+'-reading-position';
 try{const p=JSON.parse(localStorage.getItem(PLACE)||'{}');if(Number.isInteger(p.day)&&p.day>=0&&p.day<33)index=p.day;if(Number.isInteger(p.page)&&p.page>=0)pageIndex=p.page;if(['book','bible','meditation','priere'].includes(p.chapter))chapter=p.chapter;}catch(e){}
 function savePlace(){try{localStorage.setItem(PLACE,JSON.stringify({day:index,page:pageIndex,chapter}));}catch(e){}}
