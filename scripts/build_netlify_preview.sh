@@ -7,7 +7,7 @@ git clone --quiet --depth 1 --branch candidate/intercessions-108 "https://github
 (cd "$tmp" && python3 scripts/import_public_site.py)
 cp "$tmp/site/intercession-prayers.js" site/intercession-prayers.js
 mkdir -p site/modules/parcours-marial
-cp modules/parcours-marial/*.js modules/parcours-marial/*.json site/modules/parcours-marial/
+cp modules/parcours-marial/*.js modules/parcours-marial/*.json modules/parcours-marial/*.jpg site/modules/parcours-marial/
 python3 scripts/build_traite_33_lectures.py site/modules/parcours-marial/traite_33_lectures.json
 python3 scripts/prepare_marial_release_candidate.py site
 python3 scripts/check_site.py site
