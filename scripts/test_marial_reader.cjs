@@ -12,6 +12,25 @@ const assert=require('node:assert/strict');
   await page.locator('#tt33-page').waitFor({timeout:20000});
   assert.match(await page.locator('#tt33-page').innerText(),/Invocation au Saint-Esprit/);
   assert.match(await page.locator('#tt33-content').innerText(),/0 \/ 33/);
+  // L'ouverture quotidienne reprend au premier jour non accompli,
+  // toujours à l'invocation, et non à la dernière page feuilletée.
+  await page.locator('#tt33-done').check();
+  await page.locator('#tt33-close').click();
+  await page.locator('.tt33-cover').evaluate(el=>el.click());
+  assert.match(await page.locator('#tt33-page').innerText(),/Invocation au Saint-Esprit/);
+  assert.equal(await page.locator('#tt33-day').inputValue(),'1');
+  await page.locator('#tt33-done').check();
+  await page.locator('#tt33-close').click();
+  await page.locator('.tt33-cover').evaluate(el=>el.click());
+  assert.equal(await page.locator('#tt33-day').inputValue(),'2');
+  assert.match(await page.locator('#tt33-page').innerText(),/Invocation au Saint-Esprit/);
+  // Repartir de 0/33 pour les contrôles de lecture indépendants.
+  await page.evaluate(()=>localStorage.setItem('totus-tuus-parcours-marial-33-preview-rc2','{}'));
+  await page.locator('#tt33-close').click();
+  await page.reload({waitUntil:'domcontentloaded'});
+  await page.locator('.tt33-cover').evaluate(el=>el.click());
+  assert.equal(await page.locator('#tt33-day').inputValue(),'0');
+
   await page.locator('#tt33-forward').click();
   assert.match(await page.locator('#tt33-page').innerText(),/Parole de Dieu/);
   assert.match(await page.locator('#tt33-page').innerText(),/Gabriel/);
