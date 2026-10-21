@@ -96,7 +96,7 @@ jobs:
           assert 'parcours-marial.js' not in (root/'index.html').read_text()
           assert 'parcours-marial.js' in (preview/'index.html').read_text()
           assert 'totus-intercession-v51' in (preview/'interventions.js').read_text()
-          assert 'totus-tuus-pages-v5-11-0-rc' in (preview/'service-worker.js').read_text()
+          assert 'totus-tuus-pages-v5-11-0-rc2' in (preview/'service-worker.js').read_text()
           print('Root V5.10.0 inchangé; preview V5.11.0 RC isolée sous /preview-marial-33/')
           PY
       - name: Vérifier les fichiers et la syntaxe JavaScript
@@ -117,3 +117,5 @@ jobs:
         uses: actions/deploy-pages@v4
 
 # Preview candidate refreshed: automatic completion when moving to the next day.
+
+# Refresh isolated preview after correcting JavaScript syntax and cache version.
