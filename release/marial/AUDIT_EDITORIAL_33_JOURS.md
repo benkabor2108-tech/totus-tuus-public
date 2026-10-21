@@ -126,3 +126,13 @@ L'analyse du code `modules/parcours-marial/parcours-marial.js` confirme que les 
 **Attention au test navigateur** : la session https://agent.tinyfish.ai/runs/f5bb668f-d550-475e-81d8-55adbfe99ec1 a principalement interagi avec une « novaine guidée » et non avec le composant 33 jours ; ses constats de persistance ne permettent **pas** de valider la progression du module marial. L'affichage mobile 390×844 n'a pas été confirmé. Il faut un test spécifique sur le composant `tt33` après redéploiement.
 
 **Statut** : changement de clé et test CI mis à jour sur branche candidate ; republication de cette correction à confirmer par un run GitHub Pages réussi. Pas de fusion vers la production.
+
+## Gate prépublication complémentaire — 21 octobre 2026
+
+- **CI et déploiement isolé** : https://github.com/benkabor2108-tech/totus-tuus-public/actions/runs/39621201101 — `success`.
+- **Contrôle en ligne** : racine `version.json` = V5.10.0 ; preview `version.json` = V5.11.0-rc2 ; script de la preview contient `totus-tuus-parcours-marial-33-preview-rc2` et non la clé prévue pour la production.
+- **Test navigateur ciblé du module 33 jours** : https://agent.tinyfish.ai/runs/25387afe-a65a-4e85-9404-59ce4fcd5a6e. Ouverture, 33 options, jour 8, compteur 0→1 lors du cochage, sections du Traité/méditation/prière, liens AELF, fermeture : observés.
+- **Réserve sur la persistance** : le navigateur a rechargé puis affiché la case du **jour 1** décochée tandis que le compteur conservait le **jour 8** accompli. Cela **ne démontre pas une anomalie** : le compteur agrège tous les jours tandis que la case reflète seulement le jour affiché. Le rapport a confondu ces deux journées. Une vérification après rechargement **en resélectionnant le jour 8** reste à effectuer.
+- **Réserve sur l'annulation** : cocher puis décocher le jour 1 a ramené le compteur de 2 à 1, ce qui est **attendu** puisque le jour 8 était toujours enregistré. Le retour à zéro exige de décocher également le jour 8 ; l'outil n'a pas effectué cette étape.
+- **Limites réelles** : validation sur téléphone Android réel et relecture doctrinale humaine non effectuées. Le navigateur de test peut avoir laissé un jour 8 coché dans son stockage **de prévisualisation uniquement** ; aucune suppression des données d'un utilisateur.
+- **Verdict** : préparation technique substantiellement validée, **feu vert final de production non délivré**. Aucune fusion de la branche candidate.
