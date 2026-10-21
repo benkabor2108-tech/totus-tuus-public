@@ -73,6 +73,20 @@ bookCSS.textContent+=`
 #tt33-dialog .tt33-invocation p{margin:10px 0}
 @media(max-width:390px){#tt33-dialog .tt33-pad{padding:7px!important}#tt33-dialog .tt33-page-nav button{font-size:.71rem}#tt33-dialog .tt33-top strong{font-size:.8rem}}
 `;
+bookCSS.textContent+=`
+/* Livre continu : les rubriques deviennent des pages, non des onglets. */
+#tt33-dialog .tt33-book-heading{flex:0 0 auto;text-align:center;padding:5px 0 8px}
+#tt33-dialog .tt33-book-heading>span{font:600 11px system-ui;letter-spacing:.15em;color:#8b754e;text-transform:uppercase}
+#tt33-dialog .tt33-book-heading h2{font:600 clamp(.95rem,3.8vw,1.25rem)/1.2 Georgia,serif;margin:5px 0}
+#tt33-dialog .tt33-page{background:#fffdf6;touch-action:pan-y;box-shadow:0 3px 16px #4c3e2a20}
+#tt33-dialog .tt33-page-contents h3{font:600 1.12em Georgia,serif;color:#243b57;margin:0 0 18px}
+#tt33-dialog .tt33-page-contents p{margin:0 0 16px}
+#tt33-dialog .tt33-page-contents .tt33-note{font:italic .8em/1.5 Georgia,serif;color:#776d63}
+#tt33-dialog .tt33-page-nav{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr)}
+#tt33-dialog .tt33-page-nav button{font-size:clamp(.7rem,3vw,.87rem)}
+#tt33-dialog .tt33-book-toolbar{align-items:center}
+#tt33-dialog .tt33-check{justify-content:center}
+`;
 document.head.append(bookCSS);
 const dlg=document.createElement('dialog');dlg.id='tt33-dialog';dlg.setAttribute('aria-label','Parcours marial de 33 jours');dlg.innerHTML='<div class="tt33-top"><strong>Totus Tuus · Parcours marial</strong><button type="button" id="tt33-close" aria-label="Fermer">Fermer ✕</button></div><div class="tt33-pad" id="tt33-content">Chargement…</div>';document.body.append(dlg);
 const root=dlg.querySelector('#tt33-content');
@@ -101,31 +115,50 @@ function splitPages(book){
 }
 
 try{const x=JSON.parse(localStorage.getItem(KEY)||'{}');if(x&&typeof x==='object'&&!Array.isArray(x))done=x;}catch(e){}
-function render(){const d=days[index];if(!d)return;
-const read=d.lecture_biblique||{},book=bookDays[index],pages=splitPages(book);
-pageIndex=Math.max(0,Math.min(pageIndex,pages.length));savePlace();
-const invocation='<section class="tt33-invocation" aria-label="Invocation au Saint-Esprit"><h3>Invocation au Saint-Esprit</h3><p>Viens, Esprit Saint, remplis mon cœur de ta lumière et de ton amour.</p><p>Ouvre mon intelligence à la Parole de Dieu, dispose mon cœur à accueillir la vérité et guide-moi dans la lecture et la méditation de ce jour.</p><p>Par l’intercession de la Très Sainte Vierge Marie, apprends-moi à écouter Jésus, à comprendre sa volonté et à la mettre en pratique dans ma vie.</p><p>Esprit de sagesse et de sainteté, conduis-moi chaque jour plus près de Jésus-Christ.</p><p><strong>Amen.</strong></p></section>';
-const content={
-book:'<p class="tt33-book-meta">Lecture du Traité · transcription de l’édition Gaume frères (1859). Découpage en 33 jours à caractère éditorial.</p>'+(pages[Math.max(0,pageIndex-1)]||[]).map(t=>'<p class="tt33-book">'+safe(t)+'</p>').join('')+'<p class="tt33-book-meta">'+link(d.source_texte_integral,'Consulter le texte source')+'</p>',
-bible:'<h3>Parole de Dieu</h3><p><strong>'+safe(read.reference||d.reference_biblique)+'</strong></p><p>'+safe(read.resume_original)+'</p><p>'+link(read.url_lecture,'Lire le passage biblique')+'</p>',
-meditation:'<h3>Méditation</h3><p>'+safe(d.explication_spirituelle)+'</p><h3>Question pour méditer</h3><p>'+safe(d.question_meditation)+'</p>',
-priere:'<h3>Prière du jour</h3><p>'+safe(d.priere_du_jour)+'</p><h3>Résolution facultative</h3><p>'+safe(d.resolution_facultative)+'</p>'
-};
-root.innerHTML='<div class="tt33-book-toolbar"><label for="tt33-day">Jour <select id="tt33-day">'+days.map((x,i)=>'<option value="'+i+'" '+(i===index?'selected':'')+'>'+safe(x.jour)+' — '+safe(x.titre)+'</option>').join('')+'</select></label><span class="tt33-meta">'+Object.values(done).filter(Boolean).length+' / 33 accomplis</span></div>'+
-'<h2>Jour '+safe(d.jour)+' — '+safe(d.titre)+'</h2>'+
-'<nav class="tt33-chapters" aria-label="Rubriques du jour">'+[['book','Livre'],['bible','Bible'],['meditation','Méditation'],['priere','Prière']].map(([id,label])=>'<button type="button" data-chapter="'+id+'" aria-pressed="'+(chapter===id)+'">'+label+'</button>').join('')+'</nav>'+
-'<article class="tt33-page" id="tt33-page" aria-label="Page du livre"><div class="tt33-page-contents">'+(chapter==='book'&&pageIndex===0?invocation:content[chapter])+'</div><div class="tt33-page-number">'+(chapter==='book'?'Page '+(pageIndex+1)+' / '+(pages.length+1):'Jour '+d.jour)+'</div></article>'+
-'<div class="tt33-page-nav"><button id="tt33-back" type="button" '+(chapter==='book'&&index===0&&pageIndex===0?'disabled':'')+'>← Page précédente</button><span class="tt33-font-tools"><button id="tt33-smaller" type="button" aria-label="Réduire les caractères">A−</button><button id="tt33-larger" type="button" aria-label="Agrandir les caractères">A+</button></span><button id="tt33-forward" type="button">Page suivante →</button></div>'+
-'<label class="tt33-check"><input type="checkbox" id="tt33-done" '+(done[d.jour]?'checked':'')+'> Marquer ce jour comme accompli</label>'+
-'<p class="tt33-meta">Parcours spirituel original inspiré du Traité ; ce découpage ne constitue pas une édition officielle de préparation à la consécration.</p>';
-root.querySelector('#tt33-day').onchange=e=>{index=Number(e.target.value);pageIndex=0;chapter='book';render();};
-root.querySelectorAll('[data-chapter]').forEach(b=>b.onclick=()=>{chapter=b.dataset.chapter;render();});
-root.querySelector('#tt33-done').onchange=e=>{done[d.jour]=e.target.checked;try{localStorage.setItem(KEY,JSON.stringify(done));}catch(err){}render();};
-root.querySelector('#tt33-back').onclick=()=>{if(chapter!=='book'){chapter='book';render();return;}if(pageIndex>0)pageIndex--;else if(index>0){index--;pageIndex=splitPages(bookDays[index]).length;}render();};
-root.querySelector('#tt33-forward').onclick=()=>{if(chapter!=='book'){chapter='book';render();return;}if(pageIndex<pages.length)pageIndex++;else if(index<32){index++;pageIndex=0;}else{done[d.jour]=true;try{localStorage.setItem(KEY,JSON.stringify(done));}catch(e){}}render();};
-root.querySelector('#tt33-smaller').onclick=()=>resize(-1);
-root.querySelector('#tt33-larger').onclick=()=>resize(1);
-dlg.scrollTop=0;const pageEl=root.querySelector('.tt33-page-contents');if(pageEl)pageEl.scrollTop=0;
+function makeDayPages(d,book){
+ const read=d.lecture_biblique||{};
+ const invocation='<h3>Invocation au Saint-Esprit</h3><p>Viens, Esprit Saint, remplis mon cœur de ta lumière et de ton amour.</p><p>Ouvre mon intelligence à la Parole de Dieu, dispose mon cœur à accueillir la vérité et guide-moi dans la lecture et la méditation de ce jour.</p><p>Par l’intercession de la Très Sainte Vierge Marie, apprends-moi à écouter Jésus, à comprendre sa volonté et à la mettre en pratique dans ma vie.</p><p>Esprit de sagesse et de sainteté, conduis-moi chaque jour plus près de Jésus-Christ.</p><p><strong>Amen.</strong></p>';
+ const bible='<h3>Parole de Dieu</h3><p><strong>'+safe(read.reference||d.reference_biblique)+'</strong></p><p class="tt33-note">Présentation du passage (ce résumé n’est pas le texte biblique intégral).</p><p>'+safe(read.resume_original)+'</p><p class="tt33-note">Pour lire les versets dans une Bible, consultez la référence indiquée. Le lien externe peut être momentanément indisponible.</p>';
+ const meditation='<h3>Méditation</h3><p>'+safe(d.explication_spirituelle)+'</p><h3>Pour réfléchir</h3><p>'+safe(d.question_meditation)+'</p>';
+ const texts=splitPages(book).map(parts=>({label:'Lecture du Traité',html:parts.map(t=>'<p>'+safe(t)+'</p>').join('')}));
+ return [
+  {label:'Invocation',html:invocation},
+  {label:'Parole de Dieu',html:bible},
+  {label:'Méditation',html:meditation},
+  ...texts,
+  {label:'Prière du jour',html:'<h3>Prière du jour</h3><p>'+safe(d.priere_du_jour)+'</p><h3>Résolution facultative</h3><p>'+safe(d.resolution_facultative)+'</p>'}
+ ];
+}
+function render(){
+ const d=days[index];if(!d)return;
+ const pages=makeDayPages(d,bookDays[index]);
+ // Compatibilité avec les anciennes positions sauvegardées, sans toucher aux journées accomplies.
+ if(chapter!=='book'){const targets={bible:1,meditation:2,priere:pages.length-1};pageIndex=targets[chapter]??0;chapter='book';}
+ pageIndex=Math.max(0,Math.min(pageIndex,pages.length-1));savePlace();
+ const pg=pages[pageIndex],finished=Object.values(done).filter(Boolean).length;
+ root.innerHTML='<div class="tt33-book-toolbar"><label for="tt33-day">Chapitre <select id="tt33-day">'+days.map((x,i)=>'<option value="'+i+'" '+(i===index?'selected':'')+'>Jour '+safe(x.jour)+' — '+safe(x.titre)+'</option>').join('')+'</select></label><span class="tt33-meta">'+finished+' / 33</span></div>'+
+ '<div class="tt33-book-heading"><span>JOUR '+safe(d.jour)+' · '+safe(pg.label)+'</span><h2>'+safe(d.titre)+'</h2></div>'+
+ '<article class="tt33-page" id="tt33-page" aria-label="Page '+(pageIndex+1)+' du jour '+d.jour+'" tabindex="0"><div class="tt33-page-contents">'+pg.html+'</div><div class="tt33-page-number">Jour '+d.jour+' · Page '+(pageIndex+1)+' / '+pages.length+'</div></article>'+
+ '<div class="tt33-page-nav"><button id="tt33-back" type="button" '+(index===0&&pageIndex===0?'disabled':'')+' aria-label="Tourner la page précédente">‹ Précédente</button><span class="tt33-font-tools"><button id="tt33-smaller" type="button" aria-label="Réduire les caractères">A−</button><button id="tt33-larger" type="button" aria-label="Agrandir les caractères">A+</button></span><button id="tt33-forward" type="button" '+(index===32&&pageIndex===pages.length-1?'disabled':'')+' aria-label="Tourner la page suivante">Suivante ›</button></div>'+
+ '<label class="tt33-check"><input type="checkbox" id="tt33-done" '+(done[d.jour]?'checked':'')+'> Journée accomplie</label>';
+ root.querySelector('#tt33-day').onchange=e=>{index=Number(e.target.value);pageIndex=0;chapter='book';render();};
+ root.querySelector('#tt33-done').onchange=e=>{done[d.jour]=e.target.checked;try{localStorage.setItem(KEY,JSON.stringify(done));}catch(err){}render();};
+ root.querySelector('#tt33-back').onclick=()=>turn(-1);
+ root.querySelector('#tt33-forward').onclick=()=>turn(1);
+ root.querySelector('#tt33-smaller').onclick=()=>resize(-1);
+ root.querySelector('#tt33-larger').onclick=()=>resize(1);
+ const sheet=root.querySelector('.tt33-page'),inner=root.querySelector('.tt33-page-contents');
+ let startX=0,startY=0;
+ sheet.addEventListener('touchstart',e=>{if(e.touches.length!==1)return;startX=e.touches[0].clientX;startY=e.touches[0].clientY;},{passive:true});
+ sheet.addEventListener('touchend',e=>{if(e.changedTouches.length!==1)return;const dx=e.changedTouches[0].clientX-startX,dy=e.changedTouches[0].clientY-startY;if(Math.abs(dx)>65&&Math.abs(dx)>Math.abs(dy)*1.4)turn(dx<0?1:-1);},{passive:true});
+ sheet.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();turn(e.key==='ArrowRight'?1:-1);}});
+ if(inner)inner.scrollTop=0;
+}
+function turn(dir){
+ const pages=makeDayPages(days[index],bookDays[index]);
+ if(dir>0){if(pageIndex<pages.length-1)pageIndex++;else if(index<32){index++;pageIndex=0;}else return;}
+ else{if(pageIndex>0)pageIndex--;else if(index>0){index--;pageIndex=makeDayPages(days[index],bookDays[index]).length-1;}else return;}
+ chapter='book';render();
 }
 const FONT_KEY=KEY+'-font-size';
 let fontSize=Number(localStorage.getItem(FONT_KEY))||18;
