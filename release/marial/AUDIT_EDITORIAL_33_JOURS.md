@@ -107,3 +107,12 @@ Les onze fiches **8, 9, 10, 11, 12, 13, 23, 24, 25, 26 et 27** ont été rapproc
 - **Verdict :** navigation de l'ancienne prévisualisation globalement opérationnelle ; **contrôle final de la version corrigée non réalisé**. Préparer une nouvelle prévisualisation isolée avant feu vert de production.
 
 Aucune modification du texte historique, de la branche `main` ou des données des utilisateurs n'a été effectuée.
+
+## Prévisualisation reconstruite et contrôlée le 21 octobre 2026
+
+- **Publication GitHub Pages réussie** : https://github.com/benkabor2108-tech/totus-tuus-public/actions/runs/39618031411
+- **Version publique contrôlée en ligne** : `/version.json` = `5.10.0-pages`, `release=5.10.0`.
+- **Prévisualisation isolée contrôlée en ligne** : `/preview-marial-livre-v5/version.json` = `5.11.0-rc2`, `release=release-candidate-not-deployed`.
+- **Données de la prévisualisation** : 33 fiches présentes ; 33 liens bibliques AELF ; titres et références des jours 8, 13, 23, 27 et 33 conformes aux corrections.
+- **Test navigateur sur le site reconstruit** : https://agent.tinyfish.ai/runs/b6731791-e0b9-4440-8a20-cefe4c19ad75 — ouverture, cinq jours, quatre sections, liens AELF J8/J33, fermeture et réouverture sans erreur ; aucun jour validé pendant cette session.
+- **Réserve** : cette validation n'est pas un test exhaustif des 33 écrans, de l'usage hors connexion, de la persistance après rechargement ou d'un appareil Android réel. Relecture doctrinale et pastorale requise. **Aucune fusion de la branche candidate.**
