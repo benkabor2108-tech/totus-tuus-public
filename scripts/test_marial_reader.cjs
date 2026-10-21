@@ -8,7 +8,7 @@ const assert=require('node:assert/strict');
   page.on('pageerror',e=>errors.push(e.message));
   await page.addInitScript(()=>{localStorage.removeItem('totus-tuus-parcours-marial-33-preview-rc2');});
   await page.goto('http://127.0.0.1:8765/',{waitUntil:'domcontentloaded'});
-  await page.locator('.tt33-cover').click();
+  await page.locator('.tt33-cover').evaluate(el=>el.click());
   await page.locator('#tt33-page').waitFor({timeout:20000});
   assert.match(await page.locator('#tt33-page').innerText(),/Invocation au Saint-Esprit/);
   assert.match(await page.locator('#tt33-content').innerText(),/0 \/ 33/);
