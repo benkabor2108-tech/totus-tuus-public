@@ -16,6 +16,14 @@ jobs:
       - uses: actions/checkout@v4
       - name: Importer une copie du site historique (lecture seule)
         run: python3 scripts/import_public_site.py
+      - name: Récupérer les 108 prières de la version 5.10.0
+        run: |
+          git clone --quiet --depth 1 --branch candidate/intercessions-108 "https://github.com/${GITHUB_REPOSITORY}.git" /tmp/totus-510-src
+          cd /tmp/totus-510-src
+          python3 scripts/import_public_site.py
+          test -s site/intercession-prayers.js
+          cd "$GITHUB_WORKSPACE"
+          cp /tmp/totus-510-src/site/intercession-prayers.js site/intercession-prayers.js
       - name: Ajouter le module candidat sans toucher aux scripts historiques
         run: |
           mkdir -p site/modules/parcours-marial
@@ -31,20 +39,36 @@ jobs:
           html=p/'index.html'
           content=html.read_text(encoding='utf-8')
           tag='<script src="./modules/parcours-marial/parcours-marial.js?v=candidate-33" defer></script>'
+          prayers_tag='<script src="./intercession-prayers.js?v=5.10.0" defer></script>'
+          assert 'intercession-prayers.js' not in content
           assert tag not in content
           assert '</body>' in content
-          html.write_text(content.replace('</body>',tag+'</body>',1),encoding='utf-8')
+          html.write_text(content.replace('</body>',prayers_tag+tag+'</body>',1),encoding='utf-8')
           # Isoler le cache de prévisualisation de la version publique.
           sw=p/'service-worker.js'
           worker=sw.read_text(encoding='utf-8')
           worker=worker.replace('totus-tuus-pages-v5-9-1','totus-tuus-parcours-marial-candidate-33')
+          assert "const ASSETS=[" in worker
+          worker=worker.replace("const ASSETS=[","const ASSETS=['./intercession-prayers.js?v=5.10.0','./modules/parcours-marial/parcours-marial.js?v=candidate-33','./modules/parcours-marial/parcours_marial_33_jours_enrichi.json',",1)
+          assert 'totus-intercession-v51' in (p/'interventions.js').read_text(encoding='utf-8')
           sw.write_text(worker,encoding='utf-8')
           (p/'version.json').write_text(json.dumps({'version':'candidate-parcours-marial-33','release':'preview-only'}),encoding='utf-8')
-          print('33 journées intégrées à une copie autonome du site')
+          print('33 journées + 108 prières V5.10.0 intégrées à une copie autonome du site')
           PY
       - name: Contrôles de la copie et du JavaScript
         run: |
           python3 scripts/check_site.py site
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('site')
+          html=(p/'index.html').read_text(encoding='utf-8')
+          assert html.count('intercession-prayers.js')==1
+          assert html.count('parcours-marial.js')==1
+          assert (p/'intercession-prayers.js').stat().st_size>1000
+          assert (p/'modules/parcours-marial/parcours_marial_33_jours_enrichi.json').is_file()
+          assert 'totus-intercession-v51' in (p/'interventions.js').read_text(encoding='utf-8')
+          print('V5.10.0: intercessions présentes, parcours 33 jours présent, stockage existant conservé')
+          PY
           for file in site/*.js site/modules/parcours-marial/*.js; do node --check "$file"; done
       - name: Livrer uniquement un artefact de test, sans publication
         uses: actions/upload-artifact@v4
