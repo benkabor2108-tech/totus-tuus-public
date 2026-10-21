@@ -49,9 +49,9 @@ jobs:
           assert 'totus-intercession-v51' in (p/'interventions.js').read_text()
           assert (p/'intercession-prayers.js').stat().st_size>1000
           sw=(p/'service-worker.js').read_text()
-          assert "key.startsWith('totus-tuus-pages-v5-11-0-rc2')" in sw
-          assert 'totus-tuus-parcours-marial-33-preview-rc2' in (p/'modules/parcours-marial/parcours-marial.js').read_text()
-          assert 'totus-tuus-parcours-marial-33-v1' not in (p/'modules/parcours-marial/parcours-marial.js').read_text()
+          assert "key.startsWith('totus-tuus-pages-v5-11-1-rc3')" in sw
+          assert 'totus-tuus-parcours-marial-33-preview-rc3' in (p/'modules/parcours-marial/parcours-marial.js').read_text()
+          assert 'totus-tuus-parcours-marial-33-v2' not in (p/'modules/parcours-marial/parcours-marial.js').read_text()
           print('PASS: 33 journées, 108 prières intégrées, clés historiques et caches préservés')
           PY
       - name: Tester le feuilletage mobile avec Chromium
