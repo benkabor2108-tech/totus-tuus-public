@@ -169,3 +169,5 @@ jobs:
 # Refresh 2026-10-21: isolate Marian preview progress storage; production V5.10.0 unchanged.
 
 # Publication V5.11.0 : couverture téléversée, invocation quotidienne et lecture paginée vérifiées en CI.
+
+# Correctif du bundle : inclure la couverture JPEG dans le répertoire de publication.
