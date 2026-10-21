@@ -21,7 +21,7 @@ root.innerHTML='<div class="tt33-nav"><label for="tt33-day">Jour <select id="tt3
 '<h3>Méditation</h3><p>'+safe(d.explication_spirituelle)+'</p><h3>Question pour méditer</h3><p>'+safe(d.question_meditation)+'</p>'+
 '<h3>Prière du jour</h3><p>'+safe(d.priere_du_jour)+'</p><h3>Résolution facultative</h3><p>'+safe(d.resolution_facultative)+'</p>'+
 '<label class="tt33-check"><input type="checkbox" id="tt33-done" '+(done[d.jour]?'checked':'')+'> Marquer ce jour comme accompli</label>'+
-'<div class="tt33-nav"><button id="tt33-prev" '+(index===0?'disabled':'')+'>← Précédent</button><button id="tt33-next">'+(index===days.length-1?'Terminer le parcours ✓':'Valider et passer au jour suivant →')+'</button></div>'
+'<div class="tt33-nav"><button id="tt33-prev" '+(index===0?'disabled':'')+'>← Précédent</button><button id="tt33-next">'+(index===days.length-1?'Terminer le parcours ✓':'Valider et passer au jour suivant →')+'</button></div>'+ 
 '<p class="tt33-meta">Parcours éditorial original inspiré du Traité, distinct d’une préparation officielle de consécration. Références bibliques et pages à vérifier avant publication.</p>';
 root.querySelector('#tt33-day').onchange=e=>{index=Number(e.target.value);render();};
 root.querySelector('#tt33-done').onchange=e=>{done[d.jour]=e.target.checked;try{localStorage.setItem(KEY,JSON.stringify(done));}catch(err){}render();};
