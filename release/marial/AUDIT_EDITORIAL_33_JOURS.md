@@ -90,3 +90,20 @@ Huit fiches ont été corrigées dans `parcours_marial_33_jours_enrichi.json` : 
 - Ce rapport conserve les constats historiques des étapes précédentes ; certains constats (liens Louis Segond, titres avant correction) décrivent l'état **antérieur** et ne représentent plus l'état courant du fichier JSON.
 
 **À poursuivre :** confrontation approfondie des jours 8–13 et 23–27, vérification exhaustive des 33 liens AELF, vérification éditoriale des pages imprimées et relecture doctrinale humaine. Le déploiement public V5.10.0 et les données utilisateurs restent inchangés.
+
+## Confrontation approfondie des jours 8–13 et 23–27
+
+Les onze fiches **8, 9, 10, 11, 12, 13, 23, 24, 25, 26 et 27** ont été rapprochées des débuts/fins de leurs extraits réellement publiés en prévisualisation. Titres, explications, questions, résolutions et, lorsque nécessaire, références bibliques et résumés ont été harmonisés dans le JSON candidat. Les interprétations de Jacob/Rébecca ont été assorties d'une mise en garde contre toute justification de la tromperie ; la médiation de Marie est explicitement subordonnée au Christ. **Statut : harmonise_a_relire** (relecture pastorale encore requise).
+
+## Contrôle fonctionnel par navigateur de la prévisualisation publique
+
+**Adresse testée :** https://benkabor2108-tech.github.io/totus-tuus-public/preview-marial-livre-v5/  
+**Rapport de session :** https://agent.tinyfish.ai/runs/84488394-f02b-41ce-89aa-f22a62b2fa4b
+
+- **OK** : chargement de la page, ouverture et fermeture de la modale, sélection des jours 8, 13, 23, 27 et 33, quatre sections, navigation précédente/suivante, liens externes et affichage des paragraphes.
+- **À vérifier** : affichage sur mobile réel ; persistance du statut des journées et compteur sur plusieurs ouvertures et sessions. Le rapport du navigateur comporte des observations contradictoires sur la persistance et ne permet pas de conclure à un défaut avéré.
+- **Important — prévisualisation périmée** : la prévisualisation publique testée affiche encore les **anciens titres et liens BibleGateway**. Les corrections GitHub de cette phase (AELF et méditations) **n'ont pas encore été déployées** dans cette URL. Il est donc interdit de présenter le test navigateur comme une validation des corrections les plus récentes.
+- La validation d'une journée de test dans le navigateur de contrôle ne touche pas les données du téléphone de l'utilisateur.
+- **Verdict :** navigation de l'ancienne prévisualisation globalement opérationnelle ; **contrôle final de la version corrigée non réalisé**. Préparer une nouvelle prévisualisation isolée avant feu vert de production.
+
+Aucune modification du texte historique, de la branche `main` ou des données des utilisateurs n'a été effectuée.
