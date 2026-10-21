@@ -115,3 +115,5 @@ jobs:
           path: site
       - id: deployment
         uses: actions/deploy-pages@v4
+
+# Preview candidate refreshed: automatic completion when moving to the next day.
