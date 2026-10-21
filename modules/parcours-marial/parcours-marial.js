@@ -114,6 +114,23 @@ bookCSS.textContent+=`
 #tt33-dialog .tt33-book-toolbar{align-items:center}
 #tt33-dialog .tt33-check{justify-content:center}
 `;
+bookCSS.textContent+=`
+/* Mise en page de lecture : caractères mesurés, marges souples, plus de texte coupé. */
+#tt33-dialog .tt33-page-contents{font-size:var(--tt33-font-size);line-height:1.48;letter-spacing:0;overflow-y:auto}
+#tt33-dialog .tt33-page-contents p{font-size:inherit;line-height:1.48;margin:0 0 .62em}
+#tt33-dialog .tt33-page-contents h3{font-size:1.04em;line-height:1.3;margin:0 0 .75em}
+#tt33-dialog .tt33-page{padding:clamp(12px,3.5vw,23px)}
+#tt33-dialog .tt33-book-heading{padding:2px 0 5px}
+#tt33-dialog .tt33-book-heading h2{font-size:clamp(.9rem,3.6vw,1.12rem);margin:3px 0}
+#tt33-dialog .tt33-top{min-height:44px;padding:6px 10px}
+#tt33-dialog .tt33-top strong{font-size:.84rem}
+#tt33-dialog .tt33-pad{padding:7px 10px 9px!important}
+#tt33-dialog .tt33-book-toolbar{font-size:.75rem}
+#tt33-dialog .tt33-page-number{font-size:11px;margin-top:5px}
+#tt33-dialog .tt33-check{font-size:.78rem;padding:3px 0}
+#tt33-dialog .tt33-reset{font-size:.67rem;padding:4px 8px}
+@media(max-width:420px){#tt33-dialog .tt33-page-nav button{min-height:42px}#tt33-dialog .tt33-page{border-left-width:4px}}
+`;
 document.head.append(bookCSS);
 const dlg=document.createElement('dialog');dlg.id='tt33-dialog';dlg.setAttribute('aria-label','Parcours marial de 33 jours');dlg.innerHTML='<div class="tt33-top"><strong>Totus Tuus · Parcours marial</strong><button type="button" id="tt33-close" aria-label="Fermer">Fermer ✕</button></div><div class="tt33-pad" id="tt33-content">Chargement…</div>';document.body.append(dlg);
 const root=dlg.querySelector('#tt33-content');
