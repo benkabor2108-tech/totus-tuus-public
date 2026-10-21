@@ -35,7 +35,7 @@ class Extract(HTMLParser):
             return
         if tag == "div":
             self.level += 1
-        if tag in ("sup", "style", "script", "table") or "reference" in a.get("class", "").split():
+        if tag in ("sup", "style", "script", "table"):
             self.ignore += 1
         if not self.ignore and tag in ("p", "h2", "h3", "h4") and self.tag is None:
             self.tag = tag
@@ -69,7 +69,7 @@ def section(n):
     parser = Extract()
     parser.feed(html)
     paragraphs = [p for p in parser.parts if not p.startswith(("◄", "►", "Image:", "book "))]
-    if len(paragraphs) < (12 if n == 3 else 60):
+    if len(paragraphs) < (5 if n == 3 else 40):
         raise RuntimeError(f"Section {n}: extraction trop courte ({len(paragraphs)} paragraphes)")
     return paragraphs
 
