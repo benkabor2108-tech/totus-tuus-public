@@ -9,21 +9,11 @@ const btn=document.createElement('button');btn.id='tt33-open';btn.type='button';
 // Couverture de livre animee dans la rubrique Commencer : sans modifier les donnees sauvegardees.
 const coverCSS=document.createElement('style');
 coverCSS.textContent=`
-.tt33-cover{position:relative;isolation:isolate;display:block;width:min(100%,520px);min-height:330px;margin:24px auto;padding:0;border:0;border-radius:20px;overflow:hidden;cursor:pointer;background:#142944;color:#fff;box-shadow:0 18px 38px #10182d42;text-align:center;transform:translateZ(0)}
-.tt33-cover .tt33-cover-scene{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.06);animation:tt33-cover-fade 18s ease-in-out infinite}
-.tt33-cover .tt33-cover-scene:nth-child(1){background-image:linear-gradient(#09152c22,#07142e66),url('./modules/parcours-marial/couverture-33-jours-1.jpg'),url('./couverture.png'),linear-gradient(#07152c,#29446b);animation-delay:0s}
-.tt33-cover .tt33-cover-scene:nth-child(2){background-image:linear-gradient(#09152c44,#07142e88),url('./modules/parcours-marial/couverture-33-jours-1.jpg'),url('./couverture.png'),linear-gradient(#07152c,#29446b);background-size:cover;animation-delay:6s}
-.tt33-cover .tt33-cover-scene:nth-child(3){background-image:linear-gradient(#09152c22,#07142e66),url('./modules/parcours-marial/couverture-33-jours-1.jpg'),url('./couverture.png'),linear-gradient(#07152c,#29446b);background-position:70% center;animation-delay:12s}
-.tt33-cover::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,#06132722 0%,#07132922 35%,#071329df 100%);z-index:1}
-.tt33-cover .tt33-cover-copy{position:relative;z-index:2;display:flex;min-height:330px;flex-direction:column;justify-content:flex-end;align-items:center;gap:9px;padding:26px 18px 30px;text-shadow:0 2px 8px #0009}
-.tt33-cover .tt33-cover-kicker{font:600 .78rem system-ui;letter-spacing:.16em;text-transform:uppercase}
-.tt33-cover .tt33-cover-title{font:700 clamp(2rem,6vw,2.9rem) Georgia,serif;line-height:1.12}
-.tt33-cover .tt33-cover-subtitle{font:400 1rem Georgia,serif}
-.tt33-cover .tt33-cover-action{margin-top:8px;padding:9px 18px;border:1px solid #fffc;border-radius:99px;background:#ffffff25;font:600 .95rem system-ui}
+.tt33-cover{position:relative;display:block;width:min(100%,390px);aspect-ratio:2/3;margin:24px auto;padding:0;border:0;border-radius:12px;overflow:hidden;cursor:pointer;background:#e5d5bd url('./modules/parcours-marial/couverture-33-jours-v2.jpg') center/contain no-repeat;box-shadow:0 12px 30px #18263b38}
+.tt33-cover .tt33-cover-scene,.tt33-cover .tt33-cover-kicker,.tt33-cover .tt33-cover-title,.tt33-cover .tt33-cover-subtitle{display:none!important}
+.tt33-cover .tt33-cover-copy{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;padding:0 12px 16px}
+.tt33-cover .tt33-cover-action{display:inline-block;background:#142944ed;color:white;border:1px solid #fff8;border-radius:30px;padding:10px 20px;font:600 15px system-ui;box-shadow:0 3px 10px #0005}
 .tt33-cover:focus-visible{outline:4px solid #aa8cd7;outline-offset:4px}
-@keyframes tt33-cover-fade{0%{opacity:0;transform:scale(1.06)}8%,29%{opacity:1}37%,100%{opacity:0;transform:scale(1.0)}}
-@media(prefers-reduced-motion:reduce){.tt33-cover .tt33-cover-scene{animation:none;opacity:0;transform:none}.tt33-cover .tt33-cover-scene:first-child{opacity:1}}
-@media(max-width:480px){.tt33-cover,.tt33-cover .tt33-cover-copy{min-height:300px}}
 `;
 document.head.append(coverCSS);
 function installCover(){
