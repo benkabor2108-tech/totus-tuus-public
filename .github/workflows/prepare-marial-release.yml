@@ -49,8 +49,8 @@ jobs:
           assert 'totus-intercession-v51' in (p/'interventions.js').read_text()
           assert (p/'intercession-prayers.js').stat().st_size>1000
           sw=(p/'service-worker.js').read_text()
-          assert "key.startsWith('totus-tuus-pages-v5-11-2-rc4')" in sw
-          assert 'totus-tuus-parcours-marial-33-preview-rc4' in (p/'modules/parcours-marial/parcours-marial.js').read_text()
+          assert "key.startsWith('totus-tuus-pages-v5-11-3-rc5')" in sw
+          assert 'totus-tuus-parcours-marial-33-preview-rc5' in (p/'modules/parcours-marial/parcours-marial.js').read_text()
           assert 'totus-tuus-parcours-marial-33-v2' not in (p/'modules/parcours-marial/parcours-marial.js').read_text()
           print('PASS: 33 journées, 108 prières intégrées, clés historiques et caches préservés')
           PY
