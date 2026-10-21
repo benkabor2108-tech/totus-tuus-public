@@ -108,6 +108,15 @@ let days=[],bookDays=[],bibleDays={},index=0,done={},pageIndex=0,chapter='book';
 const PLACE=KEY+'-reading-position';
 try{const p=JSON.parse(localStorage.getItem(PLACE)||'{}');if(Number.isInteger(p.day)&&p.day>=0&&p.day<33)index=p.day;if(Number.isInteger(p.page)&&p.page>=0)pageIndex=p.page;if(['book','bible','meditation','priere'].includes(p.chapter))chapter=p.chapter;}catch(e){}
 function savePlace(){try{localStorage.setItem(PLACE,JSON.stringify({day:index,page:pageIndex,chapter}));}catch(e){}}
+function openAtCurrentDay(){
+ // Une nouvelle ouverture par la couverture commence toujours par l'invocation
+ // du premier jour non accompli. La lecture passée reste consultable au sélecteur.
+ const next=Array.from({length:33},(_,i)=>i).find(i=>done[i+1]!==true);
+ index=next===undefined?32:next;
+ pageIndex=0;chapter='book';
+ savePlace();
+}
+
 function splitPages(book){
  const paragraphs=book?.paragraphes||[],pages=[];let current='',limit=590;
  function flush(){if(current.trim()){pages.push([current.trim()]);current='';}}
@@ -192,5 +201,5 @@ function resize(delta){fontSize=Math.max(15,Math.min(28,fontSize+delta));dlg.sty
 dlg.style.setProperty('--tt33-font-size',fontSize+'px');
 
 let promise;
-btn.addEventListener('click',async()=>{if(!dlg.open)dlg.showModal();if(days.length){render();return;}root.textContent='Chargement du parcours…';try{promise ||= Promise.all([fetch(DATA).then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json();}),fetch('./modules/parcours-marial/traite_33_lectures.json').then(r=>{if(!r.ok)throw Error('Livre HTTP '+r.status);return r.json();}),fetch('./modules/parcours-marial/bible_crampon_33_lectures.json').then(r=>{if(!r.ok)throw Error('Bible HTTP '+r.status);return r.json();})]);const [j,b,scripture]=await promise;if(!Array.isArray(j.jours)||j.jours.length!==33||!Array.isArray(b.jours)||b.jours.length!==33||b.jours.some(x=>!x.paragraphes?.length))throw Error('Données incomplètes');if(Object.keys(scripture.jours||{}).length!==33)throw Error('Passages bibliques incomplets');days=j.jours;bookDays=b.jours;bibleDays=scripture.jours;render();}catch(e){promise=null;root.textContent='Impossible de charger le livre, les passages bibliques et les 33 journées. Réessayez lorsque la connexion est disponible.';}});
+btn.addEventListener('click',async()=>{if(!dlg.open)dlg.showModal();if(days.length){openAtCurrentDay();render();return;}root.textContent='Chargement du parcours…';try{promise ||= Promise.all([fetch(DATA).then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json();}),fetch('./modules/parcours-marial/traite_33_lectures.json').then(r=>{if(!r.ok)throw Error('Livre HTTP '+r.status);return r.json();}),fetch('./modules/parcours-marial/bible_crampon_33_lectures.json').then(r=>{if(!r.ok)throw Error('Bible HTTP '+r.status);return r.json();})]);const [j,b,scripture]=await promise;if(!Array.isArray(j.jours)||j.jours.length!==33||!Array.isArray(b.jours)||b.jours.length!==33||b.jours.some(x=>!x.paragraphes?.length))throw Error('Données incomplètes');if(Object.keys(scripture.jours||{}).length!==33)throw Error('Passages bibliques incomplets');days=j.jours;bookDays=b.jours;bibleDays=scripture.jours;openAtCurrentDay();render();}catch(e){promise=null;root.textContent='Impossible de charger le livre, les passages bibliques et les 33 journées. Réessayez lorsque la connexion est disponible.';}});
 })();
