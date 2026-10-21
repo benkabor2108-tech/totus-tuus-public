@@ -29,7 +29,7 @@ jobs:
           cd /tmp/totus-preview-src
           python3 scripts/import_public_site.py
           python3 scripts/check_site.py site
-          for file in site/*.js site/preview-marial-33-v2/modules/parcours-marial/*.js; do node --check "$file"; done
+          for file in site/*.js; do node --check "$file"; done
           cd "$GITHUB_WORKSPACE"
           mkdir -p site/preview-intercessions
           cp -a /tmp/totus-preview-src/site/. site/preview-intercessions/
@@ -103,7 +103,7 @@ jobs:
       - name: Vérifier les fichiers et la syntaxe JavaScript
         run: |
           python3 scripts/check_site.py site
-          for file in site/*.js; do node --check "$file"; done
+          for file in site/*.js site/preview-marial-33-v2/modules/parcours-marial/*.js; do node --check "$file"; done
           NODE_PATH=/tmp/totus-qa/node_modules node --version
       - name: Activer GitHub Pages avec GitHub Actions si autorisé
         env:
