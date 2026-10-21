@@ -19,20 +19,19 @@ const assert=require('node:assert/strict');
   assert.match(await page.locator('#tt33-page').innerText(),/Invocation au Saint-Esprit/);
   // Une coche hors ordre doit revenir au premier jour non accompli.
   await page.locator('#tt33-day').selectOption('1');
-  await page.locator('#tt33-done').check();
-  console.log('After invalid completion:',await page.locator('#tt33-day').inputValue(),await page.evaluate(()=>localStorage.getItem('totus-tuus-parcours-marial-33-preview-rc5')));
+  await page.locator('#tt33-done').click();
   assert.equal(await page.locator('#tt33-day').inputValue(),'0');
   assert.match(await page.locator('#tt33-content').innerText(),/0 \/ 33/);
   // L'ouverture quotidienne reprend au premier jour non accompli,
   // toujours à l'invocation, et non à la dernière page feuilletée.
-  await page.locator('#tt33-done').check();
+  await page.locator('#tt33-done').click();
   assert.equal(await page.locator('#tt33-day').inputValue(),'1');
   assert.match(await page.locator('#tt33-content').innerText(),/1 \/ 33/);
   await page.locator('#tt33-close').click();
   await page.locator('.tt33-cover').evaluate(el=>el.click());
   assert.match(await page.locator('#tt33-page').innerText(),/Invocation au Saint-Esprit/);
   assert.equal(await page.locator('#tt33-day').inputValue(),'1');
-  await page.locator('#tt33-done').check();
+  await page.locator('#tt33-done').click();
   assert.equal(await page.locator('#tt33-day').inputValue(),'2');
   assert.match(await page.locator('#tt33-content').innerText(),/2 \/ 33/);
   await page.locator('#tt33-close').click();
