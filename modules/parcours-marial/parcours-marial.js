@@ -75,6 +75,8 @@ bookCSS.textContent+=`
 `;
 bookCSS.textContent+=`
 /* Livre continu : les rubriques deviennent des pages, non des onglets. */
+#tt33-dialog .tt33-reset{font-size:.72rem;padding:4px 7px;align-self:center;opacity:.75}
+
 #tt33-dialog .tt33-verse{line-height:1.65}#tt33-dialog .tt33-verse sup{color:#806333;font-size:.65em;margin-right:.2em}
 
 #tt33-dialog .tt33-top{background:#fbf7ef;border-bottom:1px solid #e7dcc8}
@@ -173,9 +175,10 @@ function render(){
  '<div class="tt33-book-heading"><span>JOUR '+safe(d.jour)+' · '+safe(pg.label)+'</span><h2>'+safe(d.titre)+'</h2></div>'+
  '<article class="tt33-page" id="tt33-page" aria-label="Page '+(pageIndex+1)+' du jour '+d.jour+'" tabindex="0"><div class="tt33-page-contents">'+pg.html+'</div><div class="tt33-page-number">Jour '+d.jour+' · Page '+(pageIndex+1)+' / '+pages.length+'</div></article>'+
  '<div class="tt33-page-nav"><button id="tt33-back" type="button" '+(index===0&&pageIndex===0?'disabled':'')+' aria-label="Tourner la page précédente">‹ Précédente</button><span class="tt33-font-tools"><button id="tt33-smaller" type="button" aria-label="Réduire les caractères">A−</button><button id="tt33-larger" type="button" aria-label="Agrandir les caractères">A+</button></span><button id="tt33-forward" type="button" '+(index===32&&pageIndex===pages.length-1?'disabled':'')+' aria-label="Tourner la page suivante">Suivante ›</button></div>'+
- '<label class="tt33-check"><input type="checkbox" id="tt33-done" '+(done[d.jour]?'checked':'')+'> Journée accomplie</label>';
+ '<label class="tt33-check"><input type="checkbox" id="tt33-done" '+(done[d.jour]?'checked':'')+'> Journée accomplie</label>'+ '<button id="tt33-reset" type="button" class="tt33-reset" aria-label="Effacer uniquement les journées marquées accomplies">Réinitialiser les journées de test (0/33)</button>';
  root.querySelector('#tt33-day').onchange=e=>{index=Number(e.target.value);pageIndex=0;chapter='book';render();};
  root.querySelector('#tt33-done').onchange=e=>{done[d.jour]=e.target.checked;try{localStorage.setItem(KEY,JSON.stringify(done));}catch(err){}render();};
+ root.querySelector('#tt33-reset').onclick=()=>{if(!confirm('Effacer les journées marquées accomplies pour recommencer à 0/33 ? Les textes et prières seront conservés.'))return;done={};index=0;pageIndex=0;chapter='book';try{localStorage.setItem(KEY,'{}');}catch(e){}render();};
  root.querySelector('#tt33-back').onclick=()=>turn(-1);
  root.querySelector('#tt33-forward').onclick=()=>turn(1);
  root.querySelector('#tt33-smaller').onclick=()=>resize(-1);
