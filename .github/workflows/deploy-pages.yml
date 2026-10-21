@@ -106,6 +106,40 @@ jobs:
           assert 'Lecture du Traité — texte authentique' in (preview/'modules/parcours-marial/parcours-marial.js').read_text()
           print('Root V5.10.0 inchangé; preview V5.11.0 RC isolée sous /preview-marial-livre-v5/')
           PY
+      - name: Promouvoir V5.11.0 au site officiel en préservant les données historiques
+        run: |
+          cp -a site/preview-marial-livre-v5/. site/
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          root=Path("site")
+          module=root/"modules/parcours-marial"
+          js=module/"parcours-marial.js"
+          src=js.read_text(encoding="utf-8")
+          preview_key="totus-tuus-parcours-marial-33-preview-rc2"
+          official_key="totus-tuus-parcours-marial-33-v1"
+          assert preview_key in src and official_key not in src
+          js.write_text(src.replace(preview_key,official_key),encoding="utf-8")
+          assert official_key in js.read_text(encoding="utf-8")
+          interventions=(root/"interventions.js").read_text(encoding="utf-8")
+          assert "totus-intercession-v51" in interventions
+          assert (root/"intercession-prayers.js").stat().st_size>1000
+          html=(root/"index.html").read_text(encoding="utf-8")
+          assert html.count("intercession-prayers.js")==1
+          assert html.count("parcours-marial.js")==1
+          sw=root/"service-worker.js"
+          worker=sw.read_text(encoding="utf-8")
+          assert "totus-tuus-pages-v5-11-0-rc2" in worker
+          worker=worker.replace("totus-tuus-pages-v5-11-0-rc2","totus-tuus-pages-v5-11-0")
+          sw.write_text(worker,encoding="utf-8")
+          (root/"version.json").write_text(json.dumps({"version":"5.11.0-pages","release":"5.11.0"},ensure_ascii=False),encoding="utf-8")
+          book=json.loads((module/"traite_33_lectures.json").read_text(encoding="utf-8"))
+          data=json.loads((module/"parcours_marial_33_jours_enrichi.json").read_text(encoding="utf-8"))
+          assert len(book["jours"])==len(data["jours"])==33
+          assert all(d["lecture_biblique"]["url_lecture"].startswith("https://www.aelf.org/bible/") for d in data["jours"])
+          assert json.loads((root/"preview-marial-livre-v5/version.json").read_text())["release"]=="release-candidate-not-deployed"
+          print("V5.11.0 officielle assemblée ; preview séparée ; clés historiques conservées.")
+          PY
       - name: Vérifier les fichiers et la syntaxe JavaScript
         run: |
           python3 scripts/check_site.py site
