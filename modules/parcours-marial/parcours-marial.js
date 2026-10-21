@@ -50,6 +50,9 @@ bookCSS.textContent=`
 #tt33-dialog .tt33-page{background:#fffdf7;border:1px solid #ded3bb;border-radius:8px;box-shadow:inset 8px 0 15px #947f5012,0 5px 20px #281c2a17;min-height:330px;margin:14px 0;padding:clamp(18px,4vw,38px);display:flex;flex-direction:column;justify-content:space-between}
 #tt33-dialog .tt33-page-contents{font:var(--tt33-font-size)/1.72 Georgia,'Times New Roman',serif;overflow-wrap:anywhere}
 #tt33-dialog .tt33-page-contents p{font-size:inherit;line-height:inherit}
+#tt33-dialog .tt33-invocation{padding:14px 17px;margin:0 0 24px;border:1px solid #e1d5bd;border-radius:10px;background:#faf5e9}
+#tt33-dialog .tt33-invocation h3{margin:0 0 12px;color:#493462;font:700 1.05em Georgia,serif}
+#tt33-dialog .tt33-invocation p{font-style:italic}
 #tt33-dialog .tt33-page-number{font:12px system-ui;text-align:center;color:#7c6c5c;margin-top:25px}
 #tt33-dialog .tt33-font-tools{display:flex;gap:5px}
 #tt33-dialog .tt33-page-nav button{min-height:44px}
@@ -71,6 +74,7 @@ try{const x=JSON.parse(localStorage.getItem(KEY)||'{}');if(x&&typeof x==='object
 function render(){const d=days[index];if(!d)return;
 const read=d.lecture_biblique||{},book=bookDays[index],pages=splitPages(book);
 pageIndex=Math.max(0,Math.min(pageIndex,pages.length-1));savePlace();
+const invocation='<section class="tt33-invocation" aria-label="Invocation au Saint-Esprit"><h3>Invocation au Saint-Esprit</h3><p>Viens, Esprit Saint, remplis mon cœur de ta lumière et de ton amour.</p><p>Ouvre mon intelligence à la Parole de Dieu, dispose mon cœur à accueillir la vérité et guide-moi dans la lecture et la méditation de ce jour.</p><p>Par l’intercession de la Très Sainte Vierge Marie, apprends-moi à écouter Jésus, à comprendre sa volonté et à la mettre en pratique dans ma vie.</p><p>Esprit de sagesse et de sainteté, conduis-moi chaque jour plus près de Jésus-Christ.</p><p><strong>Amen.</strong></p></section>';
 const content={
 book:'<p class="tt33-book-meta">Lecture du Traité · transcription de l’édition Gaume frères (1859). Découpage en 33 jours à caractère éditorial.</p>'+pages[pageIndex].map(t=>'<p class="tt33-book">'+safe(t)+'</p>').join('')+'<p class="tt33-book-meta">'+link(d.source_texte_integral,'Consulter le texte source')+'</p>',
 bible:'<h3>Parole de Dieu</h3><p><strong>'+safe(read.reference||d.reference_biblique)+'</strong></p><p>'+safe(read.resume_original)+'</p><p>'+link(read.url_lecture,'Lire le passage biblique')+'</p>',
@@ -80,7 +84,7 @@ priere:'<h3>Prière du jour</h3><p>'+safe(d.priere_du_jour)+'</p><h3>Résolution
 root.innerHTML='<div class="tt33-book-toolbar"><label for="tt33-day">Jour <select id="tt33-day">'+days.map((x,i)=>'<option value="'+i+'" '+(i===index?'selected':'')+'>'+safe(x.jour)+' — '+safe(x.titre)+'</option>').join('')+'</select></label><span class="tt33-meta">'+Object.values(done).filter(Boolean).length+' / 33 accomplis</span></div>'+
 '<h2>Jour '+safe(d.jour)+' — '+safe(d.titre)+'</h2>'+
 '<nav class="tt33-chapters" aria-label="Rubriques du jour">'+[['book','Livre'],['bible','Bible'],['meditation','Méditation'],['priere','Prière']].map(([id,label])=>'<button type="button" data-chapter="'+id+'" aria-pressed="'+(chapter===id)+'">'+label+'</button>').join('')+'</nav>'+
-'<article class="tt33-page" id="tt33-page" aria-label="Page du livre"><div class="tt33-page-contents">'+content[chapter]+'</div><div class="tt33-page-number">'+(chapter==='book'?'Page '+(pageIndex+1)+' / '+pages.length:'Jour '+d.jour)+'</div></article>'+
+'<article class="tt33-page" id="tt33-page" aria-label="Page du livre"><div class="tt33-page-contents">'+(chapter==='book'&&pageIndex===0?invocation:'')+content[chapter]+'</div><div class="tt33-page-number">'+(chapter==='book'?'Page '+(pageIndex+1)+' / '+pages.length:'Jour '+d.jour)+'</div></article>'+
 '<div class="tt33-page-nav"><button id="tt33-back" type="button" '+(chapter==='book'&&index===0&&pageIndex===0?'disabled':'')+'>← Page précédente</button><span class="tt33-font-tools"><button id="tt33-smaller" type="button" aria-label="Réduire les caractères">A−</button><button id="tt33-larger" type="button" aria-label="Agrandir les caractères">A+</button></span><button id="tt33-forward" type="button">Page suivante →</button></div>'+
 '<label class="tt33-check"><input type="checkbox" id="tt33-done" '+(done[d.jour]?'checked':'')+'> Marquer ce jour comme accompli</label>'+
 '<p class="tt33-meta">Parcours spirituel original inspiré du Traité ; ce découpage ne constitue pas une édition officielle de préparation à la consécration.</p>';
