@@ -96,7 +96,7 @@ jobs:
           assert 'parcours-marial.js' not in (root/'index.html').read_text()
           assert 'parcours-marial.js' in (preview/'index.html').read_text()
           assert 'totus-intercession-v51' in (preview/'interventions.js').read_text()
-          assert 'totus-tuus-pages-v5-11-0-rc2' in (preview/'service-worker.js').read_text()
+          assert 'totus-tuus-pages-v5-11-1-rc3' in (preview/'service-worker.js').read_text()
           assert 'tt33-page-nav' in (preview/'modules/parcours-marial/parcours-marial.js').read_text()
           assert 'Invocation au Saint-Esprit' in (preview/'modules/parcours-marial/parcours-marial.js').read_text()
           assert 'couverture-33-jours-v2.jpg' in (preview/'modules/parcours-marial/parcours-marial.js').read_text()
@@ -119,8 +119,8 @@ jobs:
           module=root/"modules/parcours-marial"
           js=module/"parcours-marial.js"
           src=js.read_text(encoding="utf-8")
-          preview_key="totus-tuus-parcours-marial-33-preview-rc2"
-          official_key="totus-tuus-parcours-marial-33-v1"
+          preview_key="totus-tuus-parcours-marial-33-preview-rc3"
+          official_key="totus-tuus-parcours-marial-33-v2"
           assert preview_key in src and official_key not in src
           js.write_text(src.replace(preview_key,official_key),encoding="utf-8")
           assert official_key in js.read_text(encoding="utf-8")
@@ -132,10 +132,10 @@ jobs:
           assert html.count("parcours-marial.js")==1
           sw=root/"service-worker.js"
           worker=sw.read_text(encoding="utf-8")
-          assert "totus-tuus-pages-v5-11-0-rc2" in worker
-          worker=worker.replace("totus-tuus-pages-v5-11-0-rc2","totus-tuus-pages-v5-11-0")
+          assert "totus-tuus-pages-v5-11-1-rc3" in worker
+          worker=worker.replace("totus-tuus-pages-v5-11-1-rc3","totus-tuus-pages-v5-11-1")
           sw.write_text(worker,encoding="utf-8")
-          (root/"version.json").write_text(json.dumps({"version":"5.11.0-pages","release":"5.11.0"},ensure_ascii=False),encoding="utf-8")
+          (root/"version.json").write_text(json.dumps({"version":"5.11.1-pages","release":"5.11.1"},ensure_ascii=False),encoding="utf-8")
           book=json.loads((module/"traite_33_lectures.json").read_text(encoding="utf-8"))
           data=json.loads((module/"parcours_marial_33_jours_enrichi.json").read_text(encoding="utf-8"))
           assert len(book["jours"])==len(data["jours"])==33
@@ -173,3 +173,5 @@ jobs:
 # Correctif du bundle : inclure la couverture JPEG dans le répertoire de publication.
 
 # Publication finale V5.11.0 : livre marial, 33 lectures bibliques intégrées, reprise à l'invocation et remise à zéro des essais. Validations candidate Chromium PASS 2026-10-21.
+
+# Correctif V5.11.1 : remise à zéro unique des anciens essais (6/33) via nouvelle clé V2 ; conserver les accomplissements V2 à l'avenir ; typographie et pagination mobile affinées.
