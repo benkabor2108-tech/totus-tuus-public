@@ -1,7 +1,9 @@
 /* Totus Tuus — parcours marial candidat (sans modifier les données existantes) */
 (()=>{'use strict';
 const DATA='./modules/parcours-marial/parcours_marial_33_jours_enrichi.json';
-const KEY='totus-tuus-parcours-marial-33-v1';
+// V2 démarre volontairement à 0/33 : les coches V1 provenaient exclusivement des essais confirmés par l'utilisateur.
+// Les progrès réels enregistrés désormais sous V2 ne seront jamais réinitialisés automatiquement.
+const KEY='totus-tuus-parcours-marial-33-v2';
 const css=`#tt33-open{position:fixed;right:16px;bottom:20px;z-index:2147482000;background:#604183;color:white;border:0;border-radius:30px;padding:13px 18px;box-shadow:0 3px 16px #0004;font:600 15px system-ui;cursor:pointer}#tt33-dialog{border:0;border-radius:16px;max-width:760px;width:calc(100% - 22px);max-height:90vh;overflow:auto;padding:0;background:#fff;color:#292238;box-shadow:0 12px 55px #0005}#tt33-dialog::backdrop{background:#0009}#tt33-dialog .tt33-pad{padding:20px}#tt33-dialog h2{margin:8px 0;font-size:1.5rem}#tt33-dialog h3{font-size:1.05rem;margin:20px 0 6px}#tt33-dialog p{line-height:1.65}#tt33-dialog .tt33-book{font-family:Georgia,serif;line-height:1.7}#tt33-dialog .tt33-section{border:1px solid #ddd5e4;border-radius:12px;margin:14px 0;overflow:hidden}#tt33-dialog .tt33-section summary{cursor:pointer;background:#f6f2fa;color:#35204d;font-weight:700;padding:14px 12px;line-height:1.4}#tt33-dialog .tt33-section-body{padding:4px 14px 14px}#tt33-dialog .tt33-book-meta{margin:10px 0;color:#60586c}#tt33-dialog .tt33-jump{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}#tt33-dialog .tt33-jump button{font-size:.9rem}#tt33-dialog .tt33-top{position:sticky;top:0;background:#fff;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #ddd;padding:12px 18px}#tt33-dialog button{cursor:pointer;padding:9px 12px;border:1px solid #9a8ab0;border-radius:8px;background:#f7f4fa;color:#35204d}#tt33-dialog button:disabled{opacity:.45;cursor:not-allowed}#tt33-dialog .tt33-nav{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between}#tt33-dialog a{color:#57348c}#tt33-dialog .tt33-meta{color:#60586c;font-size:.92rem}#tt33-dialog .tt33-check{display:flex;gap:9px;align-items:center;padding:12px 0}#tt33-dialog select{padding:9px;max-width:100%;border-radius:8px} @media(max-width:480px){#tt33-open{bottom:12px;right:12px;font-size:13px}#tt33-dialog .tt33-pad{padding:15px}}`;
 const style=document.createElement('style');style.textContent=css;document.head.append(style);
 const btn=document.createElement('button');btn.id='tt33-open';btn.type='button';btn.textContent='Parcours marial · 33 jours';document.body.append(btn);
@@ -75,7 +77,19 @@ bookCSS.textContent+=`
 `;
 bookCSS.textContent+=`
 /* Livre continu : les rubriques deviennent des pages, non des onglets. */
-#tt33-dialog .tt33-reset{font-size:.72rem;padding:4px 7px;align-self:center;opacity:.75}
+#tt33-dialog .tt33-page-contents{font-family:Georgia,'Times New Roman',serif;line-height:1.52;letter-spacing:.005em;hyphens:auto;overflow-wrap:break-word}
+#tt33-dialog .tt33-page-contents p{line-height:1.52;margin-bottom:.65em}
+#tt33-dialog .tt33-page-contents h3{font-size:1.06em;line-height:1.25;margin-bottom:.7em}
+#tt33-dialog .tt33-book-heading{padding:2px 0 5px}
+#tt33-dialog .tt33-book-heading h2{font-size:clamp(.88rem,3.5vw,1.1rem);margin:3px 0}
+#tt33-dialog .tt33-page{padding:clamp(14px,4vw,24px);border-left-width:4px}
+#tt33-dialog .tt33-page-number{font-size:11px;margin-top:6px}
+#tt33-dialog .tt33-top{min-height:44px;padding:6px 12px}
+#tt33-dialog .tt33-pad{padding:7px 10px 8px!important}
+#tt33-dialog .tt33-check{padding:3px 0}
+#tt33-dialog .tt33-page-nav{margin-top:6px}
+
+#tt33-dialog .tt33-reset{font-size:.71rem;padding:5px 9px;align-self:center;opacity:.8}
 
 #tt33-dialog .tt33-verse{line-height:1.65}#tt33-dialog .tt33-verse sup{color:#806333;font-size:.65em;margin-right:.2em}
 
@@ -120,7 +134,7 @@ function openAtCurrentDay(){
 }
 
 function splitPages(book){
- const paragraphs=book?.paragraphes||[],pages=[];let current='',limit=590;
+ const paragraphs=book?.paragraphes||[],pages=[];let current='',limit=345;
  function flush(){if(current.trim()){pages.push([current.trim()]);current='';}}
  for(const p of paragraphs){
   const text=String(p.texte||'').trim();if(!text)continue;
@@ -131,7 +145,8 @@ function splitPages(book){
    if(part.length>limit){const words=part.split(/\s+/);for(const word of words){if(current.length+word.length+1>limit)flush();current+=(current?' ':'')+word;}continue;}
    current+=(current?' ':'')+part;
   }
-  flush();
+  // Regrouper des paragraphes courts sur une même page sans surcharger la lecture.
+  if(current.length>limit*.78)flush();
  }
  flush();return pages.length?pages:[['Texte indisponible.']];
 }
@@ -175,10 +190,10 @@ function render(){
  '<div class="tt33-book-heading"><span>JOUR '+safe(d.jour)+' · '+safe(pg.label)+'</span><h2>'+safe(d.titre)+'</h2></div>'+
  '<article class="tt33-page" id="tt33-page" aria-label="Page '+(pageIndex+1)+' du jour '+d.jour+'" tabindex="0"><div class="tt33-page-contents">'+pg.html+'</div><div class="tt33-page-number">Jour '+d.jour+' · Page '+(pageIndex+1)+' / '+pages.length+'</div></article>'+
  '<div class="tt33-page-nav"><button id="tt33-back" type="button" '+(index===0&&pageIndex===0?'disabled':'')+' aria-label="Tourner la page précédente">‹ Précédente</button><span class="tt33-font-tools"><button id="tt33-smaller" type="button" aria-label="Réduire les caractères">A−</button><button id="tt33-larger" type="button" aria-label="Agrandir les caractères">A+</button></span><button id="tt33-forward" type="button" '+(index===32&&pageIndex===pages.length-1?'disabled':'')+' aria-label="Tourner la page suivante">Suivante ›</button></div>'+
- '<label class="tt33-check"><input type="checkbox" id="tt33-done" '+(done[d.jour]?'checked':'')+'> Journée accomplie</label>'+ '<button id="tt33-reset" type="button" class="tt33-reset" aria-label="Effacer uniquement les journées marquées accomplies">Réinitialiser les journées de test (0/33)</button>';
+ '<label class="tt33-check"><input type="checkbox" id="tt33-done" '+(done[d.jour]?'checked':'')+'> Journée accomplie</label>'+ '<button id="tt33-reset" type="button" class="tt33-reset" aria-label="Effacer uniquement les journées marquées accomplies">Recommencer le parcours à 0/33</button>';
  root.querySelector('#tt33-day').onchange=e=>{index=Number(e.target.value);pageIndex=0;chapter='book';render();};
  root.querySelector('#tt33-done').onchange=e=>{done[d.jour]=e.target.checked;try{localStorage.setItem(KEY,JSON.stringify(done));}catch(err){}render();};
- root.querySelector('#tt33-reset').onclick=()=>{if(!confirm('Effacer les journées marquées accomplies pour recommencer à 0/33 ? Les textes et prières seront conservés.'))return;done={};index=0;pageIndex=0;chapter='book';try{localStorage.setItem(KEY,'{}');}catch(e){}render();};
+ root.querySelector('#tt33-reset').onclick=()=>{if(!confirm('Recommencer tout le parcours à 0/33 ? Cette action effacera les journées accomplies. Les textes et prières seront conservés.'))return;done={};index=0;pageIndex=0;chapter='book';try{localStorage.setItem(KEY,'{}');}catch(e){}render();};
  root.querySelector('#tt33-back').onclick=()=>turn(-1);
  root.querySelector('#tt33-forward').onclick=()=>turn(1);
  root.querySelector('#tt33-smaller').onclick=()=>resize(-1);
@@ -199,8 +214,8 @@ function turn(dir){
  chapter='book';render();
 }
 const FONT_KEY=KEY+'-font-size';
-let fontSize=Number(localStorage.getItem(FONT_KEY))||18;
-function resize(delta){fontSize=Math.max(15,Math.min(28,fontSize+delta));dlg.style.setProperty('--tt33-font-size',fontSize+'px');try{localStorage.setItem(FONT_KEY,String(fontSize));}catch(e){}}
+let fontSize=Number(localStorage.getItem(FONT_KEY))||16;
+function resize(delta){fontSize=Math.max(14,Math.min(23,fontSize+delta));dlg.style.setProperty('--tt33-font-size',fontSize+'px');try{localStorage.setItem(FONT_KEY,String(fontSize));}catch(e){}}
 dlg.style.setProperty('--tt33-font-size',fontSize+'px');
 
 let promise;
