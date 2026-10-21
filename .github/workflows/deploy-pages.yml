@@ -77,6 +77,28 @@ jobs:
           assert "intercession-prayers.js?v=5.10.0" in html
           print("RELEASE 5.10.0 : 108 prières ; stockage existant préservé ; cache renouvelé")
           PY
+      - name: Construire la prévisualisation isolée du parcours marial sans remplacer V5.10.0
+        run: |
+          git clone --quiet --depth 1 --branch candidate/parcours-marial-33-jours "https://github.com/${GITHUB_REPOSITORY}.git" /tmp/totus-marial-src
+          cd /tmp/totus-marial-src
+          bash scripts/build_netlify_preview.sh
+          cd "$GITHUB_WORKSPACE"
+          mkdir -p site/preview-marial-33
+          cp -a /tmp/totus-marial-src/site/. site/preview-marial-33/
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          root=Path('site')
+          preview=root/'preview-marial-33'
+          assert (root/'version.json').read_text()!= (preview/'version.json').read_text()
+          assert json.loads((root/'version.json').read_text())['release']=='5.10.0'
+          assert json.loads((preview/'version.json').read_text())['release']=='release-candidate-not-deployed'
+          assert 'parcours-marial.js' not in (root/'index.html').read_text()
+          assert 'parcours-marial.js' in (preview/'index.html').read_text()
+          assert 'totus-intercession-v51' in (preview/'interventions.js').read_text()
+          assert 'totus-tuus-pages-v5-11-0-rc' in (preview/'service-worker.js').read_text()
+          print('Root V5.10.0 inchangé; preview V5.11.0 RC isolée sous /preview-marial-33/')
+          PY
       - name: Vérifier les fichiers et la syntaxe JavaScript
         run: |
           python3 scripts/check_site.py site
