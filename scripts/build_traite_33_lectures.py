@@ -99,4 +99,34 @@ output = {
 }
 OUT.parent.mkdir(parents=True, exist_ok=True)
 OUT.write_text(json.dumps(output, ensure_ascii=False, indent=2), encoding="utf-8")
+# Rapport de relecture : limites de journées, longueur et provenance.
+# Un contrôle automatique ne garantit pas une coupure pertinente sur le plan spirituel.
+audit = {
+    "statut": "RELECTURE_HUMAINE_REQUISE",
+    "source": BASE,
+    "nombre_paragraphes": len(all_paragraphs),
+    "caracteres": total,
+    "points_de_controle": [
+        "Comparer le texte à l'édition historique et vérifier l'intégralité",
+        "Vérifier que chaque journée se termine à une articulation logique",
+        "Faire correspondre chaque titre, référence biblique et méditation au passage exact",
+        "Contrôler les numéros de paragraphes de Montfort et supprimer les éléments éditoriaux parasites",
+        "Ne pas présenter ce découpage comme la préparation traditionnelle à la consécration"
+    ],
+    "jours": [
+        {
+            "jour": i+1,
+            "paragraphes": len(items),
+            "caracteres": sum(len(p["texte"]) for p in items),
+            "debut": items[0]["texte"][:160],
+            "fin": items[-1]["texte"][-160:],
+            "sections": sorted(set(p["section"] for p in items)),
+            "validation_editoriale": False
+        } for i, items in enumerate(days)
+    ]
+}
+OUT.with_name("audit_decoupage_33_lectures.json").write_text(
+    json.dumps(audit, ensure_ascii=False, indent=2), encoding="utf-8"
+)
+
 print(f"Traité authentique extrait: {len(all_paragraphs)} paragraphes, {total} caractères, 33 lectures. Sortie: {OUT}")
