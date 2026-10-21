@@ -116,3 +116,13 @@ Aucune modification du texte historique, de la branche `main` ou des données de
 - **Données de la prévisualisation** : 33 fiches présentes ; 33 liens bibliques AELF ; titres et références des jours 8, 13, 23, 27 et 33 conformes aux corrections.
 - **Test navigateur sur le site reconstruit** : https://agent.tinyfish.ai/runs/b6731791-e0b9-4440-8a20-cefe4c19ad75 — ouverture, cinq jours, quatre sections, liens AELF J8/J33, fermeture et réouverture sans erreur ; aucun jour validé pendant cette session.
 - **Réserve** : cette validation n'est pas un test exhaustif des 33 écrans, de l'usage hors connexion, de la persistance après rechargement ou d'un appareil Android réel. Relecture doctrinale et pastorale requise. **Aucune fusion de la branche candidate.**
+
+## Contrôle complémentaire de progression et séparation du stockage — 21 octobre 2026
+
+L'analyse du code `modules/parcours-marial/parcours-marial.js` confirme que les journées validées sont écrites dans `localStorage`, relues à l'initialisation et que la case d'une journée peut être cochée ou décochée. Le compteur correspond au nombre de valeurs `true` du dictionnaire `done`.
+
+**Risque identifié et corrigé dans la construction candidate** : la prévisualisation sur le même domaine utilisait auparavant la clé de progression destinée à la version officielle. `scripts/prepare_marial_release_candidate.py` substitue maintenant la clé `totus-tuus-parcours-marial-33-preview-rc2` **uniquement dans le JavaScript assemblé pour la prévisualisation**. Le code source conserve la clé officielle `totus-tuus-parcours-marial-33-v1` pour une éventuelle future publication. Aucune suppression/migration du stockage existant. Les anciens états de prévisualisation ne sont pas transférés vers la nouvelle clé, volontairement.
+
+**Attention au test navigateur** : la session https://agent.tinyfish.ai/runs/f5bb668f-d550-475e-81d8-55adbfe99ec1 a principalement interagi avec une « novaine guidée » et non avec le composant 33 jours ; ses constats de persistance ne permettent **pas** de valider la progression du module marial. L'affichage mobile 390×844 n'a pas été confirmé. Il faut un test spécifique sur le composant `tt33` après redéploiement.
+
+**Statut** : changement de clé et test CI mis à jour sur branche candidate ; republication de cette correction à confirmer par un run GitHub Pages réussi. Pas de fusion vers la production.
