@@ -51,6 +51,11 @@ jobs:
           assert "const ASSETS=[" in worker
           worker=worker.replace("const ASSETS=[","const ASSETS=['./intercession-prayers.js?v=5.10.0','./modules/parcours-marial/parcours-marial.js?v=candidate-33','./modules/parcours-marial/parcours_marial_33_jours_enrichi.json',",1)
           assert 'totus-intercession-v51' in (p/'interventions.js').read_text(encoding='utf-8')
+          # Ne supprimer que les anciens caches de CE candidat, jamais ceux de V5.10.0.
+          worker=worker.replace("key.startsWith('totus-tuus-')&&key!==CACHE","key.startsWith('totus-tuus-parcours-marial-candidate-')&&key!==CACHE")
+          # En cas de JSON absent, ne pas renvoyer le HTML comme faux JSON.
+          worker=worker.replace("caches.match(req).then(res=>res||caches.match('./index.html'))","caches.match(req).then(res=>res||(req.mode==='navigate'?caches.match('./index.html'):Response.error()))")
+          assert "key.startsWith('totus-tuus-parcours-marial-candidate-')" in worker
           sw.write_text(worker,encoding='utf-8')
           (p/'version.json').write_text(json.dumps({'version':'candidate-parcours-marial-33','release':'preview-only'}),encoding='utf-8')
           print('33 journées + 108 prières V5.10.0 intégrées à une copie autonome du site')
