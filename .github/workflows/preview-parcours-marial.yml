@@ -6,6 +6,7 @@ on:
     paths:
       - 'modules/parcours-marial/**'
       - 'scripts/build_traite_33_lectures.py'
+      - 'scripts/build_bible_crampon_33.py'
       - '.github/workflows/preview-parcours-marial.yml'
   workflow_dispatch:
 permissions:
@@ -15,6 +16,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Valider les 33 passages bibliques Crampon (sans publication)
+        run: python3 scripts/build_bible_crampon_33.py
       - name: Importer une copie du site historique (lecture seule)
         run: python3 scripts/import_public_site.py
       - name: Récupérer les 108 prières de la version 5.10.0
