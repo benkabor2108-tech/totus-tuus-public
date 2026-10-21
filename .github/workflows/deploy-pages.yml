@@ -164,3 +164,5 @@ jobs:
 # Isolated Marian preview refresh 2026-10-21: candidate editorial corrections only; root remains V5.10.0.
 
 # Refresh 2026-10-21: isolate Marian preview progress storage; production V5.10.0 unchanged.
+
+# Publication V5.11.0 : couverture téléversée, invocation quotidienne et lecture paginée vérifiées en CI.
