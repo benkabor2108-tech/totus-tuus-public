@@ -11,9 +11,9 @@ const coverCSS=document.createElement('style');
 coverCSS.textContent=`
 .tt33-cover{position:relative;isolation:isolate;display:block;width:min(100%,520px);min-height:330px;margin:24px auto;padding:0;border:0;border-radius:20px;overflow:hidden;cursor:pointer;background:#142944;color:#fff;box-shadow:0 18px 38px #10182d42;text-align:center;transform:translateZ(0)}
 .tt33-cover .tt33-cover-scene{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.06);animation:tt33-cover-fade 18s ease-in-out infinite}
-.tt33-cover .tt33-cover-scene:nth-child(1){background-image:linear-gradient(#09152c22,#07142e66),url('./couverture.png');animation-delay:0s}
-.tt33-cover .tt33-cover-scene:nth-child(2){background-image:linear-gradient(#09152c44,#07142e88),url('./couverture.png');background-size:cover;animation-delay:6s}
-.tt33-cover .tt33-cover-scene:nth-child(3){background-image:linear-gradient(#09152c22,#07142e66),url('./couverture.png');background-position:70% center;animation-delay:12s}
+.tt33-cover .tt33-cover-scene:nth-child(1){background-image:linear-gradient(#09152c22,#07142e66),url('./modules/parcours-marial/couverture-33-jours.png'),linear-gradient(#07152c,#29446b);animation-delay:0s}
+.tt33-cover .tt33-cover-scene:nth-child(2){background-image:linear-gradient(#09152c44,#07142e88),url('./modules/parcours-marial/couverture-33-jours.png'),linear-gradient(#07152c,#29446b);background-size:cover;animation-delay:6s}
+.tt33-cover .tt33-cover-scene:nth-child(3){background-image:linear-gradient(#09152c22,#07142e66),url('./modules/parcours-marial/couverture-33-jours.png'),linear-gradient(#07152c,#29446b);background-position:70% center;animation-delay:12s}
 .tt33-cover::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,#06132722 0%,#07132922 35%,#071329df 100%);z-index:1}
 .tt33-cover .tt33-cover-copy{position:relative;z-index:2;display:flex;min-height:330px;flex-direction:column;justify-content:flex-end;align-items:center;gap:9px;padding:26px 18px 30px;text-shadow:0 2px 8px #0009}
 .tt33-cover .tt33-cover-kicker{font:600 .78rem system-ui;letter-spacing:.16em;text-transform:uppercase}
