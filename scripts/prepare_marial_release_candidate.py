@@ -41,6 +41,8 @@ assert "key.startsWith('totus-tuus-pages-v5-11-0-rc2')" in sw
 # JSON requests should not silently receive the app shell when offline.
 sw=sw.replace("caches.match(req).then(res=>res||caches.match('./index.html'))","caches.match(req).then(res=>res||(req.mode==='navigate'?caches.match('./index.html'):Response.error()))")
 assert "req.mode==='navigate'?caches.match('./index.html'):Response.error()" in sw
+# Ensure the browser detects a new service worker after the editorial corrections.
+sw += "\n// Marial editorial refresh 2026-10-21: 33 AELF links and revised meditations.\n"
 swfile.write_text(sw,encoding="utf-8")
 (site/"version.json").write_text(json.dumps({"version":"5.11.0-rc2","release":"release-candidate-not-deployed"},ensure_ascii=False),encoding="utf-8")
 assert htmlfile.read_text().count("intercession-prayers.js")==1
