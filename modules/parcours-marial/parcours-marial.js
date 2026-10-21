@@ -5,6 +5,40 @@ const KEY='totus-tuus-parcours-marial-33-v1';
 const css=`#tt33-open{position:fixed;right:16px;bottom:20px;z-index:2147482000;background:#604183;color:white;border:0;border-radius:30px;padding:13px 18px;box-shadow:0 3px 16px #0004;font:600 15px system-ui;cursor:pointer}#tt33-dialog{border:0;border-radius:16px;max-width:760px;width:calc(100% - 22px);max-height:90vh;overflow:auto;padding:0;background:#fff;color:#292238;box-shadow:0 12px 55px #0005}#tt33-dialog::backdrop{background:#0009}#tt33-dialog .tt33-pad{padding:20px}#tt33-dialog h2{margin:8px 0;font-size:1.5rem}#tt33-dialog h3{font-size:1.05rem;margin:20px 0 6px}#tt33-dialog p{line-height:1.65}#tt33-dialog .tt33-book{font-family:Georgia,serif;line-height:1.7}#tt33-dialog .tt33-section{border:1px solid #ddd5e4;border-radius:12px;margin:14px 0;overflow:hidden}#tt33-dialog .tt33-section summary{cursor:pointer;background:#f6f2fa;color:#35204d;font-weight:700;padding:14px 12px;line-height:1.4}#tt33-dialog .tt33-section-body{padding:4px 14px 14px}#tt33-dialog .tt33-book-meta{margin:10px 0;color:#60586c}#tt33-dialog .tt33-jump{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}#tt33-dialog .tt33-jump button{font-size:.9rem}#tt33-dialog .tt33-top{position:sticky;top:0;background:#fff;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #ddd;padding:12px 18px}#tt33-dialog button{cursor:pointer;padding:9px 12px;border:1px solid #9a8ab0;border-radius:8px;background:#f7f4fa;color:#35204d}#tt33-dialog button:disabled{opacity:.45;cursor:not-allowed}#tt33-dialog .tt33-nav{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between}#tt33-dialog a{color:#57348c}#tt33-dialog .tt33-meta{color:#60586c;font-size:.92rem}#tt33-dialog .tt33-check{display:flex;gap:9px;align-items:center;padding:12px 0}#tt33-dialog select{padding:9px;max-width:100%;border-radius:8px} @media(max-width:480px){#tt33-open{bottom:12px;right:12px;font-size:13px}#tt33-dialog .tt33-pad{padding:15px}}`;
 const style=document.createElement('style');style.textContent=css;document.head.append(style);
 const btn=document.createElement('button');btn.id='tt33-open';btn.type='button';btn.textContent='Parcours marial · 33 jours';document.body.append(btn);
+
+// Couverture de livre animee dans la rubrique Commencer : sans modifier les donnees sauvegardees.
+const coverCSS=document.createElement('style');
+coverCSS.textContent=`
+.tt33-cover{position:relative;isolation:isolate;display:block;width:min(100%,520px);min-height:330px;margin:24px auto;padding:0;border:0;border-radius:20px;overflow:hidden;cursor:pointer;background:#142944;color:#fff;box-shadow:0 18px 38px #10182d42;text-align:center;transform:translateZ(0)}
+.tt33-cover .tt33-cover-scene{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.06);animation:tt33-cover-fade 18s ease-in-out infinite}
+.tt33-cover .tt33-cover-scene:nth-child(1){background-image:linear-gradient(#09152c22,#07142e66),url('./couverture.png');animation-delay:0s}
+.tt33-cover .tt33-cover-scene:nth-child(2){background-image:linear-gradient(#09152c44,#07142e88),url('./icone-512.png');background-size:cover;animation-delay:6s}
+.tt33-cover .tt33-cover-scene:nth-child(3){background-image:linear-gradient(#09152c22,#07142e66),url('./couverture.png');background-position:70% center;animation-delay:12s}
+.tt33-cover::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,#06132722 0%,#07132922 35%,#071329df 100%);z-index:1}
+.tt33-cover .tt33-cover-copy{position:relative;z-index:2;display:flex;min-height:330px;flex-direction:column;justify-content:flex-end;align-items:center;gap:9px;padding:26px 18px 30px;text-shadow:0 2px 8px #0009}
+.tt33-cover .tt33-cover-kicker{font:600 .78rem system-ui;letter-spacing:.16em;text-transform:uppercase}
+.tt33-cover .tt33-cover-title{font:700 clamp(2rem,6vw,2.9rem) Georgia,serif;line-height:1.12}
+.tt33-cover .tt33-cover-subtitle{font:400 1rem Georgia,serif}
+.tt33-cover .tt33-cover-action{margin-top:8px;padding:9px 18px;border:1px solid #fffc;border-radius:99px;background:#ffffff25;font:600 .95rem system-ui}
+.tt33-cover:focus-visible{outline:4px solid #aa8cd7;outline-offset:4px}
+@keyframes tt33-cover-fade{0%{opacity:0;transform:scale(1.06)}8%,29%{opacity:1}37%,100%{opacity:0;transform:scale(1.0)}}
+@media(prefers-reduced-motion:reduce){.tt33-cover .tt33-cover-scene{animation:none;opacity:0;transform:none}.tt33-cover .tt33-cover-scene:first-child{opacity:1}}
+@media(max-width:480px){.tt33-cover,.tt33-cover .tt33-cover-copy{min-height:300px}}
+`;
+document.head.append(coverCSS);
+function installCover(){
+ if(document.querySelector('.tt33-cover'))return;
+ const heads=[...document.querySelectorAll('h1,h2,h3,h4')];
+ const anchor=heads.find(h=>/la neuvaine guidée/i.test(h.textContent||''))||heads.find(h=>/quelle prière souhaitez-vous faire/i.test(h.textContent||''));
+ if(!anchor)return;
+ const card=document.createElement('button');
+ card.type='button';card.className='tt33-cover';card.setAttribute('aria-label','Ouvrir le livre 33 jours avec Marie');
+ card.innerHTML='<span class="tt33-cover-scene" aria-hidden="true"></span><span class="tt33-cover-scene" aria-hidden="true"></span><span class="tt33-cover-scene" aria-hidden="true"></span><span class="tt33-cover-copy"><span class="tt33-cover-kicker">Totus Tuus · Parcours marial</span><span class="tt33-cover-title">33 jours avec Marie</span><span class="tt33-cover-subtitle">À Jésus par Marie · Saint Louis-Marie de Montfort</span><span class="tt33-cover-action">Ouvrir le livre ↗</span></span>';
+ card.addEventListener('click',()=>btn.click());
+ anchor.parentElement?.insertBefore(card,anchor);
+ btn.style.display='none';
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',installCover,{once:true});else installCover();
 const dlg=document.createElement('dialog');dlg.id='tt33-dialog';dlg.setAttribute('aria-label','Parcours marial de 33 jours');dlg.innerHTML='<div class="tt33-top"><strong>Totus Tuus · Parcours marial</strong><button type="button" id="tt33-close" aria-label="Fermer">Fermer ✕</button></div><div class="tt33-pad" id="tt33-content">Chargement…</div>';document.body.append(dlg);
 const root=dlg.querySelector('#tt33-content');
 dlg.querySelector('#tt33-close').addEventListener('click',()=>dlg.close());
