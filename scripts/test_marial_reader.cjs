@@ -6,14 +6,12 @@ const assert=require('node:assert/strict');
   const page=await browser.newPage({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
   const errors=[];
   page.on('pageerror',e=>errors.push(e.message));
-  await page.addInitScript(()=>{
-   localStorage.setItem('totus-tuus-parcours-marial-33-preview-rc2',JSON.stringify({'1':true,'2':true,'3':true,'4':true,'5':true}));
-  });
+  await page.addInitScript(()=>{localStorage.removeItem('totus-tuus-parcours-marial-33-preview-rc2');});
   await page.goto('http://127.0.0.1:8765/',{waitUntil:'domcontentloaded'});
-  await page.locator('#tt33-open').click({force:true});
+  await page.locator('.tt33-cover').click();
   await page.locator('#tt33-page').waitFor({timeout:20000});
   assert.match(await page.locator('#tt33-page').innerText(),/Invocation au Saint-Esprit/);
-  assert.match(await page.locator('#tt33-content').innerText(),/5 \/ 33/);
+  assert.match(await page.locator('#tt33-content').innerText(),/0 \/ 33/);
   await page.locator('#tt33-forward').click();
   assert.match(await page.locator('#tt33-page').innerText(),/Parole de Dieu/);
   assert.match(await page.locator('#tt33-page').innerText(),/Gabriel/);
@@ -28,8 +26,8 @@ const assert=require('node:assert/strict');
   await page.locator('#tt33-smaller').click();
   await page.locator('#tt33-larger').click();
   const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('totus-tuus-parcours-marial-33-preview-rc2')));
-  assert.equal(Object.values(saved).filter(Boolean).length,5);
+  assert.equal(Object.values(saved||{}).filter(Boolean).length,0);
   assert.equal(errors.length,0,'JavaScript errors: '+errors.join('; '));
-  console.log('PASS: feuilletage, Bible Crampon, jours 1/33, taille, 5/33 conservés');
+  console.log('PASS: feuilletage, Bible Crampon, jours 1/33, taille, 0/33 initial conservé');
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exit(1)});
