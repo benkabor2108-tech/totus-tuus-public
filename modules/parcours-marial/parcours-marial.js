@@ -30,5 +30,5 @@ root.querySelector('#tt33-next').onclick=()=>{index++;render();};
 root.scrollTop=0;dlg.scrollTop=0;
 }
 let promise;
-btn.addEventListener('click',async()=>{if(!dlg.open)dlg.showModal();if(days.length){render();return;}root.textContent='Chargement du parcours…';try{promise ||= fetch(DATA,{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json();});const j=await promise;if(!Array.isArray(j.jours)||j.jours.length!==33)throw Error('Données incomplètes');days=j.jours;render();}catch(e){promise=null;root.textContent='Impossible de charger les 33 journées. Réessayez lorsque la connexion est disponible.';}});
+btn.addEventListener('click',async()=>{if(!dlg.open)dlg.showModal();if(days.length){render();return;}root.textContent='Chargement du parcours…';try{promise ||= fetch(DATA).then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json();});const j=await promise;if(!Array.isArray(j.jours)||j.jours.length!==33)throw Error('Données incomplètes');days=j.jours;render();}catch(e){promise=null;root.textContent='Impossible de charger les 33 journées. Réessayez lorsque la connexion est disponible.';}});
 })();
