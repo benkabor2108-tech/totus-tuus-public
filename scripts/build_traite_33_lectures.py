@@ -78,16 +78,49 @@ all_paragraphs = [(i + 3, p) for i, section_parts in enumerate(parts) for p in s
 total = sum(len(p) for _, p in all_paragraphs)
 if total < 120000:
     raise RuntimeError(f"Texte source anormalement court: {total} caractères")
-# Découpage ordonné par paragraphes entiers; chaque mot appartient à une seule journée.
-days = [[] for _ in range(33)]
-day = 0
-count = 0
-for source, paragraph in all_paragraphs:
-    if day < 32 and count >= (day + 1) * total / 33 and days[day]:
-        day += 1
-    days[day].append({"texte": paragraph, "section": source})
-    count += len(paragraph)
-assert all(days) and sum(map(len, days)) == len(all_paragraphs)
+# Découpage conservateur aux frontières des grandes parties.
+# Jour 1 : toute l'introduction (section 3), sans empiéter sur la première partie.
+# Les 32 jours restants sont répartis proportionnellement entre les parties 1 et 2.
+# Les paragraphes restent intacts, dans l'ordre, sans suppression ni duplication.
+def repartir_par_taille(paragraphes, nombre, section_id):
+    if nombre < 1 or nombre > len(paragraphes):
+        raise RuntimeError(f"Nombre de journées impossible pour la section {section_id}")
+    groupes = []
+    depart = 0
+    restant = sum(len(p) for p in paragraphes)
+    for k in range(nombre):
+        places = nombre - k
+        if places == 1:
+            fin = len(paragraphes)
+        else:
+            cible = restant / places
+            fin = depart + 1
+            cumul = len(paragraphes[depart])
+            # Garder au moins un paragraphe par jour restant.
+            limite = len(paragraphes) - (places - 1)
+            while fin < limite and cumul + len(paragraphes[fin]) <= cible:
+                cumul += len(paragraphes[fin])
+                fin += 1
+        bloc = paragraphes[depart:fin]
+        groupes.append([{"texte": p, "section": section_id} for p in bloc])
+        restant -= sum(len(p) for p in bloc)
+        depart = fin
+    assert depart == len(paragraphes)
+    return groupes
+
+taille_1 = sum(map(len, parts[1]))
+taille_2 = sum(map(len, parts[2]))
+jours_partie_1 = round(32 * taille_1 / (taille_1 + taille_2))
+jours_partie_1 = max(1, min(31, jours_partie_1))
+jours_partie_2 = 32 - jours_partie_1
+days = [[{"texte": p, "section": 3} for p in parts[0]]]
+days += repartir_par_taille(parts[1], jours_partie_1, 4)
+days += repartir_par_taille(parts[2], jours_partie_2, 5)
+assert len(days) == 33 and all(days)
+assert sum(map(len, days)) == len(all_paragraphs)
+assert [p["texte"] for jour in days for p in jour] == [p for _, p in all_paragraphs]
+assert all(len(set(p["section"] for p in jour)) == 1 for jour in days)
+assert all(p["section"] == 3 for p in days[0])
 output = {
     "ouvrage": TITLE,
     "auteur": "Saint Louis-Marie Grignion de Montfort",
@@ -103,6 +136,9 @@ OUT.write_text(json.dumps(output, ensure_ascii=False, indent=2), encoding="utf-8
 # Un contrôle automatique ne garantit pas une coupure pertinente sur le plan spirituel.
 audit = {
     "statut": "RELECTURE_HUMAINE_REQUISE",
+    "regle_decoupage": "Jour 1 : introduction entière ; jours suivants : parties distinctes sans chevauchement, paragraphes intacts",
+    "jours_partie_1": jours_partie_1,
+    "jours_partie_2": jours_partie_2,
     "source": BASE,
     "nombre_paragraphes": len(all_paragraphs),
     "caracteres": total,
@@ -121,7 +157,8 @@ audit = {
             "debut": items[0]["texte"][:160],
             "fin": items[-1]["texte"][-160:],
             "sections": sorted(set(p["section"] for p in items)),
-            "validation_editoriale": False
+            "validation_editoriale": False,
+            "frontiere_de_partie_respectee": len(set(p["section"] for p in items)) == 1
         } for i, items in enumerate(days)
     ]
 }
