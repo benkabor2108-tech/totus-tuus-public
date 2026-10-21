@@ -83,13 +83,13 @@ jobs:
           cd /tmp/totus-marial-src
           bash scripts/build_netlify_preview.sh
           cd "$GITHUB_WORKSPACE"
-          mkdir -p site/preview-marial-livre-v4
-          cp -a /tmp/totus-marial-src/site/. site/preview-marial-livre-v4/
+          mkdir -p site/preview-marial-livre-v5
+          cp -a /tmp/totus-marial-src/site/. site/preview-marial-livre-v5/
           python3 - <<'PY'
           from pathlib import Path
           import json
           root=Path('site')
-          preview=root/'preview-marial-livre-v4'
+          preview=root/'preview-marial-livre-v5'
           assert (root/'version.json').read_text()!= (preview/'version.json').read_text()
           assert json.loads((root/'version.json').read_text())['release']=='5.10.0'
           assert json.loads((preview/'version.json').read_text())['release']=='release-candidate-not-deployed'
@@ -100,14 +100,16 @@ jobs:
           assert 'Valider et passer au jour suivant' in (preview/'modules/parcours-marial/parcours-marial.js').read_text()
           book=json.loads((preview/'modules/parcours-marial/traite_33_lectures.json').read_text())
           assert len(book['jours'])==33
+          assert all(p['section']==3 for p in book['jours'][0]['paragraphes'])
+          assert all(len(set(p['section'] for p in day['paragraphes']))==1 for day in book['jours'])
           assert sum(len(p['texte']) for day in book['jours'] for p in day['paragraphes'])>120000
           assert 'Lecture du Traité — texte authentique' in (preview/'modules/parcours-marial/parcours-marial.js').read_text()
-          print('Root V5.10.0 inchangé; preview V5.11.0 RC isolée sous /preview-marial-livre-v4/')
+          print('Root V5.10.0 inchangé; preview V5.11.0 RC isolée sous /preview-marial-livre-v5/')
           PY
       - name: Vérifier les fichiers et la syntaxe JavaScript
         run: |
           python3 scripts/check_site.py site
-          for file in site/*.js site/preview-marial-livre-v4/modules/parcours-marial/*.js; do node --check "$file"; done
+          for file in site/*.js site/preview-marial-livre-v5/modules/parcours-marial/*.js; do node --check "$file"; done
           NODE_PATH=/tmp/totus-qa/node_modules node --version
       - name: Activer GitHub Pages avec GitHub Actions si autorisé
         env:
