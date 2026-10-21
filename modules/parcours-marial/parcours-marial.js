@@ -23,7 +23,7 @@ function installCover(){
  if(!anchor)return;
  const card=document.createElement('button');
  card.type='button';card.className='tt33-cover';card.setAttribute('aria-label','Ouvrir le livre 33 jours avec Marie');
- card.innerHTML='<span class="tt33-cover-scene" aria-hidden="true"></span><span class="tt33-cover-scene" aria-hidden="true"></span><span class="tt33-cover-scene" aria-hidden="true"></span><span class="tt33-cover-copy"><span class="tt33-cover-kicker">Totus Tuus · Parcours marial</span><span class="tt33-cover-title">33 jours avec Marie</span><span class="tt33-cover-subtitle">À Jésus par Marie · Saint Louis-Marie de Montfort</span><span class="tt33-cover-action">Ouvrir le livre ↗</span></span>';
+ card.innerHTML='<span class="tt33-cover-scene" aria-hidden="true"></span><span class="tt33-cover-scene" aria-hidden="true"></span><span class="tt33-cover-scene" aria-hidden="true"></span><span class="tt33-cover-copy"><span class="tt33-cover-kicker">Totus Tuus · Parcours marial</span><span class="tt33-cover-title">33 jours avec Marie</span><span class="tt33-cover-subtitle">À Jésus par Marie · Saint Louis-Marie de Montfort</span><span class="tt33-cover-action">Ouvrir le livre ›</span></span>';
  card.addEventListener('click',()=>btn.click());
  anchor.parentElement?.insertBefore(card,anchor);
  btn.style.display='none';
@@ -75,6 +75,15 @@ bookCSS.textContent+=`
 `;
 bookCSS.textContent+=`
 /* Livre continu : les rubriques deviennent des pages, non des onglets. */
+#tt33-dialog .tt33-top{background:#fbf7ef;border-bottom:1px solid #e7dcc8}
+#tt33-dialog .tt33-pad{background:#f4ecdc}
+#tt33-dialog .tt33-book-toolbar select{background:transparent;border:1px solid #d2c5ae;color:#263c58}
+#tt33-dialog .tt33-page{border-radius:3px 12px 12px 3px;border-left:7px solid #d5c6a9;transition:box-shadow .15s ease}
+#tt33-dialog .tt33-page:focus-visible{outline:3px solid #5c4384;outline-offset:2px}
+#tt33-dialog .tt33-page-number{letter-spacing:.08em}
+#tt33-dialog .tt33-page-nav button{background:#fbf7ef;border-color:#c9baa8;color:#243b57}
+#tt33-dialog .tt33-page-nav button:focus-visible{outline:3px solid #5c4384}
+
 #tt33-dialog .tt33-book-heading{flex:0 0 auto;text-align:center;padding:5px 0 8px}
 #tt33-dialog .tt33-book-heading>span{font:600 11px system-ui;letter-spacing:.15em;color:#8b754e;text-transform:uppercase}
 #tt33-dialog .tt33-book-heading h2{font:600 clamp(.95rem,3.8vw,1.25rem)/1.2 Georgia,serif;margin:5px 0}
@@ -120,7 +129,7 @@ function makeDayPages(d,book){
  const invocation='<h3>Invocation au Saint-Esprit</h3><p>Viens, Esprit Saint, remplis mon cœur de ta lumière et de ton amour.</p><p>Ouvre mon intelligence à la Parole de Dieu, dispose mon cœur à accueillir la vérité et guide-moi dans la lecture et la méditation de ce jour.</p><p>Par l’intercession de la Très Sainte Vierge Marie, apprends-moi à écouter Jésus, à comprendre sa volonté et à la mettre en pratique dans ma vie.</p><p>Esprit de sagesse et de sainteté, conduis-moi chaque jour plus près de Jésus-Christ.</p><p><strong>Amen.</strong></p>';
  const bible='<h3>Parole de Dieu</h3><p><strong>'+safe(read.reference||d.reference_biblique)+'</strong></p><p class="tt33-note">Présentation du passage (ce résumé n’est pas le texte biblique intégral).</p><p>'+safe(read.resume_original)+'</p><p class="tt33-note">Pour lire les versets dans une Bible, consultez la référence indiquée. Le lien externe peut être momentanément indisponible.</p>';
  const meditation='<h3>Méditation</h3><p>'+safe(d.explication_spirituelle)+'</p><h3>Pour réfléchir</h3><p>'+safe(d.question_meditation)+'</p>';
- const texts=splitPages(book).map(parts=>({label:'Lecture du Traité',html:parts.map(t=>'<p>'+safe(t)+'</p>').join('')}));
+ const texts=splitPages(book).map((parts,i)=>({label:'Traité · '+(i+1),html:parts.map(t=>'<p>'+safe(t)+'</p>').join('')}));
  return [
   {label:'Invocation',html:invocation},
   {label:'Parole de Dieu',html:bible},
@@ -147,6 +156,8 @@ function render(){
  root.querySelector('#tt33-forward').onclick=()=>turn(1);
  root.querySelector('#tt33-smaller').onclick=()=>resize(-1);
  root.querySelector('#tt33-larger').onclick=()=>resize(1);
+ root.querySelector('#tt33-day').setAttribute('aria-label','Choisir un jour du livre');
+ root.querySelector('#tt33-page').setAttribute('aria-live','polite');
  const sheet=root.querySelector('.tt33-page'),inner=root.querySelector('.tt33-page-contents');
  let startX=0,startY=0;
  sheet.addEventListener('touchstart',e=>{if(e.touches.length!==1)return;startX=e.touches[0].clientX;startY=e.touches[0].clientY;},{passive:true});
