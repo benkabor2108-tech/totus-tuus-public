@@ -20,6 +20,7 @@ const assert=require('node:assert/strict');
   // Une coche hors ordre doit revenir au premier jour non accompli.
   await page.locator('#tt33-day').selectOption('1');
   await page.locator('#tt33-done').check();
+  console.log('After invalid completion:',await page.locator('#tt33-day').inputValue(),await page.evaluate(()=>localStorage.getItem('totus-tuus-parcours-marial-33-preview-rc5')));
   assert.equal(await page.locator('#tt33-day').inputValue(),'0');
   assert.match(await page.locator('#tt33-content').innerText(),/0 \/ 33/);
   // L'ouverture quotidienne reprend au premier jour non accompli,
