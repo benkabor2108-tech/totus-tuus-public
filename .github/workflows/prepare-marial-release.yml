@@ -68,3 +68,5 @@ jobs:
           path: site/
           include-hidden-files: true
           retention-days: 30
+
+# Reprise du build avec secours GitHub Pages lorsque Netlify est indisponible.
