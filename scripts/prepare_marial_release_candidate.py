@@ -59,6 +59,6 @@ assert "req.mode==='navigate'?caches.match('./index.html'):Response.error()" in 
 sw += "\n// Marial preview storage isolation 2026-10-21: unique progress key for RC2.\n"
 swfile.write_text(sw,encoding="utf-8")
 (site/"version.json").write_text(json.dumps({"version":"5.11.5-rc7","release":"release-candidate-not-deployed"},ensure_ascii=False),encoding="utf-8")
-assert len(re.findall(r"<script[^>]+src=[^>]*intercession-prayers\.js",htmlfile.read_text(),re.I))==1
-assert len(re.findall(r"<script[^>]+src=[^>]*parcours-marial\.js",htmlfile.read_text(),re.I))==1
+assert htmlfile.read_text(encoding='utf-8').count(intercession_tag)==1
+assert htmlfile.read_text(encoding='utf-8').count(marial_tag)==1
 print("Release candidate 5.11.5-rc7 assembled. No production deployment.")
