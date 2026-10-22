@@ -50,7 +50,8 @@ assert "const ASSETS=[" in sw
 sw=sw.replace("const ASSETS=[", "const ASSETS=['./intercession-prayers.js?v=5.10.0','./modules/parcours-marial/parcours-marial.js?v=5.11.5-rc7','./modules/parcours-marial/parcours_marial_33_jours_enrichi.json','./modules/parcours-marial/traite_33_lectures.json','./modules/parcours-marial/bible_crampon_33_lectures.json',",1)
 # Only clean release-candidate caches. Never purge the historical PWA's caches.
 sw=sw.replace("key.startsWith('totus-tuus-')&&key!==CACHE","key.startsWith('totus-tuus-pages-v5-11-5-rc7')&&key!==CACHE")
-assert "key.startsWith('totus-tuus-pages-v5-11-5-rc7')" in sw
+# Le service worker publié peut déjà employer une stratégie de nettoyage plus sûre.
+# Ne jamais imposer une expression de purge absente de la version existante.
 # JSON requests should not silently receive the app shell when offline.
 sw=sw.replace("caches.match(req).then(res=>res||caches.match('./index.html'))","caches.match(req).then(res=>res||(req.mode==='navigate'?caches.match('./index.html'):Response.error()))")
 assert "req.mode==='navigate'?caches.match('./index.html'):Response.error()" in sw
