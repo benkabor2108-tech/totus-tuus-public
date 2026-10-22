@@ -46,6 +46,14 @@ const assert=require('node:assert/strict');
   assert.equal(await page.locator('#tt33-day').inputValue(),'0');
 
   assert.match(await page.locator('#tt33-page').innerText(),/Amen/);
+  const prayerLayout=await page.evaluate(()=>{
+    const p=document.querySelector('.tt33-prayer-page');
+    const root=document.querySelector('#tt33-content');
+    return {natural:root.classList.contains('tt33-natural-prayer'),overflow:getComputedStyle(p).overflowY,full:p.scrollHeight<=p.clientHeight+2,amen:p.innerText.includes('Amen.')};
+  });
+  assert.ok(prayerLayout.natural,'Invocation non intégrée au défilement naturel');
+  assert.ok(prayerLayout.full,'Invocation encore coupée dans un sous-conteneur');
+  assert.ok(prayerLayout.amen,'Fin de prière absente');
   await page.locator('#tt33-forward').click();
   assert.match(await page.locator('#tt33-page').innerText(),/Parole de Dieu/);
   assert.match(await page.locator('#tt33-page').innerText(),/Gabriel/);
