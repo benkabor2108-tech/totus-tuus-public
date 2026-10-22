@@ -144,6 +144,10 @@ bookCSS.textContent+=`
 #tt33-dialog .tt33-book-notice:empty{display:none}
 #tt33-dialog .tt33-book-notice:not(:empty){font:600 .78rem/1.35 system-ui;color:#2e5738;background:#eaf3e7;border-radius:7px;padding:6px 9px;margin:3px 0}
 `;
+bookCSS.textContent+=`
+#tt33-dialog .tt33-guidance{font:500 .72rem/1.3 system-ui;color:#6b604c;text-align:center;margin:0 0 5px}
+#tt33-dialog .tt33-page-contents p{margin-bottom:.75em}
+`;
 document.head.append(bookCSS);
 const dlg=document.createElement('dialog');dlg.id='tt33-dialog';dlg.setAttribute('aria-label','Parcours marial de 33 jours');dlg.innerHTML='<div class="tt33-top"><strong>Totus Tuus · Parcours marial</strong><button type="button" id="tt33-close" aria-label="Fermer">Fermer ✕</button></div><div class="tt33-pad" id="tt33-content">Chargement…</div>';document.body.append(dlg);
 const root=dlg.querySelector('#tt33-content');
@@ -165,21 +169,53 @@ function openAtCurrentDay(){
 }
 
 function splitPages(book){
- const paragraphs=book?.paragraphes||[],pages=[];let current='',limit=440;
- function flush(){if(current.trim()){pages.push([current.trim()]);current='';}}
- for(const p of paragraphs){
-  const text=String(p.texte||'').trim();if(!text)continue;
-  const sentences=text.match(/[^.!?…]+(?:[.!?…]+|$)/gu)||[text];
-  for(const sentence of sentences){
-   const part=sentence.trim();if(!part)continue;
-   if(current.length+part.length+1>limit)flush();
-   if(part.length>limit){const words=part.split(/\s+/);for(const word of words){if(current.length+word.length+1>limit)flush();current+=(current?' ':'')+word;}continue;}
-   current+=(current?' ':'')+part;
+ // Les pages sont des unités de lecture, pas des tranches arbitraires de 440 caractères.
+ // Garder les phrases entières et regrouper les paragraphes courts.
+ const paragraphs=(book?.paragraphes||[]).map(p=>String(p.texte||'').trim()).filter(Boolean);
+ const chunks=[];
+ for(const paragraph of paragraphs){
+  if(paragraph.length<=880){chunks.push(paragraph);continue;}
+  const sentences=paragraph.match(/[^.!?…]+(?:[.!?…]+|$)/gu)||[paragraph];
+  const segments=[];let current='';
+  for(const raw of sentences){
+   const sentence=raw.trim();if(!sentence)continue;
+   if(current&&current.length+sentence.length+1>880){segments.push(current);current='';}
+   if(sentence.length>880){
+    const words=sentence.split(/\\s+/);
+    for(const word of words){
+     if(current&&current.length+word.length+1>880){segments.push(current);current='';}
+     current+=(current?' ':'')+word;
+    }
+   }else current+=(current?' ':'')+sentence;
   }
-  // Regrouper des paragraphes courts sur une même page sans surcharger la lecture.
-  if(current.length>limit*.78)flush();
+  if(current)segments.push(current);
+  // Éviter une dernière page ne contenant que quelques mots.
+  if(segments.length>1&&segments.at(-1).length<260){
+   const last=segments.pop(),previous=segments.pop();
+   const words=(previous+' '+last).split(/\\s+/);
+   const middle=Math.floor(words.length/2);
+   segments.push(words.slice(0,middle).join(' '),words.slice(middle).join(' '));
+  }
+  chunks.push(...segments);
  }
- flush();return pages.length?pages:[['Texte indisponible.']];
+ const pages=[];let group=[],size=0;
+ for(const chunk of chunks){
+  if(group.length&&size+chunk.length>900){pages.push(group);group=[];size=0;}
+  group.push(chunk);size+=chunk.length;
+ }
+ if(group.length)pages.push(group);
+ // Rééquilibrer une dernière page trop courte lorsque la précédente peut céder un paragraphe entier.
+ if(pages.length>1){
+  const last=pages.at(-1),prev=pages.at(-2);
+  const lastSize=last.join(' ').length,prevSize=prev.join(' ').length;
+  if(lastSize<250&&prev.length>1){
+   const moved=prev.at(-1);
+   if(Math.abs((prevSize-moved.length)-(lastSize+moved.length))<Math.abs(prevSize-lastSize)){
+    prev.pop();last.unshift(moved);
+   }
+  }
+ }
+ return pages.length?pages:[['Texte indisponible.']];
 }
 
 try{
@@ -231,8 +267,8 @@ function render(){
  if(chapter!=='book'){const targets={bible:2,meditation:2+(bibleDays[String(d.jour)]?.versets?.length?Math.ceil(bibleDays[String(d.jour)].versets.length/5):1),priere:pages.length-1};pageIndex=targets[chapter]??0;chapter='book';}
  pageIndex=Math.max(0,Math.min(pageIndex,pages.length-1));savePlace();
  const pg=pages[pageIndex],finished=Object.values(done).filter(Boolean).length;
- root.innerHTML='<div class="tt33-book-toolbar"><label for="tt33-day">Chapitre <select id="tt33-day">'+days.map((x,i)=>'<option value="'+i+'" '+(i===index?'selected':'')+'>Jour '+safe(x.jour)+' — '+safe(x.titre)+'</option>').join('')+'</select></label><span class="tt33-meta">'+finished+' / 33</span></div>'+
- '<div id="tt33-book-notice" role="status" aria-live="polite" class="tt33-book-notice"></div><div class="tt33-book-heading"><span>JOUR '+safe(d.jour)+' · '+safe(pg.label)+'</span><h2>'+safe(d.titre)+'</h2></div>'+
+ root.innerHTML='<div class="tt33-book-toolbar"><label for="tt33-day">Consulter <select id="tt33-day">'+days.map((x,i)=>'<option value="'+i+'" '+(i===index?'selected':'')+'>Jour '+safe(x.jour)+' — '+safe(x.titre)+'</option>').join('')+'</select></label><span class="tt33-meta">'+finished+' / 33</span></div>'+
+ '<div class="tt33-guidance">Parcours automatique : jour '+(Array.from({length:33},(_,i)=>i+1).find(n=>done[n]!==true)||33)+' · Vous pouvez feuilleter les autres jours sans les valider.</div><div id="tt33-book-notice" role="status" aria-live="polite" class="tt33-book-notice"></div><div class="tt33-book-heading"><span>JOUR '+safe(d.jour)+' · '+safe(pg.label)+'</span><h2>'+safe(d.titre)+'</h2></div>'+
  '<article class="tt33-page" id="tt33-page" aria-label="Page '+(pageIndex+1)+' du jour '+d.jour+'" tabindex="0"><div class="tt33-page-contents">'+pg.html+'</div><div class="tt33-page-number">Jour '+d.jour+' · Page '+(pageIndex+1)+' / '+pages.length+'</div></article>'+
  '<div class="tt33-page-nav"><button id="tt33-back" type="button" '+(index===0&&pageIndex===0?'disabled':'')+' aria-label="Tourner la page précédente">‹ Précédente</button><span class="tt33-font-tools"><button id="tt33-smaller" type="button" aria-label="Réduire les caractères">A−</button><button id="tt33-larger" type="button" aria-label="Agrandir les caractères">A+</button></span><button id="tt33-forward" type="button" '+(index===32&&pageIndex===pages.length-1?'disabled':'')+' aria-label="Tourner la page suivante">Suivante ›</button></div>'+
  '<label class="tt33-check"><input type="checkbox" id="tt33-done" '+(done[d.jour]?'checked':'')+'> Journée accomplie</label>'+ '<button id="tt33-reset" type="button" class="tt33-reset" aria-label="Effacer uniquement les journées marquées accomplies">Recommencer le parcours à 0/33</button>';
