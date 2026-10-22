@@ -58,12 +58,12 @@ jobs:
           assert "Par l’intercession de la Très Sainte Vierge Marie" in src
           html=p/'index.html'
           content=html.read_text(encoding='utf-8')
-          content=re.sub(r'<script[^>]*src=[^>]*parcours-marial\\.js[^>]*>\\s*</script>', '', content, flags=re.I)
+          content=re.sub(r'<script[^>]*src=[^>]*parcours-marial\.js[^>]*>\s*</script>', '', content, flags=re.I)
           content=content.replace('</body>','<script src="./modules/parcours-marial/parcours-marial.js?v=5.11.6" defer></script></body>',1)
           html.write_text(content,encoding='utf-8')
           sw=p/'service-worker.js'
           worker=sw.read_text(encoding='utf-8')
-          worker,n=re.subn(r"const CACHE=['\\\"][^'\\\"]+['\\\"]","const CACHE='totus-tuus-pages-v5-11-6'",worker,count=1)
+          worker,n=re.subn(r"const CACHE=['\\"][^'\\"]+['\\"]","const CACHE='totus-tuus-pages-v5-11-6'",worker,count=1)
           assert n==1
           worker=worker.replace('v=5.11.4','v=5.11.6')
           sw.write_text(worker,encoding='utf-8')
@@ -77,13 +77,15 @@ jobs:
           site=Path('site')
           html=(site/'index.html').read_text()
           missing=[]
-          for url in re.findall(r'<script[^>]*src=["\\\']([^"\\\']+)',html,re.I):
+          for url in re.findall(r'<script[^>]*src=["\\']([^"\\']+)',html,re.I):
               path=url.split('?')[0].lstrip('./')
               if not (site/path).is_file(): missing.append(path)
           assert not missing, f'Scripts HTML absents: {missing}'
           assert (site/'app.js').stat().st_size>1000
           assert (site/'navigation.js').stat().st_size>1000
           assert (site/'guided.js').stat().st_size>1000
+          assert (site/'comfort.js').stat().st_size>1000
+          assert (site/'reading-comfort.js').stat().st_size>1000
           print('Tous les scripts référencés sont présents.')
           PY
       - name: Vérifier la version restaurée
