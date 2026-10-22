@@ -83,3 +83,5 @@ jobs:
 # Validation par correspondance exacte des balises candidates.
 
 # Revalidation de la compilation du site public sans Netlify.
+
+# Contrôle de l'invocation quotidienne sur une seule page.
