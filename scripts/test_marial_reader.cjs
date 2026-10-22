@@ -45,8 +45,7 @@ const assert=require('node:assert/strict');
   await page.locator('.tt33-cover').evaluate(el=>el.click());
   assert.equal(await page.locator('#tt33-day').inputValue(),'0');
 
-  await page.locator('#tt33-forward').click();
-  assert.match(await page.locator('#tt33-page').innerText(),/Invocation au Saint-Esprit/);
+  assert.match(await page.locator('#tt33-page').innerText(),/Amen/);
   await page.locator('#tt33-forward').click();
   assert.match(await page.locator('#tt33-page').innerText(),/Parole de Dieu/);
   assert.match(await page.locator('#tt33-page').innerText(),/Gabriel/);
@@ -55,7 +54,6 @@ const assert=require('node:assert/strict');
   assert.match(await page.locator('#tt33-page').innerText(),/Invocation/);
   await page.locator('#tt33-day').selectOption('32');
   assert.match(await page.locator('#tt33-page').innerText(),/Invocation/);
-  await page.locator('#tt33-forward').click();
   await page.locator('#tt33-forward').click();
   assert.match(await page.locator('#tt33-page').innerText(),/Corinthiens|Co 11/);
   // Après une navigation libre jusqu'au jour 33, fermer et rouvrir la couverture
