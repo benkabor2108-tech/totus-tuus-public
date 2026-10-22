@@ -158,6 +158,17 @@ bookCSS.textContent+=`
 #tt33-dialog .tt33-prayer-page::-webkit-scrollbar{display:block!important;width:5px}
 `;
 bookCSS.textContent+=`
+/* V5.11.9 : invocation lue dans le défilement naturel du livre,
+   sans fenêtre de texte intérieure ni lignes dissimulées. */
+#tt33-dialog .tt33-pad.tt33-natural-prayer{overflow-y:auto!important;overscroll-behavior:contain;scrollbar-width:thin}
+#tt33-dialog .tt33-natural-prayer .tt33-page{flex:0 0 auto!important;min-height:0!important;height:auto!important;overflow:visible!important}
+#tt33-dialog .tt33-natural-prayer .tt33-prayer-page{flex:0 0 auto!important;min-height:0!important;height:auto!important;max-height:none!important;overflow:visible!important}
+#tt33-dialog .tt33-natural-prayer .tt33-scroll-cue{display:none!important}
+#tt33-dialog .tt33-natural-prayer .tt33-page-nav,
+#tt33-dialog .tt33-natural-prayer .tt33-check,
+#tt33-dialog .tt33-natural-prayer .tt33-reset{flex-shrink:0}
+`;
+bookCSS.textContent+=`
 /* V5.11.8 : commandes tactiles séparées et accessibles. */
 #tt33-dialog .tt33-check{display:flex;align-items:center;justify-content:center;gap:12px;min-height:56px;width:100%;box-sizing:border-box;padding:12px 14px!important;margin:12px 0 0!important;border:2px solid #a99a80;border-radius:12px;background:#fffdf6;font:600 1rem/1.35 system-ui,sans-serif;cursor:pointer;touch-action:manipulation}
 #tt33-dialog .tt33-check input{width:25px;height:25px;min-width:25px;min-height:25px;margin:0;accent-color:#2d587d;cursor:pointer}
@@ -290,6 +301,7 @@ function render(){
  if(chapter!=='book'){const targets={bible:2,meditation:2+(bibleDays[String(d.jour)]?.versets?.length?Math.ceil(bibleDays[String(d.jour)].versets.length/5):1),priere:pages.length-1};pageIndex=targets[chapter]??0;chapter='book';}
  pageIndex=Math.max(0,Math.min(pageIndex,pages.length-1));savePlace();
  const pg=pages[pageIndex],finished=Object.values(done).filter(Boolean).length;
+ root.classList.toggle('tt33-natural-prayer',pg.label==='Invocation');
  root.innerHTML='<div class="tt33-book-toolbar"><label for="tt33-day">Consulter <select id="tt33-day">'+days.map((x,i)=>'<option value="'+i+'" '+(i===index?'selected':'')+'>Jour '+safe(x.jour)+' — '+safe(x.titre)+'</option>').join('')+'</select></label><span class="tt33-meta">'+finished+' / 33</span></div>'+
  '<div class="tt33-guidance">Parcours automatique : jour '+(Array.from({length:33},(_,i)=>i+1).find(n=>done[n]!==true)||33)+' · Vous pouvez feuilleter les autres jours sans les valider.</div><div id="tt33-book-notice" role="status" aria-live="polite" class="tt33-book-notice"></div><div class="tt33-book-heading"><span>JOUR '+safe(d.jour)+' · '+safe(pg.label)+'</span><h2>'+safe(d.titre)+'</h2></div>'+
  '<article class="tt33-page" id="tt33-page" aria-label="Page '+(pageIndex+1)+' du jour '+d.jour+'" tabindex="0"><div class="tt33-page-contents'+(pg.label==='Invocation'?' tt33-prayer-page':'')+'">'+pg.html+'</div><div class="tt33-scroll-cue" id="tt33-scroll-cue">↓ Faites défiler la prière pour lire la suite</div><div class="tt33-page-number">Jour '+d.jour+' · Page '+(pageIndex+1)+' / '+pages.length+'</div></article>'+
