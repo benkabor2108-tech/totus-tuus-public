@@ -69,6 +69,14 @@ const assert=require('node:assert/strict');
   await page.locator('.tt33-cover').evaluate(el=>el.click());
   assert.equal(await page.locator('#tt33-day').inputValue(),'0');
   assert.match(await page.locator('#tt33-page').innerText(),/Invocation au Saint-Esprit/);
+  // Les commandes doivent être faciles à toucher et physiquement séparées.
+  const doneBox=await page.locator('.tt33-check').boundingBox();
+  const resetBox=await page.locator('#tt33-reset').boundingBox();
+  assert.ok(doneBox&&resetBox,'Commandes de validation ou réinitialisation absentes');
+  assert.ok(doneBox.height>=48,'Zone tactile Journée accomplie trop petite');
+  assert.ok(resetBox.height>=44,'Zone tactile Réinitialisation trop petite');
+  assert.ok(resetBox.y-doneBox.y-doneBox.height>=18,'Boutons trop proches : risque de réinitialisation accidentelle');
+  assert.equal(await page.locator('#tt33-done').isChecked(),false);
   // La lecture du Traité ne doit plus produire une page isolée de 100 caractères.
   await page.locator('#tt33-day').selectOption('0');
   let treatisePages=[];
