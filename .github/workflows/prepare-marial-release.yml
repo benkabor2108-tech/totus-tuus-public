@@ -79,3 +79,5 @@ jobs:
 # Revalidation des regex Python et des contrôles d'assemblage.
 
 # Validation finale de la suppression des scripts existants.
+
+# Validation par correspondance exacte des balises candidates.
