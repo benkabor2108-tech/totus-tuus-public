@@ -141,6 +141,16 @@ bookCSS.textContent+=`
 #tt33-dialog .tt33-page-contents::-webkit-scrollbar{display:none}
 `;
 bookCSS.textContent+=`
+/* V5.11.7 : invocation entière, titre et Amen visibles avec adaptation mobile.
+   La lecture reste défilable lorsque l'utilisateur agrandit la police. */
+#tt33-dialog .tt33-page-contents.tt33-prayer-page{font-size:min(var(--tt33-font-size),clamp(13px,3.45vw,16px));line-height:1.35;scrollbar-width:thin}
+#tt33-dialog .tt33-prayer-page h3{font-size:1.08em;line-height:1.2;margin:0 0 .55em}
+#tt33-dialog .tt33-prayer-page p{line-height:1.35;margin:0 0 .55em}
+#tt33-dialog .tt33-prayer-page p:last-child{margin-bottom:0}
+#tt33-dialog .tt33-prayer-page::-webkit-scrollbar{display:block;width:4px}
+#tt33-dialog .tt33-prayer-page::-webkit-scrollbar-thumb{background:#c3b59d;border-radius:5px}
+`;
+bookCSS.textContent+=`
 #tt33-dialog .tt33-book-notice:empty{display:none}
 #tt33-dialog .tt33-book-notice:not(:empty){font:600 .78rem/1.35 system-ui;color:#2e5738;background:#eaf3e7;border-radius:7px;padding:6px 9px;margin:3px 0}
 `;
