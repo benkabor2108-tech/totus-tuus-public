@@ -4,6 +4,7 @@ on:
     branches: [candidate/parcours-marial-33-jours]
     paths:
       - 'scripts/prepare_marial_release_candidate.py'
+      - 'scripts/import_public_site.py'
       - 'scripts/build_traite_33_lectures.py'
       - 'scripts/build_bible_crampon_33.py'
       - 'scripts/test_marial_reader.cjs'
