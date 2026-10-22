@@ -151,6 +151,13 @@ bookCSS.textContent+=`
 #tt33-dialog .tt33-prayer-page::-webkit-scrollbar-thumb{background:#c3b59d;border-radius:5px}
 `;
 bookCSS.textContent+=`
+/* V5.11.9 : indiquer le défilement sur petit écran sans masquer le texte. */
+#tt33-dialog .tt33-scroll-cue{display:none;flex:0 0 auto;text-align:center;font:600 .75rem/1.3 system-ui,sans-serif;color:#59472e;background:#f7edd8;border-radius:7px;padding:5px 8px;margin:5px 0}
+#tt33-dialog .tt33-scroll-cue.is-visible{display:block}
+#tt33-dialog .tt33-prayer-page{scrollbar-width:thin!important;overscroll-behavior:contain}
+#tt33-dialog .tt33-prayer-page::-webkit-scrollbar{display:block!important;width:5px}
+`;
+bookCSS.textContent+=`
 /* V5.11.8 : commandes tactiles séparées et accessibles. */
 #tt33-dialog .tt33-check{display:flex;align-items:center;justify-content:center;gap:12px;min-height:56px;width:100%;box-sizing:border-box;padding:12px 14px!important;margin:12px 0 0!important;border:2px solid #a99a80;border-radius:12px;background:#fffdf6;font:600 1rem/1.35 system-ui,sans-serif;cursor:pointer;touch-action:manipulation}
 #tt33-dialog .tt33-check input{width:25px;height:25px;min-width:25px;min-height:25px;margin:0;accent-color:#2d587d;cursor:pointer}
@@ -285,7 +292,7 @@ function render(){
  const pg=pages[pageIndex],finished=Object.values(done).filter(Boolean).length;
  root.innerHTML='<div class="tt33-book-toolbar"><label for="tt33-day">Consulter <select id="tt33-day">'+days.map((x,i)=>'<option value="'+i+'" '+(i===index?'selected':'')+'>Jour '+safe(x.jour)+' — '+safe(x.titre)+'</option>').join('')+'</select></label><span class="tt33-meta">'+finished+' / 33</span></div>'+
  '<div class="tt33-guidance">Parcours automatique : jour '+(Array.from({length:33},(_,i)=>i+1).find(n=>done[n]!==true)||33)+' · Vous pouvez feuilleter les autres jours sans les valider.</div><div id="tt33-book-notice" role="status" aria-live="polite" class="tt33-book-notice"></div><div class="tt33-book-heading"><span>JOUR '+safe(d.jour)+' · '+safe(pg.label)+'</span><h2>'+safe(d.titre)+'</h2></div>'+
- '<article class="tt33-page" id="tt33-page" aria-label="Page '+(pageIndex+1)+' du jour '+d.jour+'" tabindex="0"><div class="tt33-page-contents">'+pg.html+'</div><div class="tt33-page-number">Jour '+d.jour+' · Page '+(pageIndex+1)+' / '+pages.length+'</div></article>'+
+ '<article class="tt33-page" id="tt33-page" aria-label="Page '+(pageIndex+1)+' du jour '+d.jour+'" tabindex="0"><div class="tt33-page-contents'+(pg.label==='Invocation'?' tt33-prayer-page':'')+'">'+pg.html+'</div><div class="tt33-scroll-cue" id="tt33-scroll-cue">↓ Faites défiler la prière pour lire la suite</div><div class="tt33-page-number">Jour '+d.jour+' · Page '+(pageIndex+1)+' / '+pages.length+'</div></article>'+
  '<div class="tt33-page-nav"><button id="tt33-back" type="button" '+(index===0&&pageIndex===0?'disabled':'')+' aria-label="Tourner la page précédente">‹ Précédente</button><span class="tt33-font-tools"><button id="tt33-smaller" type="button" aria-label="Réduire les caractères">A−</button><button id="tt33-larger" type="button" aria-label="Agrandir les caractères">A+</button></span><button id="tt33-forward" type="button" '+(index===32&&pageIndex===pages.length-1?'disabled':'')+' aria-label="Tourner la page suivante">Suivante ›</button></div>'+
  '<label class="tt33-check"><input type="checkbox" id="tt33-done" '+(done[d.jour]?'checked':'')+'> Journée accomplie</label>'+ '<button id="tt33-reset" type="button" class="tt33-reset" aria-label="Effacer uniquement les journées marquées accomplies">Recommencer le parcours à 0/33</button>';
  root.querySelector('#tt33-day').onchange=e=>{index=Number(e.target.value);pageIndex=0;chapter='book';render();};
@@ -325,6 +332,14 @@ function render(){
  sheet.addEventListener('touchend',e=>{if(e.changedTouches.length!==1)return;const dx=e.changedTouches[0].clientX-startX,dy=e.changedTouches[0].clientY-startY;if(Math.abs(dx)>65&&Math.abs(dx)>Math.abs(dy)*1.4)turn(dx<0?1:-1);},{passive:true});
  sheet.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();turn(e.key==='ArrowRight'?1:-1);}});
  if(inner)inner.scrollTop=0;
+ const cue=root.querySelector('#tt33-scroll-cue');
+ function updatePrayerCue(){
+  if(!cue||!inner||!inner.classList.contains('tt33-prayer-page'))return;
+  const overflow=inner.scrollHeight>inner.clientHeight+4;
+  const end=inner.scrollTop+inner.clientHeight>=inner.scrollHeight-4;
+  cue.classList.toggle('is-visible',overflow&&!end);
+ }
+ if(inner&&cue){inner.addEventListener('scroll',updatePrayerCue,{passive:true});requestAnimationFrame(updatePrayerCue);}
 }
 function turn(dir){
  const pages=makeDayPages(days[index],bookDays[index]);
