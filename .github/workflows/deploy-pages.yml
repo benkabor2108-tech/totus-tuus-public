@@ -1,5 +1,4 @@
 name: Publier Totus Tuus sur GitHub Pages
-# Release 5.10.0 : 108 prières d'intercession et actes de confiance personnalisés.
 on:
   push:
     branches: [main]
@@ -21,163 +20,51 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-      - name: Construire la version candidate depuis le site actuel
-        run: python3 scripts/import_public_site.py
-      - name: Préparer une prévisualisation isolée des 108 prières
-        run: |
-          git clone --quiet --depth 1 --branch candidate/intercessions-108 "https://github.com/${GITHUB_REPOSITORY}.git" /tmp/totus-preview-src
-          cd /tmp/totus-preview-src
-          python3 scripts/import_public_site.py
-          python3 scripts/check_site.py site
-          for file in site/*.js; do node --check "$file"; done
-          cd "$GITHUB_WORKSPACE"
-          mkdir -p site/preview-intercessions
-          cp -a /tmp/totus-preview-src/site/. site/preview-intercessions/
-          python3 - <<'PY'
-          from pathlib import Path
-          import json
-          p=Path("site/preview-intercessions")
-          js=p/"interventions.js"
-          content=js.read_text(encoding="utf-8")
-          old="totus-intercession-v51"
-          assert old in content
-          js.write_text(content.replace(old,"totus-intercession-preview-108"),encoding="utf-8")
-          sw=p/"service-worker.js"
-          sw.write_text(sw.read_text(encoding="utf-8").replace("totus-tuus-pages-v5-9-1","totus-tuus-intercessions-preview-108"),encoding="utf-8")
-          version=p/"version.json"
-          version.write_text(json.dumps({"version":"candidate-intercessions-108","release":"preview-only"}),encoding="utf-8")
-          assert (p/"intercession-prayers.js").is_file()
-          assert (p/"index.html").read_text(encoding="utf-8").count("intercession-prayers.js")>=1
-          print("PREVISUALISATION SEPAREE: /preview-intercessions/ ; intentions isolees")
-          PY
-      - name: Finaliser la version publique 5.10.0 avec les prières d'intercession
-        run: |
-          cp /tmp/totus-preview-src/site/intercession-prayers.js site/intercession-prayers.js
-          python3 - <<'PY'
-          from pathlib import Path
-          import json,re
-          p=Path("site")
-          html=(p/"index.html").read_text(encoding="utf-8")
-          assert "intercession-prayers.js" not in html, "Inclusion double"
-          html=html.replace("</body>",'<script src="./intercession-prayers.js?v=5.10.0" defer></script></body>',1)
-          assert html.count("intercession-prayers.js")==1
-          (p/"index.html").write_text(html,encoding="utf-8")
-          sw=p/"service-worker.js"
-          worker=sw.read_text(encoding="utf-8")
-          worker,n=re.subn(r"const CACHE=['\"][^'\"]+['\"]","const CACHE='totus-tuus-pages-v5-10-0'",worker,count=1)
-          assert n==1,"Cache SW introuvable"
-          assert "const ASSETS=[" in worker
-          worker=worker.replace("const ASSETS=[","const ASSETS=['./intercession-prayers.js?v=5.10.0',",1)
-          sw.write_text(worker,encoding="utf-8")
-          version=p/"version.json"
-          version.write_text(json.dumps({"version":"5.10.0-pages","release":"5.10.0"},ensure_ascii=False),encoding="utf-8")
-          # Conserver la clé de stockage existante pour les intentions et progressions.
-          source=(p/"interventions.js").read_text(encoding="utf-8")
-          assert "totus-intercession-v51" in source
-          assert "intercession-prayers.js?v=5.10.0" in html
-          print("RELEASE 5.10.0 : 108 prières ; stockage existant préservé ; cache renouvelé")
-          PY
-      - name: Construire la prévisualisation isolée du parcours marial sans remplacer V5.10.0
+      - name: Assembler Totus Tuus depuis la candidate testée
         run: |
           git clone --quiet --depth 1 --branch candidate/parcours-marial-33-jours "https://github.com/${GITHUB_REPOSITORY}.git" /tmp/totus-marial-src
           cd /tmp/totus-marial-src
           bash scripts/build_netlify_preview.sh
           cd "$GITHUB_WORKSPACE"
-          mkdir -p site/preview-marial-livre-v5
-          cp -a /tmp/totus-marial-src/site/. site/preview-marial-livre-v5/
+          rm -rf site
+          cp -a /tmp/totus-marial-src/site site
+      - name: Publier V5.11.5 sans modifier la progression sauvegardée
+        run: |
           python3 - <<'PY'
           from pathlib import Path
           import json
-          root=Path('site')
-          preview=root/'preview-marial-livre-v5'
-          assert (root/'version.json').read_text()!= (preview/'version.json').read_text()
-          assert json.loads((root/'version.json').read_text())['release']=='5.10.0'
-          assert json.loads((preview/'version.json').read_text())['release']=='release-candidate-not-deployed'
-          assert 'parcours-marial.js' not in (root/'index.html').read_text()
-          assert 'parcours-marial.js' in (preview/'index.html').read_text()
-          assert 'totus-intercession-v51' in (preview/'interventions.js').read_text()
-          assert 'totus-tuus-pages-v5-11-4-rc6' in (preview/'service-worker.js').read_text()
-          assert 'tt33-page-nav' in (preview/'modules/parcours-marial/parcours-marial.js').read_text()
-          assert 'Invocation au Saint-Esprit' in (preview/'modules/parcours-marial/parcours-marial.js').read_text()
-          assert 'couverture-33-jours-v2.jpg' in (preview/'modules/parcours-marial/parcours-marial.js').read_text()
-          assert (preview/'modules/parcours-marial/couverture-33-jours-v2.jpg').stat().st_size>100000
-          book=json.loads((preview/'modules/parcours-marial/traite_33_lectures.json').read_text())
-          assert len(book['jours'])==33
-          assert all(p['section']==3 for p in book['jours'][0]['paragraphes'])
-          assert all(len(set(p['section'] for p in day['paragraphes']))==1 for day in book['jours'])
-          assert sum(len(p['texte']) for day in book['jours'] for p in day['paragraphes'])>120000
-          assert 'tt33-page-number' in (preview/'modules/parcours-marial/parcours-marial.js').read_text()
-          print('Root V5.10.0 inchangé; preview V5.11.0 RC isolée sous /preview-marial-livre-v5/')
+          p=Path('site')
+          js=p/'modules/parcours-marial/parcours-marial.js'
+          src=js.read_text(encoding='utf-8')
+          assert 'totus-tuus-parcours-marial-33-preview-rc7' in src
+          src=src.replace('totus-tuus-parcours-marial-33-preview-rc7','totus-tuus-parcours-marial-33-v2')
+          js.write_text(src,encoding='utf-8')
+          sw=p/'service-worker.js'
+          worker=sw.read_text(encoding='utf-8')
+          assert 'totus-tuus-pages-v5-11-5-rc7' in worker
+          worker=worker.replace('totus-tuus-pages-v5-11-5-rc7','totus-tuus-pages-v5-11-5')
+          sw.write_text(worker,encoding='utf-8')
+          html=p/'index.html'
+          content=html.read_text(encoding='utf-8')
+          assert content.count('parcours-marial.js')==1
+          assert content.count('intercession-prayers.js')==1
+          assert 'v=5.11.5-rc7' in content
+          content=content.replace('v=5.11.5-rc7','v=5.11.5')
+          html.write_text(content,encoding='utf-8')
+          (p/'version.json').write_text(json.dumps({'version':'5.11.5-pages','release':'5.11.5'},ensure_ascii=False),encoding='utf-8')
+          assert len(json.loads((p/'modules/parcours-marial/parcours_marial_33_jours_enrichi.json').read_text())['jours'])==33
+          assert len(json.loads((p/'modules/parcours-marial/bible_crampon_33_lectures.json').read_text())['jours'])==33
+          assert (p/'intercession-prayers.js').stat().st_size>1000
+          assert 'totus-intercession-v51' in (p/'interventions.js').read_text()
+          assert 'totus-tuus-parcours-marial-33-v2' in js.read_text()
+          assert 'totus-tuus-pages-v5-11-5' in sw.read_text()
+          print('V5.11.5 prête : 33 jours, Bible, prières et stockage historique conservés.')
           PY
-      - name: Promouvoir V5.11.0 au site officiel en préservant les données historiques
-        run: |
-          cp -a site/preview-marial-livre-v5/. site/
-          python3 - <<'PY'
-          from pathlib import Path
-          import json
-          root=Path("site")
-          module=root/"modules/parcours-marial"
-          js=module/"parcours-marial.js"
-          src=js.read_text(encoding="utf-8")
-          preview_key="totus-tuus-parcours-marial-33-preview-rc6"
-          official_key="totus-tuus-parcours-marial-33-v2"
-          assert preview_key in src and official_key not in src
-          js.write_text(src.replace(preview_key,official_key),encoding="utf-8")
-          assert official_key in js.read_text(encoding="utf-8")
-          interventions=(root/"interventions.js").read_text(encoding="utf-8")
-          assert "totus-intercession-v51" in interventions
-          assert (root/"intercession-prayers.js").stat().st_size>1000
-          html=(root/"index.html").read_text(encoding="utf-8")
-          assert html.count("intercession-prayers.js")==1
-          assert html.count("parcours-marial.js")==1
-          sw=root/"service-worker.js"
-          worker=sw.read_text(encoding="utf-8")
-          assert "totus-tuus-pages-v5-11-4-rc6" in worker
-          worker=worker.replace("totus-tuus-pages-v5-11-4-rc6","totus-tuus-pages-v5-11-4")
-          sw.write_text(worker,encoding="utf-8")
-          (root/"version.json").write_text(json.dumps({"version":"5.11.4-pages","release":"5.11.4"},ensure_ascii=False),encoding="utf-8")
-          book=json.loads((module/"traite_33_lectures.json").read_text(encoding="utf-8"))
-          data=json.loads((module/"parcours_marial_33_jours_enrichi.json").read_text(encoding="utf-8"))
-          assert len(book["jours"])==len(data["jours"])==33
-          assert all(d["lecture_biblique"]["url_lecture"].startswith("https://www.aelf.org/bible/") for d in data["jours"])
-          assert json.loads((root/"preview-marial-livre-v5/version.json").read_text())["release"]=="release-candidate-not-deployed"
-          print("V5.11.0 officielle assemblée ; preview séparée ; clés historiques conservées.")
-          PY
-      - name: Vérifier les fichiers et la syntaxe JavaScript
-        run: |
-          python3 scripts/check_site.py site
-          for file in site/*.js site/preview-marial-livre-v5/modules/parcours-marial/*.js; do node --check "$file"; done
-          NODE_PATH=/tmp/totus-qa/node_modules node --version
-      - name: Activer GitHub Pages avec GitHub Actions si autorisé
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh api -X POST "repos/${GITHUB_REPOSITORY}/pages" -f build_type=workflow || echo "Configuration Pages existante ou activation à effectuer dans Settings > Pages"
+          python3 /tmp/totus-marial-src/scripts/check_site.py site
+          node --check site/modules/parcours-marial/parcours-marial.js
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site
       - id: deployment
         uses: actions/deploy-pages@v4
-
-# Preview candidate refreshed: automatic completion when moving to the next day.
-
-# Refresh isolated preview after correcting JavaScript syntax and cache version.
-
-# Isolated Marian preview refresh 2026-10-21: candidate editorial corrections only; root remains V5.10.0.
-
-# Refresh 2026-10-21: isolate Marian preview progress storage; production V5.10.0 unchanged.
-
-# Publication V5.11.0 : couverture téléversée, invocation quotidienne et lecture paginée vérifiées en CI.
-
-# Correctif du bundle : inclure la couverture JPEG dans le répertoire de publication.
-
-# Publication finale V5.11.0 : livre marial, 33 lectures bibliques intégrées, reprise à l'invocation et remise à zéro des essais. Validations candidate Chromium PASS 2026-10-21.
-
-# Correctif V5.11.1 : remise à zéro unique des anciens essais (6/33) via nouvelle clé V2 ; conserver les accomplissements V2 à l'avenir ; typographie et pagination mobile affinées.
-
-# V5.11.2 : invocation répartie sur deux pages, typographie sans césures, taille par défaut rétablie et ouverture au jour 1 à 0/33 ; tests Chromium réussis.
-
-# V5.11.3 : passage automatique au lendemain dès validation, protection contre validation hors ordre, progression séquentielle ; contrôle Chromium mobile PASS.
-
-# V5.11.4 : ne jamais réouvrir sur une page consultée ; reprise systématique au premier jour non accompli depuis la couverture ; test mobile de fermeture et rechargement réussi.
