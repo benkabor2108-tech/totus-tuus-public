@@ -71,3 +71,5 @@ jobs:
           retention-days: 30
 
 # Reprise du build avec secours GitHub Pages lorsque Netlify est indisponible.
+
+# Nouvelle validation : assainissement des balises script dans la copie publique.
