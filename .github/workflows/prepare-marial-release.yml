@@ -24,6 +24,7 @@ jobs:
         run: |
           git clone --quiet --depth 1 --branch candidate/intercessions-108 "https://github.com/${GITHUB_REPOSITORY}.git" /tmp/totus-intercessions
           cd /tmp/totus-intercessions
+          cp "$GITHUB_WORKSPACE/scripts/import_public_site.py" scripts/import_public_site.py
           python3 scripts/import_public_site.py
           test -s site/intercession-prayers.js
           cp site/intercession-prayers.js "$GITHUB_WORKSPACE/site/intercession-prayers.js"
