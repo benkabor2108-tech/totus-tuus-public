@@ -81,3 +81,5 @@ jobs:
 # Validation finale de la suppression des scripts existants.
 
 # Validation par correspondance exacte des balises candidates.
+
+# Revalidation de la compilation du site public sans Netlify.
