@@ -86,7 +86,7 @@ html = (OUT/"index.html").read_text(encoding="utf-8")
 if BASE == FALLBACK_BASE:
     # La copie publique contient déjà les scripts du parcours : la préparation RC
     # les réinjectera une seule fois, à la version candidate exacte.
-    html = re.sub(r'<script\\b[^>]*src=["\\\'][^"\\\']*(?:intercession-prayers|parcours-marial)\\.js[^"\\\']*["\\\'][^>]*>\\s*</script>', "", html, flags=re.I)
+    html = re.sub(r'<script[^>]+(?:intercession-prayers|parcours-marial)\\.js[^>]*></script>', '', html, flags=re.I)
     print("Scripts du parcours public retirés du HTML importé pour éviter les doublons.")
 for p in sorted(Path("overrides").glob("*.js")):
     if p.name not in html:
