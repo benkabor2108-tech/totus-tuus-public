@@ -61,7 +61,7 @@ jobs:
           assert 'totus-marial-day-list' in presentation.read_text(encoding='utf-8')
           html=p/'index.html'
           content=html.read_text(encoding='utf-8')
-          content=re.sub(r'<script[^>]*src=[^>]*presentation\\.js[^>]*>\\s*</script>', '', content, flags=re.I)
+          content=re.sub(r'<script[^>]*src=[^>]*presentation\.js[^>]*>\s*</script>', '', content, flags=re.I)
           content=re.sub(r'<script[^>]*src=[^>]*parcours-marial\.js[^>]*>\s*</script>', '', content, flags=re.I)
           content=content.replace('</body>','<script src="./presentation.js?v=5.11.9" defer></script><script src="./modules/parcours-marial/parcours-marial.js?v=5.11.9" defer></script></body>',1)
           html.write_text(content,encoding='utf-8')
