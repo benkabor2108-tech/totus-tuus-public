@@ -152,8 +152,9 @@ const safe=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'
 const link=(u,label)=>{try{let p=new URL(u);if(p.protocol==='https:')return '<a target="_blank" rel="noopener noreferrer" href="'+safe(p.href)+'">'+safe(label)+'</a>';}catch(e){}return '';};
 let days=[],bookDays=[],bibleDays={},index=0,done={},pageIndex=0,chapter='book';
 const PLACE=KEY+'-reading-position';
-try{const p=JSON.parse(localStorage.getItem(PLACE)||'{}');if(Number.isInteger(p.day)&&p.day>=0&&p.day<33)index=p.day;if(Number.isInteger(p.page)&&p.page>=0)pageIndex=p.page;if(['book','bible','meditation','priere'].includes(p.chapter))chapter=p.chapter;}catch(e){}
-function savePlace(){try{localStorage.setItem(PLACE,JSON.stringify({day:index,page:pageIndex,chapter}));}catch(e){}}
+// La dernière page feuilletée ne doit jamais déterminer la journée de démarrage.
+// On conserve uniquement les journées réellement validées (KEY), pas l'ancienne position.
+function savePlace(){/* Position volontairement limitée à la session de lecture. */}
 function openAtCurrentDay(){
  // Une nouvelle ouverture par la couverture commence toujours par l'invocation
  // du premier jour non accompli. La lecture passée reste consultable au sélecteur.
@@ -259,7 +260,7 @@ function render(){
    openAtCurrentDay();render();
   }
  };
- root.querySelector('#tt33-reset').onclick=()=>{if(!confirm('Recommencer tout le parcours à 0/33 ? Cette action effacera les journées accomplies. Les textes et prières seront conservés.'))return;done={};index=0;pageIndex=0;chapter='book';try{localStorage.setItem(KEY,'{}');}catch(e){}render();};
+ root.querySelector('#tt33-reset').onclick=()=>{if(!confirm('Recommencer tout le parcours à 0/33 ? Cette action effacera les journées accomplies. Les textes et prières seront conservés.'))return;done={};index=0;pageIndex=0;chapter='book';try{localStorage.setItem(KEY,'{}');localStorage.removeItem(PLACE);}catch(e){}openAtCurrentDay();render();};
  root.querySelector('#tt33-back').onclick=()=>turn(-1);
  root.querySelector('#tt33-forward').onclick=()=>turn(1);
  root.querySelector('#tt33-smaller').onclick=()=>resize(-1);
@@ -285,5 +286,5 @@ function resize(delta){fontSize=Math.max(13,Math.min(21,fontSize+delta));dlg.sty
 dlg.style.setProperty('--tt33-font-size',fontSize+'px');
 
 let promise;
-btn.addEventListener('click',async()=>{if(!dlg.open)dlg.showModal();if(days.length){openAtCurrentDay();render();return;}root.textContent='Chargement du parcours…';try{promise ||= Promise.all([fetch(DATA).then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json();}),fetch('./modules/parcours-marial/traite_33_lectures.json').then(r=>{if(!r.ok)throw Error('Livre HTTP '+r.status);return r.json();}),fetch('./modules/parcours-marial/bible_crampon_33_lectures.json').then(r=>{if(!r.ok)throw Error('Bible HTTP '+r.status);return r.json();})]);const [j,b,scripture]=await promise;if(!Array.isArray(j.jours)||j.jours.length!==33||!Array.isArray(b.jours)||b.jours.length!==33||b.jours.some(x=>!x.paragraphes?.length))throw Error('Données incomplètes');if(Object.keys(scripture.jours||{}).length!==33)throw Error('Passages bibliques incomplets');days=j.jours;bookDays=b.jours;bibleDays=scripture.jours;openAtCurrentDay();render();}catch(e){promise=null;root.textContent='Impossible de charger le livre, les passages bibliques et les 33 journées. Réessayez lorsque la connexion est disponible.';}});
+btn.addEventListener('click',async()=>{if(days.length){openAtCurrentDay();render();if(!dlg.open)dlg.showModal();return;}if(!dlg.open)dlg.showModal();root.textContent='Chargement du parcours…';try{promise ||= Promise.all([fetch(DATA).then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json();}),fetch('./modules/parcours-marial/traite_33_lectures.json').then(r=>{if(!r.ok)throw Error('Livre HTTP '+r.status);return r.json();}),fetch('./modules/parcours-marial/bible_crampon_33_lectures.json').then(r=>{if(!r.ok)throw Error('Bible HTTP '+r.status);return r.json();})]);const [j,b,scripture]=await promise;if(!Array.isArray(j.jours)||j.jours.length!==33||!Array.isArray(b.jours)||b.jours.length!==33||b.jours.some(x=>!x.paragraphes?.length))throw Error('Données incomplètes');if(Object.keys(scripture.jours||{}).length!==33)throw Error('Passages bibliques incomplets');days=j.jours;bookDays=b.jours;bibleDays=scripture.jours;openAtCurrentDay();render();}catch(e){promise=null;root.textContent='Impossible de charger le livre, les passages bibliques et les 33 journées. Réessayez lorsque la connexion est disponible.';}});
 })();
