@@ -73,3 +73,5 @@ jobs:
 # Reprise du build avec secours GitHub Pages lorsque Netlify est indisponible.
 
 # Nouvelle validation : assainissement des balises script dans la copie publique.
+
+# Validation du service worker provenant de GitHub Pages.
