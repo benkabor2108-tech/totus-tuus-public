@@ -143,7 +143,7 @@ bookCSS.textContent+=`
 bookCSS.textContent+=`
 /* V5.11.7 : invocation entière, titre et Amen visibles avec adaptation mobile.
    La lecture reste défilable lorsque l'utilisateur agrandit la police. */
-#tt33-dialog .tt33-page-contents.tt33-prayer-page{font-size:min(var(--tt33-font-size),clamp(13px,3.45vw,16px));line-height:1.35;scrollbar-width:thin}
+#tt33-dialog .tt33-page-contents.tt33-prayer-page{font-size:var(--tt33-font-size);line-height:1.35;scrollbar-width:thin}
 #tt33-dialog .tt33-prayer-page h3{font-size:1.08em;line-height:1.2;margin:0 0 .55em}
 #tt33-dialog .tt33-prayer-page p{line-height:1.35;margin:0 0 .55em}
 #tt33-dialog .tt33-prayer-page p:last-child{margin-bottom:0}
