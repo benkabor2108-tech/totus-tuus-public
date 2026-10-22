@@ -24,7 +24,20 @@ jobs:
         run: |
           git clone --quiet --depth 1 --branch candidate/parcours-marial-33-jours "https://github.com/${GITHUB_REPOSITORY}.git" /tmp/totus-marial-src
           cd /tmp/totus-marial-src
-          bash scripts/build_netlify_preview.sh
+          python3 scripts/import_public_site.py
+          git clone --quiet --depth 1 --branch candidate/intercessions-108 "https://github.com/${GITHUB_REPOSITORY}.git" /tmp/totus-intercessions
+          cd /tmp/totus-intercessions
+          cp /tmp/totus-marial-src/scripts/import_public_site.py scripts/import_public_site.py
+          python3 scripts/import_public_site.py
+          cd /tmp/totus-marial-src
+          cp /tmp/totus-intercessions/site/intercession-prayers.js site/intercession-prayers.js
+          python3 scripts/build_bible_crampon_33.py
+          mkdir -p site/modules/parcours-marial
+          cp modules/parcours-marial/*.js modules/parcours-marial/*.json modules/parcours-marial/*.jpg site/modules/parcours-marial/
+          python3 scripts/build_traite_33_lectures.py site/modules/parcours-marial/traite_33_lectures.json
+          python3 scripts/prepare_marial_release_candidate.py site
+          python3 scripts/check_site.py site
+          for file in site/*.js site/modules/parcours-marial/*.js; do node --check "$file"; done
           cd "$GITHUB_WORKSPACE"
           rm -rf site
           cp -a /tmp/totus-marial-src/site site
