@@ -1,9 +1,11 @@
 /* Restaurer le message d'invitation dans le partage Totus Tuus V5.9.1. */
 (() => {
   'use strict';
+  if (document.getElementById('totus-share-app')) return;
   const panel = document.getElementById('totus-presentation');
   const actions = panel?.querySelector('.presentation-actions');
-  if (!actions || document.getElementById('totus-share-app')) return;
+  const discover = document.getElementById('discover-app');
+  if (!discover) return;
   const url = new URL('./', document.baseURI).href;
   const button = document.createElement('button');
   button.type = 'button';
@@ -33,5 +35,14 @@
     }
     window.prompt('Copier cette invitation à partager',message);
   });
-  actions.append(button);
+  // Rendre le partage immédiatement accessible sur l'accueil, sans ouvrir la présentation.
+  button.style.cssText = 'display:inline-block;min-height:48px;margin:.65rem .35rem;padding:.75rem 1.1rem;border:2px solid currentColor;border-radius:.7rem;background:#fff;color:#243650;font:650 1rem system-ui;cursor:pointer;touch-action:manipulation';
+  discover.insertAdjacentElement('afterend', button);
+  // Conserver également un accès depuis la présentation détaillée.
+  if (actions) {
+    const inside = button.cloneNode(true);
+    inside.id = 'totus-share-app-details';
+    inside.addEventListener('click', () => button.click());
+    actions.append(inside);
+  }
 })();
