@@ -1,5 +1,5 @@
 name: Publier Totus Tuus sur GitHub Pages
-# Publication de la correction d'invocation et de défilement V5.11.9
+# Publication de la correction d'invocation et de défilement V5.11.10
 on:
   push:
     branches: [main]
@@ -64,15 +64,15 @@ jobs:
           content=html.read_text(encoding='utf-8')
           content=re.sub(r'<script[^>]*src=[^>]*presentation\.js[^>]*>\s*</script>', '', content, flags=re.I)
           content=re.sub(r'<script[^>]*src=[^>]*parcours-marial\.js[^>]*>\s*</script>', '', content, flags=re.I)
-          content=content.replace('</body>','<script src="./presentation.js?v=5.11.9" defer></script><script src="./modules/parcours-marial/parcours-marial.js?v=5.11.9" defer></script></body>',1)
+          content=content.replace('</body>','<script src="./presentation.js?v=5.11.10" defer></script><script src="./modules/parcours-marial/parcours-marial.js?v=5.11.10" defer></script></body>',1)
           html.write_text(content,encoding='utf-8')
           sw=p/'service-worker.js'
           worker=sw.read_text(encoding='utf-8')
-          worker,n=re.subn(r"const CACHE=[^;\\n]+", "const CACHE='totus-tuus-pages-v5-11-9'", worker, count=1)
+          worker,n=re.subn(r"const CACHE=[^;\\n]+", "const CACHE='totus-tuus-pages-v5-11-10'", worker, count=1)
           assert n==1
-          worker=worker.replace('v=5.11.4','v=5.11.9')
+          worker=worker.replace('v=5.11.4','v=5.11.10')
           sw.write_text(worker,encoding='utf-8')
-          print('Restauré depuis V5.11.4, livre V5.11.9 ajouté.')
+          print('Restauré depuis V5.11.4, livre V5.11.10 ajouté.')
           PY
           python3 /tmp/totus-marial-src/scripts/check_site.py site
           for file in site/*.js site/modules/parcours-marial/*.js; do node --check "$file"; done
@@ -102,10 +102,10 @@ jobs:
           p=Path('site')
           js=(p/'modules/parcours-marial/parcours-marial.js').read_text()
           assert 'totus-tuus-parcours-marial-33-v2' in js
-          assert 'totus-tuus-pages-v5-11-9' in (p/'service-worker.js').read_text()
+          assert 'totus-tuus-pages-v5-11-10' in (p/'service-worker.js').read_text()
           assert len(json.loads((p/'modules/parcours-marial/parcours_marial_33_jours_enrichi.json').read_text())['jours'])==33
           assert 'Découvrir les thèmes des 33 journées' in (p/'presentation.js').read_text()
-          (p/'version.json').write_text(json.dumps({'version':'5.11.9-pages','release':'5.11.9'},ensure_ascii=False),encoding='utf-8')
+          (p/'version.json').write_text(json.dumps({'version':'5.11.10-pages','release':'5.11.10'},ensure_ascii=False),encoding='utf-8')
           PY
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
