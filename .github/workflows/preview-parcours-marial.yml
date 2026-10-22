@@ -8,6 +8,7 @@ on:
       - 'scripts/build_traite_33_lectures.py'
       - 'scripts/build_bible_crampon_33.py'
       - '.github/workflows/preview-parcours-marial.yml'
+      - 'scripts/import_public_site.py'
   workflow_dispatch:
 permissions:
   contents: read
@@ -24,6 +25,7 @@ jobs:
         run: |
           git clone --quiet --depth 1 --branch candidate/intercessions-108 "https://github.com/${GITHUB_REPOSITORY}.git" /tmp/totus-510-src
           cd /tmp/totus-510-src
+          cp "$GITHUB_WORKSPACE/scripts/import_public_site.py" scripts/import_public_site.py
           python3 scripts/import_public_site.py
           test -s site/intercession-prayers.js
           cd "$GITHUB_WORKSPACE"
