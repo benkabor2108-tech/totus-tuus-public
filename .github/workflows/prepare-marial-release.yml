@@ -77,3 +77,5 @@ jobs:
 # Validation du service worker provenant de GitHub Pages.
 
 # Revalidation des regex Python et des contrôles d'assemblage.
+
+# Validation finale de la suppression des scripts existants.
