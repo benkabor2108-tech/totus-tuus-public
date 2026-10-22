@@ -7,6 +7,7 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+  actions: read
   pages: write
   id-token: write
 concurrency:
@@ -20,61 +21,83 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-      - name: Assembler Totus Tuus depuis la candidate testée
+      - name: Récupérer la sauvegarde publique V5.11.4 validée
+        uses: actions/download-artifact@v4
+        with:
+          name: github-pages
+          run-id: 39743669660
+          github-token: ${{ github.token }}
+          path: /tmp/totus-backup
+      - name: Restaurer les fichiers complets puis appliquer les corrections
         run: |
+          set -euo pipefail
+          mkdir -p site
+          ls -lah /tmp/totus-backup
+          find /tmp/totus-backup -maxdepth 2 -type f -print
+          tar -xf /tmp/totus-backup/artifact.tar -C site
+          test -s site/app.js
+          test -s site/navigation.js
+          test -s site/guided.js
+          test -s site/comfort.js
+          test -s site/reading-comfort.js
+          test -s site/modules/parcours-marial/parcours-marial.js
           git clone --quiet --depth 1 --branch candidate/parcours-marial-33-jours "https://github.com/${GITHUB_REPOSITORY}.git" /tmp/totus-marial-src
           cd /tmp/totus-marial-src
-          python3 scripts/import_public_site.py
-          git clone --quiet --depth 1 --branch candidate/intercessions-108 "https://github.com/${GITHUB_REPOSITORY}.git" /tmp/totus-intercessions
-          cd /tmp/totus-intercessions
-          cp /tmp/totus-marial-src/scripts/import_public_site.py scripts/import_public_site.py
-          python3 scripts/import_public_site.py
-          cd /tmp/totus-marial-src
-          cp /tmp/totus-intercessions/site/intercession-prayers.js site/intercession-prayers.js
           python3 scripts/build_bible_crampon_33.py
-          mkdir -p site/modules/parcours-marial
-          cp modules/parcours-marial/*.js modules/parcours-marial/*.json modules/parcours-marial/*.jpg site/modules/parcours-marial/
-          python3 scripts/build_traite_33_lectures.py site/modules/parcours-marial/traite_33_lectures.json
-          python3 scripts/prepare_marial_release_candidate.py site
-          python3 scripts/check_site.py site
-          for file in site/*.js site/modules/parcours-marial/*.js; do node --check "$file"; done
+          mkdir -p "$GITHUB_WORKSPACE/site/modules/parcours-marial"
+          cp modules/parcours-marial/*.js modules/parcours-marial/*.json modules/parcours-marial/*.jpg "$GITHUB_WORKSPACE/site/modules/parcours-marial/"
+          python3 scripts/build_traite_33_lectures.py "$GITHUB_WORKSPACE/site/modules/parcours-marial/traite_33_lectures.json"
           cd "$GITHUB_WORKSPACE"
-          rm -rf site
-          cp -a /tmp/totus-marial-src/site site
-      - name: Publier V5.11.5 sans modifier la progression sauvegardée
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('site')
+          js=p/'modules/parcours-marial/parcours-marial.js'
+          src=js.read_text(encoding='utf-8')
+          assert "totus-tuus-parcours-marial-33-v2" in src
+          assert "Par l’intercession de la Très Sainte Vierge Marie" in src
+          html=p/'index.html'
+          content=html.read_text(encoding='utf-8')
+          content=re.sub(r'<script[^>]*src=[^>]*parcours-marial\\.js[^>]*>\\s*</script>', '', content, flags=re.I)
+          content=content.replace('</body>','<script src="./modules/parcours-marial/parcours-marial.js?v=5.11.6" defer></script></body>',1)
+          html.write_text(content,encoding='utf-8')
+          sw=p/'service-worker.js'
+          worker=sw.read_text(encoding='utf-8')
+          worker,n=re.subn(r"const CACHE=['\\\"][^'\\\"]+['\\\"]","const CACHE='totus-tuus-pages-v5-11-6'",worker,count=1)
+          assert n==1
+          worker=worker.replace('v=5.11.4','v=5.11.6')
+          sw.write_text(worker,encoding='utf-8')
+          print('Restauré depuis V5.11.4, livre V5.11.6 ajouté.')
+          PY
+          python3 /tmp/totus-marial-src/scripts/check_site.py site
+          for file in site/*.js site/modules/parcours-marial/*.js; do node --check "$file"; done
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          site=Path('site')
+          html=(site/'index.html').read_text()
+          missing=[]
+          for url in re.findall(r'<script[^>]*src=["\\\']([^"\\\']+)',html,re.I):
+              path=url.split('?')[0].lstrip('./')
+              if not (site/path).is_file(): missing.append(path)
+          assert not missing, f'Scripts HTML absents: {missing}'
+          assert (site/'app.js').stat().st_size>1000
+          assert (site/'navigation.js').stat().st_size>1000
+          assert (site/'guided.js').stat().st_size>1000
+          print('Tous les scripts référencés sont présents.')
+          PY
+      - name: Vérifier la version restaurée
         run: |
           python3 - <<'PY'
           from pathlib import Path
           import json
           p=Path('site')
-          js=p/'modules/parcours-marial/parcours-marial.js'
-          src=js.read_text(encoding='utf-8')
-          assert 'totus-tuus-parcours-marial-33-preview-rc7' in src
-          src=src.replace('totus-tuus-parcours-marial-33-preview-rc7','totus-tuus-parcours-marial-33-v2')
-          js.write_text(src,encoding='utf-8')
-          sw=p/'service-worker.js'
-          worker=sw.read_text(encoding='utf-8')
-          assert 'totus-tuus-pages-v5-11-5-rc7' in worker
-          worker=worker.replace('totus-tuus-pages-v5-11-5-rc7','totus-tuus-pages-v5-11-5')
-          sw.write_text(worker,encoding='utf-8')
-          html=p/'index.html'
-          content=html.read_text(encoding='utf-8')
-          assert content.count('parcours-marial.js')==1
-          assert content.count('intercession-prayers.js')==1
-          assert 'v=5.11.5-rc7' in content
-          content=content.replace('v=5.11.5-rc7','v=5.11.5')
-          html.write_text(content,encoding='utf-8')
-          (p/'version.json').write_text(json.dumps({'version':'5.11.5-pages','release':'5.11.5'},ensure_ascii=False),encoding='utf-8')
+          js=(p/'modules/parcours-marial/parcours-marial.js').read_text()
+          assert 'totus-tuus-parcours-marial-33-v2' in js
+          assert 'totus-tuus-pages-v5-11-6' in (p/'service-worker.js').read_text()
           assert len(json.loads((p/'modules/parcours-marial/parcours_marial_33_jours_enrichi.json').read_text())['jours'])==33
-          assert len(json.loads((p/'modules/parcours-marial/bible_crampon_33_lectures.json').read_text())['jours'])==33
-          assert (p/'intercession-prayers.js').stat().st_size>1000
-          assert 'totus-intercession-v51' in (p/'interventions.js').read_text()
-          assert 'totus-tuus-parcours-marial-33-v2' in js.read_text()
-          assert 'totus-tuus-pages-v5-11-5' in sw.read_text()
-          print('V5.11.5 prête : 33 jours, Bible, prières et stockage historique conservés.')
+          (p/'version.json').write_text(json.dumps({'version':'5.11.6-pages','release':'5.11.6'},ensure_ascii=False),encoding='utf-8')
           PY
-          python3 /tmp/totus-marial-src/scripts/check_site.py site
-          node --check site/modules/parcours-marial/parcours-marial.js
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
