@@ -22,7 +22,7 @@
     '',
     url
   ].join('\n');
-  button.addEventListener('click', async () => {
+  const shareInvitation = async (trigger) => {
     // Inclure le lien DANS le texte pour éviter que certaines applications
     // ne conservent que l'URL en ignorant la légende de partage.
     if (navigator.share) {
@@ -30,11 +30,12 @@
       catch (error) { if (error.name === 'AbortError') return; }
     }
     if (navigator.clipboard) {
-      try { await navigator.clipboard.writeText(message); button.textContent='Invitation copiée'; return; }
+      try { await navigator.clipboard.writeText(message); trigger.textContent='Invitation copiée'; return; }
       catch (_) {}
     }
     window.prompt('Copier cette invitation à partager',message);
-  });
+  };
+  button.addEventListener('click', () => shareInvitation(button));
   // Rendre le partage immédiatement accessible sur l'accueil, sans ouvrir la présentation.
   button.style.cssText = 'display:inline-block;min-height:48px;margin:.65rem .35rem;padding:.75rem 1.1rem;border:2px solid currentColor;border-radius:.7rem;background:#fff;color:#243650;font:650 1rem system-ui;cursor:pointer;touch-action:manipulation';
   discover.insertAdjacentElement('afterend', button);
@@ -42,7 +43,7 @@
   if (actions) {
     const inside = button.cloneNode(true);
     inside.id = 'totus-share-app-details';
-    inside.addEventListener('click', () => button.click());
+    inside.addEventListener('click', () => shareInvitation(inside));
     actions.append(inside);
   }
 })();
