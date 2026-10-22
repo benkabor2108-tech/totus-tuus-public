@@ -25,7 +25,7 @@ assert "totus-tuus-parcours-marial-33-v2" in js
 assert "cache:'no-store'" not in js
 # The isolated preview must never write to the same localStorage key as a future production release.
 # Preserve the original candidate source key for a later production release.
-preview_key='totus-tuus-parcours-marial-33-preview-rc6'
+preview_key='totus-tuus-parcours-marial-33-preview-rc7'
 assert preview_key not in js
 preview_js=js.replace('totus-tuus-parcours-marial-33-v2',preview_key)
 (module / 'parcours-marial.js').write_text(preview_js,encoding='utf-8')
@@ -34,27 +34,27 @@ assert preview_key in (module / 'parcours-marial.js').read_text(encoding='utf-8'
 htmlfile = site / "index.html"
 html = htmlfile.read_text(encoding="utf-8")
 intercession_tag = '<script src="./intercession-prayers.js?v=5.10.0" defer></script>'
-marial_tag = '<script src="./modules/parcours-marial/parcours-marial.js?v=5.11.4-rc6" defer></script>'
+marial_tag = '<script src="./modules/parcours-marial/parcours-marial.js?v=5.11.5-rc7" defer></script>'
 assert "intercession-prayers.js" not in html and "parcours-marial.js" not in html
 assert html.count("</body>")==1
 htmlfile.write_text(html.replace("</body>",intercession_tag+marial_tag+"</body>"),encoding="utf-8")
 
 swfile = site / "service-worker.js"
 sw = swfile.read_text(encoding="utf-8")
-sw,n = re.subn(r"const CACHE=['\"][^'\"]+['\"]", "const CACHE='totus-tuus-pages-v5-11-4-rc6'", sw, count=1)
+sw,n = re.subn(r"const CACHE=['\"][^'\"]+['\"]", "const CACHE='totus-tuus-pages-v5-11-5-rc7'", sw, count=1)
 assert n==1
 assert "const ASSETS=[" in sw
-sw=sw.replace("const ASSETS=[", "const ASSETS=['./intercession-prayers.js?v=5.10.0','./modules/parcours-marial/parcours-marial.js?v=5.11.4-rc6','./modules/parcours-marial/parcours_marial_33_jours_enrichi.json','./modules/parcours-marial/traite_33_lectures.json','./modules/parcours-marial/bible_crampon_33_lectures.json',",1)
+sw=sw.replace("const ASSETS=[", "const ASSETS=['./intercession-prayers.js?v=5.10.0','./modules/parcours-marial/parcours-marial.js?v=5.11.5-rc7','./modules/parcours-marial/parcours_marial_33_jours_enrichi.json','./modules/parcours-marial/traite_33_lectures.json','./modules/parcours-marial/bible_crampon_33_lectures.json',",1)
 # Only clean release-candidate caches. Never purge the historical PWA's caches.
-sw=sw.replace("key.startsWith('totus-tuus-')&&key!==CACHE","key.startsWith('totus-tuus-pages-v5-11-4-rc6')&&key!==CACHE")
-assert "key.startsWith('totus-tuus-pages-v5-11-4-rc6')" in sw
+sw=sw.replace("key.startsWith('totus-tuus-')&&key!==CACHE","key.startsWith('totus-tuus-pages-v5-11-5-rc7')&&key!==CACHE")
+assert "key.startsWith('totus-tuus-pages-v5-11-5-rc7')" in sw
 # JSON requests should not silently receive the app shell when offline.
 sw=sw.replace("caches.match(req).then(res=>res||caches.match('./index.html'))","caches.match(req).then(res=>res||(req.mode==='navigate'?caches.match('./index.html'):Response.error()))")
 assert "req.mode==='navigate'?caches.match('./index.html'):Response.error()" in sw
 # Ensure the browser detects a new service worker after the editorial corrections.
 sw += "\n// Marial preview storage isolation 2026-10-21: unique progress key for RC2.\n"
 swfile.write_text(sw,encoding="utf-8")
-(site/"version.json").write_text(json.dumps({"version":"5.11.4-rc6","release":"release-candidate-not-deployed"},ensure_ascii=False),encoding="utf-8")
+(site/"version.json").write_text(json.dumps({"version":"5.11.5-rc7","release":"release-candidate-not-deployed"},ensure_ascii=False),encoding="utf-8")
 assert htmlfile.read_text().count("intercession-prayers.js")==1
 assert htmlfile.read_text().count("parcours-marial.js")==1
-print("Release candidate 5.11.4-rc6 assembled. No production deployment.")
+print("Release candidate 5.11.5-rc7 assembled. No production deployment.")
