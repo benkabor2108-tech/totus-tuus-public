@@ -10,6 +10,7 @@ import json
 import shutil
 
 BASE = "https://funny-seahorse-1ccdd6.netlify.app/"
+FALLBACK_BASE = "https://benkabor2108-tech.github.io/totus-tuus-public/"
 OUT = Path("site")
 if OUT.exists():
     shutil.rmtree(OUT)
@@ -53,7 +54,11 @@ def fetch(path):
 
 index = fetch("index.html")
 if not index:
-    raise SystemExit("Impossible de lire le site Netlify")
+    print("Netlify indisponible : reprise depuis la dernière version publique GitHub Pages, sans perte de données.")
+    BASE = FALLBACK_BASE
+    index = fetch("index.html")
+if not index:
+    raise SystemExit("Impossible de lire le site Netlify ET la version publique GitHub Pages")
 Assets().feed(index.decode("utf-8"))
 sw = fetch("service-worker.js")
 if sw:
@@ -78,6 +83,11 @@ for p in ("index.html", "prieres.json", "rosary-scriptures.json", "service-worke
 for p in Path("overrides").glob("*.js"):
     shutil.copy2(p, OUT/p.name)
 html = (OUT/"index.html").read_text(encoding="utf-8")
+if BASE == FALLBACK_BASE:
+    # La copie publique contient déjà les scripts du parcours : la préparation RC
+    # les réinjectera une seule fois, à la version candidate exacte.
+    html = re.sub(r'<script\\b[^>]*src=["\\\'][^"\\\']*(?:intercession-prayers|parcours-marial)\\.js[^"\\\']*["\\\'][^>]*>\\s*</script>', "", html, flags=re.I)
+    print("Scripts du parcours public retirés du HTML importé pour éviter les doublons.")
 for p in sorted(Path("overrides").glob("*.js")):
     if p.name not in html:
         html = html.replace("</body>", '<script src="./'+p.name+'?v=5.9.1" defer></script></body>', 1)
