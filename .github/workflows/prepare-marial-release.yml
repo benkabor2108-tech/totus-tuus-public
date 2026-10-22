@@ -75,3 +75,5 @@ jobs:
 # Nouvelle validation : assainissement des balises script dans la copie publique.
 
 # Validation du service worker provenant de GitHub Pages.
+
+# Revalidation des regex Python et des contrôles d'assemblage.
