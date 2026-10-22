@@ -34,6 +34,11 @@ def add(value):
     if u.netloc != urlparse(BASE).netloc:
         return
     p = unquote(u.path).lstrip("/")
+    # Sur GitHub Pages, les URL absolues portent le préfixe du dépôt.
+    # Ne pas les télécharger une seconde fois sous /totus-tuus-public/.
+    prefix = urlparse(BASE).path.lstrip("/")
+    if prefix and p.startswith(prefix):
+        p = p[len(prefix):].lstrip("/")
     if p and ".." not in Path(p).parts and not p.endswith("/"):
         paths.add(p)
 def fetch(path):
@@ -76,7 +81,7 @@ for p in sorted(paths):
     dest = OUT / p
     dest.parent.mkdir(parents=True, exist_ok=True)
     dest.write_bytes(data)
-for p in ("index.html", "prieres.json", "rosary-scriptures.json", "service-worker.js", "manifest.webmanifest", "interventions.js"):
+for p in ("index.html", "app.js", "styles.css", "prieres.json", "rosary-scriptures.json", "service-worker.js", "manifest.webmanifest", "interventions.js", "navigation.js", "guided.js"):
     if not (OUT/p).is_file():
         raise SystemExit("Fichier essentiel absent du site source : " + p)
 # Copier les correctifs vérifiés sans exposer le dépôt privé.
@@ -86,7 +91,7 @@ html = (OUT/"index.html").read_text(encoding="utf-8")
 if BASE == FALLBACK_BASE:
     # La copie publique contient déjà les scripts du parcours : la préparation RC
     # les réinjectera une seule fois, à la version candidate exacte.
-    html = re.sub(r'<script[^>]+(?:intercession-prayers|parcours-marial)\\.js[^>]*></script>', '', html, flags=re.I)
+    html = re.sub(r'<script[^>]+(?:intercession-prayers|parcours-marial)\.js[^>]*></script>', '', html, flags=re.I)
     print("Scripts du parcours public retirés du HTML importé pour éviter les doublons.")
 for p in sorted(Path("overrides").glob("*.js")):
     if p.name not in html:
