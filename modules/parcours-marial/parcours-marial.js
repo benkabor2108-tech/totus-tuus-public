@@ -151,6 +151,13 @@ bookCSS.textContent+=`
 #tt33-dialog .tt33-prayer-page::-webkit-scrollbar-thumb{background:#c3b59d;border-radius:5px}
 `;
 bookCSS.textContent+=`
+/* V5.11.8 : commandes tactiles séparées et accessibles. */
+#tt33-dialog .tt33-check{display:flex;align-items:center;justify-content:center;gap:12px;min-height:56px;width:100%;box-sizing:border-box;padding:12px 14px!important;margin:12px 0 0!important;border:2px solid #a99a80;border-radius:12px;background:#fffdf6;font:600 1rem/1.35 system-ui,sans-serif;cursor:pointer;touch-action:manipulation}
+#tt33-dialog .tt33-check input{width:25px;height:25px;min-width:25px;min-height:25px;margin:0;accent-color:#2d587d;cursor:pointer}
+#tt33-dialog .tt33-check:focus-within{outline:3px solid #5c4384;outline-offset:2px}
+#tt33-dialog .tt33-reset{display:block;min-height:48px;max-width:100%;align-self:center;margin:26px auto 8px!important;padding:12px 18px!important;font:500 .85rem/1.3 system-ui,sans-serif!important;opacity:1;touch-action:manipulation;border:1px solid #a99a80;border-radius:10px;background:#f6f1e9}
+`;
+bookCSS.textContent+=`
 #tt33-dialog .tt33-book-notice:empty{display:none}
 #tt33-dialog .tt33-book-notice:not(:empty){font:600 .78rem/1.35 system-ui;color:#2e5738;background:#eaf3e7;border-radius:7px;padding:6px 9px;margin:3px 0}
 `;
