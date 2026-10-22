@@ -37,8 +37,8 @@ intercession_tag = '<script src="./intercession-prayers.js?v=5.10.0" defer></scr
 marial_tag = '<script src="./modules/parcours-marial/parcours-marial.js?v=5.11.5-rc7" defer></script>'
 # Les versions publiques peuvent mentionner les modules ailleurs que dans une balise script.
 # Retirer uniquement les balises exécutables avant d'injecter la version candidate.
-html=re.sub(r'<script[^>]+src=["\\\'][^"\\\']*(?:intercession-prayers|parcours-marial)\.js[^"\\\']*["\\\'][^>]*>\\s*</script>', '', html, flags=re.I)
-assert not re.search(r'<script[^>]+src=["\\\'][^"\\\']*(?:intercession-prayers|parcours-marial)\.js',html,re.I)
+html=re.sub(r'<script[^>]*src=[^>]*(?:intercession-prayers|parcours-marial)\\.js[^>]*>\\s*</script>', '', html, flags=re.I)
+assert not re.search(r'<script[^>]*src=[^>]*(?:intercession-prayers|parcours-marial)\\.js',html,re.I)
 assert html.count("</body>")==1
 htmlfile.write_text(html.replace("</body>",intercession_tag+marial_tag+"</body>"),encoding="utf-8")
 
