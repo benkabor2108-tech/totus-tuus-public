@@ -17,7 +17,7 @@ const assert=require('node:assert/strict');
    });
   });
   const before=await page.evaluate(async()=>{
-   const c=await caches.open('totus-tuus-pages-v5-11-15');
+   const c=await caches.open('totus-tuus-pages-v5-12-0');
    const paths=['index.html','modules/parcours-marial/parcours-marial.js','modules/parcours-marial/parcours_marial_33_jours_enrichi.json','modules/parcours-marial/bible_crampon_33_lectures.json','modules/parcours-marial/traite_33_lectures.json'];
    return Promise.all(paths.map(async p=>[p,!!(await c.match(new URL(p,location.href).href))]));
   });
@@ -33,12 +33,12 @@ const assert=require('node:assert/strict');
   await page.locator('.tt33-cover').evaluate(el=>el.click());
   await page.locator('#tt33-day').waitFor({state:'visible',timeout:15000});
   assert.equal(await page.locator('#tt33-day').inputValue(),'0');
-  assert.match(await page.locator('#tt33-page').innerText(),/Invocation au Saint-Esprit/);
-  assert.match(await page.locator('#tt33-page').innerText(),/Amen/);
+  assert.match(await page.locator('#tt33-day-scroll').innerText(),/Invocation au Saint-Esprit/);
+  assert.match(await page.locator('#tt33-day-scroll').innerText(),/Amen/);
   await page.locator('#tt33-forward').click();
   assert.match(await page.locator('#tt33-page').innerText(),/Parole de Dieu/);
   assert.equal(await page.locator('#tt33-done').isChecked(),false);
   assert.ok(await page.locator('body').isVisible());
-  console.log('PASS: livre réellement ouvert et feuilleté hors connexion, données des 33 jours, Bible et Traité disponibles');
+  console.log('PASS: parcours réellement ouvert et lu par journées hors connexion, données des 33 jours, Bible et Traité disponibles');
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exit(1)});
