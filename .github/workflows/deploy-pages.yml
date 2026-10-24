@@ -156,7 +156,7 @@ jobs:
           assert "req.mode==='navigate'" in sw
           assert "await c.addAll(REQUIRED.map(absolute))" in sw
           PY
-      - name: Tester réellement le livre sans connexion dans Chromium
+      - name: Tester réellement les journées en lecture continue hors connexion
         run: |
           npm install --no-save --no-package-lock playwright@1.58.2
           npx playwright install --with-deps chromium
