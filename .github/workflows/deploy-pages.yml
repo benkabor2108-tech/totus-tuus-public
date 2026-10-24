@@ -112,6 +112,7 @@ jobs:
           p=Path('site')
           js=(p/'modules/parcours-marial/parcours-marial.js').read_text()
           assert 'totus-tuus-parcours-marial-33-v2' in js
+          assert 'tt33-day-scroll' in js and 'tt33-day-section' in js
           assert 'totus-tuus-pages-v5-12-0' in (p/'service-worker.js').read_text()
           assert len(json.loads((p/'modules/parcours-marial/parcours_marial_33_jours_enrichi.json').read_text())['jours'])==33
           assert 'totus-update-notice' in (p/'update-manager.js').read_text()
