@@ -22,11 +22,11 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-      - name: Récupérer la sauvegarde publique V5.11.4 validée
+      - name: Récupérer le livrable autonome validé par Chromium
         uses: actions/download-artifact@v4
         with:
-          name: github-pages
-          run-id: 39743669660
+          name: totus-tuus-v5-11-0-rc-non-publie
+          run-id: 39838321966
           github-token: ${{ github.token }}
           path: /tmp/totus-backup
       - name: Restaurer les fichiers complets puis appliquer les corrections
@@ -35,7 +35,7 @@ jobs:
           mkdir -p site
           ls -lah /tmp/totus-backup
           find /tmp/totus-backup -maxdepth 2 -type f -print
-          tar -xf /tmp/totus-backup/artifact.tar -C site
+          cp -a /tmp/totus-backup/. site/
           test -s site/app.js
           test -s site/navigation.js
           test -s site/guided.js
@@ -77,7 +77,7 @@ jobs:
           worker += "\nself.addEventListener('install', () => self.skipWaiting());\nself.addEventListener('activate', event => event.waitUntil(self.clients.claim()));\n"
 
           sw.write_text(worker,encoding='utf-8')
-          print('Restauré depuis V5.11.4, livre V5.11.14 ajouté.')
+          print('Restauré depuis le livrable validé, livre V5.11.14 ajouté.')
           PY
           python3 /tmp/totus-marial-src/scripts/check_site.py site
           for file in site/*.js site/modules/parcours-marial/*.js; do node --check "$file"; done
