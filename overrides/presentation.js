@@ -50,14 +50,14 @@
       <li><strong>Le parcours marial « 33 jours avec Marie »</strong> : un chemin progressif pour approfondir la consécration à Jésus-Christ par Marie, inspiré du <em>Traité de la vraie dévotion</em> de saint Louis-Marie de Montfort.</li>
       <li><strong>Des aides pratiques</strong> : progression pas à pas, lecture à voix haute lorsque disponible, taille des textes et rappel de prière.</li>
     </ul>
-    <h3>33 jours avec Marie : un livre de prière et de méditation</h3>
-    <p>Chaque journée réunit une invocation au Saint-Esprit, un passage de la Parole de Dieu, une méditation, une lecture du <em>Traité de la vraie dévotion</em> et une prière du jour. Le livre se feuillette page par page ; vous pouvez adapter la taille des caractères.</p>
+    <h3>33 jours avec Marie : un parcours guidé de prière et de méditation</h3>
+    <p>Chaque journée réunit une invocation au Saint-Esprit, un passage de la Parole de Dieu, une méditation, une lecture du <em>Traité de la vraie dévotion</em> et une prière du jour. Chaque journée se lit en défilant naturellement, comme une neuvaine guidée ; vous pouvez adapter la taille des caractères.</p>
     <p><strong>Vous avancez librement :</strong> consulter une journée ne la marque jamais comme accomplie. Seule votre validation volontaire « Journée accomplie » enregistre le progrès et conduit au jour suivant. Votre avancement est conservé sur cet appareil. La remise à zéro demande une confirmation.</p>
     <details class="marial-discovery" id="totus-marial-discovery">
       <summary>Découvrir les thèmes des 33 journées</summary>
       <p>Voici les thèmes proposés, du premier jour jusqu'à la préparation finale. Leur consultation ici ne modifie pas votre progression.</p>
       <ol id="totus-marial-day-list"><li>Chargement des 33 journées…</li></ol>
-      <button type="button" class="open-marial" id="totus-presentation-marial">Ouvrir le livre « 33 jours avec Marie » →</button>
+      <button type="button" class="open-marial" id="totus-presentation-marial">Ouvrir le parcours « 33 jours avec Marie » →</button>
     </details>
     <h3>Une invitation à commencer</h3>
     <p>Peut-être portez-vous une joie à rendre grâce, une épreuve à traverser, une personne à confier au Seigneur ou une décision à éclairer. N’attendez pas que tout soit parfait pour prier. Offrez à Dieu quelques minutes de votre journée, avec un cœur sincère et disponible.</p>
