@@ -155,6 +155,13 @@ jobs:
           assert "req.mode==='navigate'" in sw
           assert "await c.addAll(REQUIRED.map(absolute))" in sw
           PY
+      - name: Tester réellement le livre sans connexion dans Chromium
+        run: |
+          npm install --no-save --no-package-lock playwright@1.58.2
+          npx playwright install --with-deps chromium
+          (cd site && python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/totus-offline-http.log 2>&1) &
+          sleep 3
+          node scripts/test_offline_marial.cjs
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
