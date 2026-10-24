@@ -24,8 +24,8 @@ function installCover(){
  const anchor=heads.find(h=>/la neuvaine guidée/i.test(h.textContent||''))||heads.find(h=>/quelle prière souhaitez-vous faire/i.test(h.textContent||''))||heads.find(h=>/commencer/i.test(h.textContent||''));
  if(!anchor)return;
  const card=document.createElement('button');
- card.type='button';card.className='tt33-cover';card.setAttribute('aria-label','Ouvrir le livre 33 jours avec Marie');
- card.innerHTML='<span class="tt33-cover-scene" aria-hidden="true"></span><span class="tt33-cover-scene" aria-hidden="true"></span><span class="tt33-cover-scene" aria-hidden="true"></span><span class="tt33-cover-copy"><span class="tt33-cover-kicker">Totus Tuus · Parcours marial</span><span class="tt33-cover-title">33 jours avec Marie</span><span class="tt33-cover-subtitle">À Jésus par Marie · Saint Louis-Marie de Montfort</span><span class="tt33-cover-action">Ouvrir le livre ›</span></span>';
+ card.type='button';card.className='tt33-cover';card.setAttribute('aria-label','Ouvrir les 33 jours avec Marie');
+ card.innerHTML='<span class="tt33-cover-scene" aria-hidden="true"></span><span class="tt33-cover-scene" aria-hidden="true"></span><span class="tt33-cover-scene" aria-hidden="true"></span><span class="tt33-cover-copy"><span class="tt33-cover-kicker">Totus Tuus · Parcours marial</span><span class="tt33-cover-title">33 jours avec Marie</span><span class="tt33-cover-subtitle">À Jésus par Marie · Saint Louis-Marie de Montfort</span><span class="tt33-cover-action">Commencer les 33 jours ›</span></span>';
  card.addEventListener('click',()=>btn.click());
  anchor.parentElement?.insertBefore(card,anchor);
  btn.style.display='none';
@@ -183,8 +183,30 @@ bookCSS.textContent+=`
 #tt33-dialog .tt33-guidance{font:500 .72rem/1.3 system-ui;color:#6b604c;text-align:center;margin:0 0 5px}
 #tt33-dialog .tt33-page-contents p{margin-bottom:.75em}
 `;
+bookCSS.textContent+=\`
+/* V5.12.0 : présentation en journées défilantes, comme une neuvaine guidée. */
+#tt33-dialog{background:#f8f5fc}
+#tt33-dialog .tt33-novena-view{overflow:hidden!important;gap:0}
+#tt33-dialog .tt33-day-heading{flex:0 0 auto;text-align:center;padding:10px 4px 12px}
+#tt33-dialog .tt33-day-heading span{font:700 .75rem system-ui;color:#79578d;letter-spacing:.12em}
+#tt33-dialog .tt33-day-heading h2{font:700 clamp(1.1rem,4vw,1.45rem)/1.3 Georgia,serif;color:#35204d;margin:6px 0}
+#tt33-dialog .tt33-day-scroll{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:4px 3px 14px;scrollbar-width:thin}
+#tt33-dialog .tt33-day-section{background:#fff;border:1px solid #e1d7e9;border-radius:14px;margin:0 0 14px;padding:16px 17px;box-shadow:0 2px 8px #3020400d}
+#tt33-dialog .tt33-day-section h3{font:700 1.03rem/1.4 system-ui,sans-serif;color:#493462;margin:0 0 13px;padding-bottom:9px;border-bottom:1px solid #eee5f3}
+#tt33-dialog .tt33-day-text{font:var(--tt33-font-size)/1.62 Georgia,'Times New Roman',serif;color:#292238;overflow-wrap:normal;word-break:normal;hyphens:none}
+#tt33-dialog .tt33-day-text h3{font:700 1em/1.45 Georgia,serif;margin:14px 0 8px;border:0;padding:0}
+#tt33-dialog .tt33-day-text p{font:inherit;margin:0 0 .85em}
+#tt33-dialog .tt33-day-text p:last-child{margin-bottom:0}
+#tt33-dialog .tt33-day-text .tt33-verse{margin:0 0 .7em}
+#tt33-dialog .tt33-day-actions{flex:0 0 auto;background:#f8f5fc;border-top:1px solid #e1d7e9;padding:8px 2px 2px}
+#tt33-dialog .tt33-novena-view .tt33-page-nav{margin:0;display:grid;grid-template-columns:1fr auto 1fr;gap:6px}
+#tt33-dialog .tt33-novena-view .tt33-page-nav button{min-height:44px;font-size:.8rem;padding:8px 6px}
+#tt33-dialog .tt33-novena-view .tt33-check{margin:10px 0 0!important;min-height:54px;padding:10px!important}
+#tt33-dialog .tt33-novena-view .tt33-reset{margin:18px auto 4px!important;min-height:44px;padding:8px 15px!important}
+@media(max-height:680px){#tt33-dialog .tt33-novena-view .tt33-day-heading{padding:5px 2px}#tt33-dialog .tt33-novena-view .tt33-reset{margin-top:12px!important}}
+\`;
 document.head.append(bookCSS);
-const dlg=document.createElement('dialog');dlg.id='tt33-dialog';dlg.setAttribute('aria-label','Parcours marial de 33 jours');dlg.innerHTML='<div class="tt33-top"><strong>Totus Tuus · Parcours marial</strong><button type="button" id="tt33-close" aria-label="Fermer">Fermer ✕</button></div><div class="tt33-pad" id="tt33-content">Chargement…</div>';document.body.append(dlg);
+const dlg=document.createElement('dialog');dlg.id='tt33-dialog';dlg.setAttribute('aria-label','Parcours marial de 33 jours');dlg.innerHTML='<div class="tt33-top"><strong>Totus Tuus · 33 jours avec Marie</strong><button type="button" id="tt33-close" aria-label="Fermer">Fermer ✕</button></div><div class="tt33-pad" id="tt33-content">Chargement…</div>';document.body.append(dlg);
 const root=dlg.querySelector('#tt33-content');
 dlg.querySelector('#tt33-close').addEventListener('click',()=>dlg.close());
 const safe=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -297,67 +319,62 @@ function makeDayPages(d,book){
 function render(){
  const d=days[index];if(!d)return;
  const pages=makeDayPages(d,bookDays[index]);
- // Compatibilité avec les anciennes positions sauvegardées, sans toucher aux journées accomplies.
- if(chapter!=='book'){const targets={bible:2,meditation:2+(bibleDays[String(d.jour)]?.versets?.length?Math.ceil(bibleDays[String(d.jour)].versets.length/5):1),priere:pages.length-1};pageIndex=targets[chapter]??0;chapter='book';}
- pageIndex=Math.max(0,Math.min(pageIndex,pages.length-1));savePlace();
- const pg=pages[pageIndex],finished=Object.values(done).filter(Boolean).length;
- root.classList.toggle('tt33-natural-prayer',pg.label==='Invocation');
- root.innerHTML='<div class="tt33-book-toolbar"><label for="tt33-day">Consulter <select id="tt33-day">'+days.map((x,i)=>'<option value="'+i+'" '+(i===index?'selected':'')+'>Jour '+safe(x.jour)+' — '+safe(x.titre)+'</option>').join('')+'</select></label><span class="tt33-meta">'+finished+' / 33</span></div>'+
- '<div class="tt33-guidance">Parcours automatique : jour '+(Array.from({length:33},(_,i)=>i+1).find(n=>done[n]!==true)||33)+' · Vous pouvez feuilleter les autres jours sans les valider.</div><div id="tt33-book-notice" role="status" aria-live="polite" class="tt33-book-notice"></div><div class="tt33-book-heading"><span>JOUR '+safe(d.jour)+' · '+safe(pg.label)+'</span><h2>'+safe(d.titre)+'</h2></div>'+
- '<article class="tt33-page" id="tt33-page" aria-label="Page '+(pageIndex+1)+' du jour '+d.jour+'" tabindex="0"><div class="tt33-page-contents'+(pg.label==='Invocation'?' tt33-prayer-page':'')+'">'+pg.html+'</div><div class="tt33-scroll-cue" id="tt33-scroll-cue">↓ Faites défiler la prière pour lire la suite</div><div class="tt33-page-number">Jour '+d.jour+' · Page '+(pageIndex+1)+' / '+pages.length+'</div></article>'+
- '<div class="tt33-page-nav"><button id="tt33-back" type="button" '+(index===0&&pageIndex===0?'disabled':'')+' aria-label="Tourner la page précédente">‹ Précédente</button><span class="tt33-font-tools"><button id="tt33-smaller" type="button" aria-label="Réduire les caractères">A−</button><button id="tt33-larger" type="button" aria-label="Agrandir les caractères">A+</button></span><button id="tt33-forward" type="button" '+(index===32&&pageIndex===pages.length-1?'disabled':'')+' aria-label="Tourner la page suivante">Suivante ›</button></div>'+
- '<label class="tt33-check"><input type="checkbox" id="tt33-done" '+(done[d.jour]?'checked':'')+'> Journée accomplie</label>'+ '<button id="tt33-reset" type="button" class="tt33-reset" aria-label="Effacer uniquement les journées marquées accomplies">Recommencer le parcours à 0/33</button>';
- root.querySelector('#tt33-day').onchange=e=>{index=Number(e.target.value);pageIndex=0;chapter='book';render();};
+ const finished=Object.values(done).filter(Boolean).length;
+ const current=Array.from({length:33},(_,i)=>i+1).find(n=>done[n]!==true)||33;
+ const groups=[
+  {title:'Invocation au Saint-Esprit',label:'Invocation',items:pages.filter(p=>p.label==='Invocation')},
+  {title:'Parole de Dieu',label:'Parole de Dieu',items:pages.filter(p=>p.label==='Parole de Dieu')},
+  {title:'Méditation et réflexion',label:'Méditation',items:pages.filter(p=>p.label==='Méditation')},
+  {title:'Saint Louis-Marie de Montfort · Traité de la vraie dévotion',label:'Traité',items:pages.filter(p=>p.label.startsWith('Traité'))},
+  {title:'Prière et résolution du jour',label:'Prière du jour',items:pages.filter(p=>p.label==='Prière du jour')}
+ ];
+ const sections=groups.map((g,i)=>'<section class="tt33-day-section" aria-labelledby="tt33-section-'+i+'"><h3 id="tt33-section-'+i+'">'+safe(g.title)+'</h3><div class="tt33-day-text">'+g.items.map(p=>p.html).join('')+'</div></section>').join('');
+ root.classList.remove('tt33-natural-prayer');
+ root.classList.add('tt33-novena-view');
+ root.innerHTML='<div class="tt33-book-toolbar"><label for="tt33-day">Choisir une journée <select id="tt33-day">'+days.map((x,i)=>'<option value="'+i+'" '+(i===index?'selected':'')+'>Jour '+safe(x.jour)+' — '+safe(x.titre)+'</option>').join('')+'</select></label><span class="tt33-meta">'+finished+' / 33</span></div>'+
+ '<div class="tt33-guidance">Journée à accomplir : '+current+' · Les autres journées peuvent être consultées sans être validées.</div>'+
+ '<div id="tt33-book-notice" role="status" aria-live="polite" class="tt33-book-notice"></div>'+
+ '<div class="tt33-day-heading"><span>JOUR '+safe(d.jour)+' SUR 33</span><h2>'+safe(d.titre)+'</h2></div>'+
+ '<div class="tt33-day-scroll" id="tt33-day-scroll" tabindex="0" aria-label="Lecture complète du jour '+d.jour+'">'+sections+'</div>'+
+ '<div class="tt33-day-actions"><div class="tt33-page-nav"><button id="tt33-back" type="button" '+(index===0?'disabled':'')+'>‹ Jour précédent</button><span class="tt33-font-tools"><button id="tt33-smaller" type="button" aria-label="Réduire les caractères">A−</button><button id="tt33-larger" type="button" aria-label="Agrandir les caractères">A+</button></span><button id="tt33-forward" type="button" '+(index===32?'disabled':'')+'>Jour suivant ›</button></div>'+
+ '<label class="tt33-check"><input type="checkbox" id="tt33-done" '+(done[d.jour]?'checked':'')+'> Journée accomplie</label>'+
+ '<button id="tt33-reset" type="button" class="tt33-reset">Recommencer le parcours à 0/33</button></div>';
+ root.querySelector('#tt33-day').onchange=e=>{index=Number(e.target.value);render();};
  root.querySelector('#tt33-done').onchange=e=>{
   const checked=e.target.checked;
   const next=Array.from({length:33},(_,i)=>i+1).find(n=>done[n]!==true);
   if(checked&&next!==undefined&&d.jour!==next){
-   // Les autres jours restent consultables, mais ne peuvent être accomplis hors ordre.
-   index=next-1;pageIndex=0;chapter='book';render();
-   root.querySelector('#tt33-book-notice').textContent='Commencez par le jour '+next+'. Le livre vous y conduit automatiquement.';
+   index=next-1;render();
+   root.querySelector('#tt33-book-notice').textContent='Commencez par le jour '+next+'. Cette journée n’a pas été validée.';
    return;
   }
   if(checked){
    done[d.jour]=true;
    try{localStorage.setItem(KEY,JSON.stringify(done));}catch(err){}
-   // Validation explicite => passage immédiat à l'invocation du prochain jour.
    openAtCurrentDay();render();
-   root.querySelector('#tt33-book-notice').textContent=d.jour===33?'Parcours de 33 jours accompli.':'Jour '+d.jour+' accompli. Voici l’invocation du jour '+(d.jour+1)+'.';
+   root.querySelector('#tt33-book-notice').textContent=d.jour===33?'Parcours de 33 jours accompli.':'Jour '+d.jour+' accompli. Voici le jour '+(d.jour+1)+'.';
   }else{
    delete done[d.jour];
-   // En cas de correction, supprimer les coches suivantes pour conserver un parcours ordonné.
    for(let n=d.jour+1;n<=33;n++)delete done[n];
    try{localStorage.setItem(KEY,JSON.stringify(done));}catch(err){}
    openAtCurrentDay();render();
   }
  };
- root.querySelector('#tt33-reset').onclick=()=>{if(!confirm('Recommencer tout le parcours à 0/33 ? Cette action effacera les journées accomplies. Les textes et prières seront conservés.'))return;done={};index=0;pageIndex=0;chapter='book';try{localStorage.setItem(KEY,'{}');localStorage.removeItem(PLACE);}catch(e){}openAtCurrentDay();render();};
+ root.querySelector('#tt33-reset').onclick=()=>{
+  if(!confirm('Recommencer tout le parcours à 0/33 ? Cette action effacera les journées accomplies. Les textes et prières seront conservés.'))return;
+  done={};index=0;pageIndex=0;chapter='book';
+  try{localStorage.setItem(KEY,'{}');localStorage.removeItem(PLACE);}catch(e){}
+  openAtCurrentDay();render();
+ };
  root.querySelector('#tt33-back').onclick=()=>turn(-1);
  root.querySelector('#tt33-forward').onclick=()=>turn(1);
  root.querySelector('#tt33-smaller').onclick=()=>resize(-1);
  root.querySelector('#tt33-larger').onclick=()=>resize(1);
- root.querySelector('#tt33-day').setAttribute('aria-label','Choisir un jour du livre');
- root.querySelector('#tt33-page').setAttribute('aria-live','polite');
- const sheet=root.querySelector('.tt33-page'),inner=root.querySelector('.tt33-page-contents');
- let startX=0,startY=0;
- sheet.addEventListener('touchstart',e=>{if(e.touches.length!==1)return;startX=e.touches[0].clientX;startY=e.touches[0].clientY;},{passive:true});
- sheet.addEventListener('touchend',e=>{if(e.changedTouches.length!==1)return;const dx=e.changedTouches[0].clientX-startX,dy=e.changedTouches[0].clientY-startY;if(Math.abs(dx)>65&&Math.abs(dx)>Math.abs(dy)*1.4)turn(dx<0?1:-1);},{passive:true});
- sheet.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();turn(e.key==='ArrowRight'?1:-1);}});
- if(inner)inner.scrollTop=0;
- const cue=root.querySelector('#tt33-scroll-cue');
- function updatePrayerCue(){
-  if(!cue||!inner||!inner.classList.contains('tt33-prayer-page'))return;
-  const overflow=inner.scrollHeight>inner.clientHeight+4;
-  const end=inner.scrollTop+inner.clientHeight>=inner.scrollHeight-4;
-  cue.classList.toggle('is-visible',overflow&&!end);
- }
- if(inner&&cue){inner.addEventListener('scroll',updatePrayerCue,{passive:true});requestAnimationFrame(updatePrayerCue);}
 }
 function turn(dir){
- const pages=makeDayPages(days[index],bookDays[index]);
- if(dir>0){if(pageIndex<pages.length-1)pageIndex++;else if(index<32){index++;pageIndex=0;}else return;}
- else{if(pageIndex>0)pageIndex--;else if(index>0){index--;pageIndex=makeDayPages(days[index],bookDays[index]).length-1;}else return;}
- chapter='book';render();
+ const next=index+dir;
+ if(next<0||next>=days.length)return;
+ index=next;render();
 }
 const FONT_KEY=KEY+'-font-size-v2';
 let fontSize=Number(localStorage.getItem(FONT_KEY))||15;
