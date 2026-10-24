@@ -183,7 +183,7 @@ bookCSS.textContent+=`
 #tt33-dialog .tt33-guidance{font:500 .72rem/1.3 system-ui;color:#6b604c;text-align:center;margin:0 0 5px}
 #tt33-dialog .tt33-page-contents p{margin-bottom:.75em}
 `;
-bookCSS.textContent+=\`
+bookCSS.textContent+=`
 /* V5.12.0 : présentation en journées défilantes, comme une neuvaine guidée. */
 #tt33-dialog{background:#f8f5fc}
 #tt33-dialog .tt33-novena-view{overflow:hidden!important;gap:0}
@@ -204,7 +204,7 @@ bookCSS.textContent+=\`
 #tt33-dialog .tt33-novena-view .tt33-check{margin:10px 0 0!important;min-height:54px;padding:10px!important}
 #tt33-dialog .tt33-novena-view .tt33-reset{margin:18px auto 4px!important;min-height:44px;padding:8px 15px!important}
 @media(max-height:680px){#tt33-dialog .tt33-novena-view .tt33-day-heading{padding:5px 2px}#tt33-dialog .tt33-novena-view .tt33-reset{margin-top:12px!important}}
-\`;
+`;
 document.head.append(bookCSS);
 const dlg=document.createElement('dialog');dlg.id='tt33-dialog';dlg.setAttribute('aria-label','Parcours marial de 33 jours');dlg.innerHTML='<div class="tt33-top"><strong>Totus Tuus · 33 jours avec Marie</strong><button type="button" id="tt33-close" aria-label="Fermer">Fermer ✕</button></div><div class="tt33-pad" id="tt33-content">Chargement…</div>';document.body.append(dlg);
 const root=dlg.querySelector('#tt33-content');
