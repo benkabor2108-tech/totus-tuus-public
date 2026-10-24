@@ -1,5 +1,5 @@
 name: Publier Totus Tuus sur GitHub Pages
-# Rétablissement du bouton de partage V5.11.15
+# V5.11.15 : préchargement et feuilletage du livre hors connexion
 on:
   push:
     branches: [main]
