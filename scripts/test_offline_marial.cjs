@@ -30,7 +30,7 @@ const assert=require('node:assert/strict');
   });
   assert.ok(result.every(x=>x[1]===200&&x[2]),'Lecture hors connexion impossible: '+JSON.stringify(result));
   // Vérification fonctionnelle : ouvrir réellement le livre après coupure réseau.
-  await page.locator('#tt33-open').click();
+  await page.locator('.tt33-cover').evaluate(el=>el.click());
   await page.locator('#tt33-day').waitFor({state:'visible',timeout:15000});
   assert.equal(await page.locator('#tt33-day').inputValue(),'0');
   assert.match(await page.locator('#tt33-page').innerText(),/Invocation au Saint-Esprit/);
