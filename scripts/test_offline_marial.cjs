@@ -17,7 +17,7 @@ const assert=require('node:assert/strict');
    });
   });
   const before=await page.evaluate(async()=>{
-   const c=await caches.open('totus-tuus-pages-v5-11-14');
+   const c=await caches.open('totus-tuus-pages-v5-11-15');
    const paths=['index.html','modules/parcours-marial/parcours-marial.js','modules/parcours-marial/parcours_marial_33_jours_enrichi.json','modules/parcours-marial/bible_crampon_33_lectures.json','modules/parcours-marial/traite_33_lectures.json'];
    return Promise.all(paths.map(async p=>[p,!!(await c.match(new URL(p,location.href).href))]));
   });
@@ -29,7 +29,16 @@ const assert=require('node:assert/strict');
    return Promise.all(paths.map(async p=>{const r=await fetch(p);return [p,r.status,(await r.json())!=null]}));
   });
   assert.ok(result.every(x=>x[1]===200&&x[2]),'Lecture hors connexion impossible: '+JSON.stringify(result));
+  // Vérification fonctionnelle : ouvrir réellement le livre après coupure réseau.
+  await page.locator('#tt33-open').click();
+  await page.locator('#tt33-day').waitFor({state:'visible',timeout:15000});
+  assert.equal(await page.locator('#tt33-day').inputValue(),'0');
+  assert.match(await page.locator('#tt33-page').innerText(),/Invocation au Saint-Esprit/);
+  assert.match(await page.locator('#tt33-page').innerText(),/Amen/);
+  await page.locator('#tt33-forward').click();
+  assert.match(await page.locator('#tt33-page').innerText(),/Parole de Dieu/);
+  assert.equal(await page.locator('#tt33-done').isChecked(),false);
   assert.ok(await page.locator('body').isVisible());
-  console.log('PASS: rechargement hors connexion, données des 33 jours, Bible et Traité disponibles');
+  console.log('PASS: livre réellement ouvert et feuilleté hors connexion, données des 33 jours, Bible et Traité disponibles');
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exit(1)});
