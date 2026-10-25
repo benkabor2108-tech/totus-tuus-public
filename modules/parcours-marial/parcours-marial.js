@@ -205,6 +205,25 @@ bookCSS.textContent+=`
 #tt33-dialog .tt33-novena-view .tt33-reset{margin:18px auto 4px!important;min-height:44px;padding:8px 15px!important}
 @media(max-height:680px){#tt33-dialog .tt33-novena-view .tt33-day-heading{padding:5px 2px}#tt33-dialog .tt33-novena-view .tt33-reset{margin-top:12px!important}}
 `;
+bookCSS.textContent+=`
+/* V5.12.1 : priorité à la surface de lecture sur les téléphones. */
+#tt33-dialog .tt33-novena-view .tt33-book-toolbar{padding:2px 0 0;gap:3px}
+#tt33-dialog .tt33-novena-view .tt33-book-toolbar label{font-size:.77rem}
+#tt33-dialog .tt33-novena-view .tt33-book-toolbar select{padding:6px 8px;min-height:38px}
+#tt33-dialog .tt33-novena-view .tt33-guidance{font-size:.68rem;line-height:1.2;margin:2px 0 3px}
+#tt33-dialog .tt33-novena-view .tt33-day-heading{padding:4px 2px 5px}
+#tt33-dialog .tt33-novena-view .tt33-day-heading h2{font-size:clamp(1rem,3.7vw,1.25rem);margin:2px 0}
+#tt33-dialog .tt33-novena-view .tt33-day-scroll{padding:2px 2px 8px}
+#tt33-dialog .tt33-novena-view .tt33-day-section{padding:12px 13px;margin-bottom:10px}
+#tt33-dialog .tt33-novena-view .tt33-day-actions{padding:5px 2px 0}
+#tt33-dialog .tt33-novena-view .tt33-page-nav button{min-height:42px}
+#tt33-dialog .tt33-novena-view .tt33-check{min-height:52px;margin:6px 0 0!important;padding:7px 10px!important}
+#tt33-dialog .tt33-reset-options{text-align:center;margin:6px 0 0;font:500 .76rem/1.3 system-ui,sans-serif}
+#tt33-dialog .tt33-reset-options summary{display:inline-block;cursor:pointer;color:#655776;text-decoration:underline;text-underline-offset:3px;padding:6px 12px;min-height:26px;box-sizing:border-box}
+#tt33-dialog .tt33-reset-options[open]{padding:4px 0 8px;border-top:1px solid #e1d7e9}
+#tt33-dialog .tt33-novena-view .tt33-reset-options .tt33-reset{margin:10px auto 3px!important;min-height:48px}
+#tt33-dialog .tt33-reset-options summary:focus-visible{outline:3px solid #5c4384;outline-offset:2px}
+`;
 document.head.append(bookCSS);
 const dlg=document.createElement('dialog');dlg.id='tt33-dialog';dlg.setAttribute('aria-label','Parcours marial de 33 jours');dlg.innerHTML='<div class="tt33-top"><strong>Totus Tuus · 33 jours avec Marie</strong><button type="button" id="tt33-close" aria-label="Fermer">Fermer ✕</button></div><div class="tt33-pad" id="tt33-content">Chargement…</div>';document.body.append(dlg);
 const root=dlg.querySelector('#tt33-content');
@@ -338,7 +357,7 @@ function render(){
  '<div class="tt33-day-scroll" id="tt33-day-scroll" tabindex="0" aria-label="Lecture complète du jour '+d.jour+'">'+sections+'</div>'+
  '<div class="tt33-day-actions"><div class="tt33-page-nav"><button id="tt33-back" type="button" '+(index===0?'disabled':'')+'>‹ Jour précédent</button><span class="tt33-font-tools"><button id="tt33-smaller" type="button" aria-label="Réduire les caractères">A−</button><button id="tt33-larger" type="button" aria-label="Agrandir les caractères">A+</button></span><button id="tt33-forward" type="button" '+(index===32?'disabled':'')+'>Jour suivant ›</button></div>'+
  '<label class="tt33-check"><input type="checkbox" id="tt33-done" '+(done[d.jour]?'checked':'')+'> Journée accomplie</label>'+
- '<button id="tt33-reset" type="button" class="tt33-reset">Recommencer le parcours à 0/33</button></div>';
+ '<details class="tt33-reset-options"><summary>Options du parcours</summary><button id="tt33-reset" type="button" class="tt33-reset">Recommencer le parcours à 0/33</button></details></div>';
  root.querySelector('#tt33-day').onchange=e=>{index=Number(e.target.value);render();};
  root.querySelector('#tt33-done').onchange=e=>{
   const checked=e.target.checked;
