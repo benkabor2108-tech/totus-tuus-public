@@ -1,5 +1,5 @@
 name: Publier Totus Tuus sur GitHub Pages
-# V5.12.0 : préchargement et feuilletage du livre hors connexion
+# V5.12.1 : préchargement et feuilletage du livre hors connexion
 on:
   push:
     branches: [main]
@@ -66,18 +66,18 @@ jobs:
           content=html.read_text(encoding='utf-8')
           content=re.sub(r'<script[^>]*src=[^>]*presentation\.js[^>]*>\s*</script>', '', content, flags=re.I)
           content=re.sub(r'<script[^>]*src=[^>]*parcours-marial\.js[^>]*>\s*</script>', '', content, flags=re.I)
-          content=content.replace('</body>','<script src="./update-manager.js?v=5.12.0" defer></script><script src="./presentation.js?v=5.12.0" defer></script><script src="./share-app.js?v=5.12.0" defer></script><script src="./modules/parcours-marial/parcours-marial.js?v=5.12.0" defer></script></body>',1)
+          content=content.replace('</body>','<script src="./update-manager.js?v=5.12.1" defer></script><script src="./presentation.js?v=5.12.1" defer></script><script src="./share-app.js?v=5.12.1" defer></script><script src="./modules/parcours-marial/parcours-marial.js?v=5.12.1" defer></script></body>',1)
           html.write_text(content,encoding='utf-8')
           sw=p/'service-worker.js'
           worker=sw.read_text(encoding='utf-8')
-          worker,n=re.subn(r"const CACHE=[^;\\n]+", "const CACHE='totus-tuus-pages-v5-12-0'", worker, count=1)
+          worker,n=re.subn(r"const CACHE=[^;\\n]+", "const CACHE='totus-tuus-pages-v5-12-1'", worker, count=1)
           assert n==1
-          worker=worker.replace('v=5.11.4','v=5.12.0')
+          worker=worker.replace('v=5.11.4','v=5.12.1')
           # Activer la nouvelle version dès son installation, sans effacer le stockage local.
           worker += "\nself.addEventListener('install', () => self.skipWaiting());\nself.addEventListener('activate', event => event.waitUntil(self.clients.claim()));\n"
 
           sw.write_text(worker,encoding='utf-8')
-          print('Restauré depuis le livrable validé, livre V5.12.0 ajouté.')
+          print('Restauré depuis le livrable validé, livre V5.12.1 ajouté.')
           PY
           python3 /tmp/totus-marial-src/scripts/check_site.py site
           for file in site/*.js site/modules/parcours-marial/*.js; do node --check "$file"; done
@@ -94,7 +94,7 @@ jobs:
           assert (site/'update-manager.js').stat().st_size>1000
           assert (site/'presentation.js').stat().st_size>1000
           assert (site/'share-app.js').stat().st_size>500
-          assert 'share-app.js?v=5.12.0' in html
+          assert 'share-app.js?v=5.12.1' in html
           assert 'Partager Totus Tuus' in (site/'share-app.js').read_text()
           assert "discover.insertAdjacentElement('afterend', button)" in (site/'share-app.js').read_text()
           assert (site/'app.js').stat().st_size>1000
@@ -113,11 +113,11 @@ jobs:
           js=(p/'modules/parcours-marial/parcours-marial.js').read_text()
           assert 'totus-tuus-parcours-marial-33-v2' in js
           assert 'tt33-day-scroll' in js and 'tt33-day-section' in js
-          assert 'totus-tuus-pages-v5-12-0' in (p/'service-worker.js').read_text()
+          assert 'totus-tuus-pages-v5-12-1' in (p/'service-worker.js').read_text()
           assert len(json.loads((p/'modules/parcours-marial/parcours_marial_33_jours_enrichi.json').read_text())['jours'])==33
           assert 'totus-update-notice' in (p/'update-manager.js').read_text()
           assert 'Découvrir les thèmes des 33 journées' in (p/'presentation.js').read_text()
-          (p/'version.json').write_text(json.dumps({'version':'5.12.0-pages','release':'5.12.0'},ensure_ascii=False),encoding='utf-8')
+          (p/'version.json').write_text(json.dumps({'version':'5.12.1-pages','release':'5.12.1'},ensure_ascii=False),encoding='utf-8')
           PY
       - name: Préparer le mode hors connexion complet et vérifier les ressources
         run: |
@@ -142,10 +142,10 @@ jobs:
           assert source.count('__CACHE_NAME__')==1
           assert source.count('__PRECACHE_FILES__')==1
           assert source.count('__REQUIRED_FILES__')==1
-          worker=source.replace('__CACHE_NAME__','totus-tuus-pages-v5-12-0').replace('__PRECACHE_FILES__',json.dumps(files,ensure_ascii=False)).replace('__REQUIRED_FILES__',json.dumps(required,ensure_ascii=False))
+          worker=source.replace('__CACHE_NAME__','totus-tuus-pages-v5-12-1').replace('__PRECACHE_FILES__',json.dumps(files,ensure_ascii=False)).replace('__REQUIRED_FILES__',json.dumps(required,ensure_ascii=False))
           (site/'service-worker.js').write_text(worker,encoding='utf-8')
           assert 'totus-tuus-parcours-marial-33-v2' in (site/'modules/parcours-marial/parcours-marial.js').read_text(encoding='utf-8')
-          print(f'Mode hors connexion V5.12.0: {len(files)} fichiers prévus, {len(required)} obligatoires, aucune donnée locale effacée.')
+          print(f'Mode hors connexion V5.12.1: {len(files)} fichiers prévus, {len(required)} obligatoires, aucune donnée locale effacée.')
           PY
           node --check site/service-worker.js
           python3 - <<'PY'
