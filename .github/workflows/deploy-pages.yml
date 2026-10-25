@@ -1,5 +1,5 @@
 name: Publier Totus Tuus sur GitHub Pages
-# V5.12.1 : préchargement et feuilletage du livre hors connexion
+# V5.12.1 : préchargement et feuilletage du livre hors connexion ; test de cache aligné
 on:
   push:
     branches: [main]
