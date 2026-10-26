@@ -224,6 +224,28 @@ bookCSS.textContent+=`
 #tt33-dialog .tt33-novena-view .tt33-reset-options .tt33-reset{margin:10px auto 3px!important;min-height:48px}
 #tt33-dialog .tt33-reset-options summary:focus-visible{outline:3px solid #5c4384;outline-offset:2px}
 `;
+bookCSS.textContent+=`
+/* V5.12.2 : feuilles de lecture continues, lisibles et sans contenu rogné. */
+#tt33-dialog .tt33-novena-view{min-height:0;box-sizing:border-box}
+#tt33-dialog .tt33-novena-view .tt33-day-scroll{min-height:0;flex:1 1 auto;overflow-y:auto!important;overflow-x:hidden;scroll-padding-top:12px;scroll-padding-bottom:24px;-webkit-overflow-scrolling:touch;touch-action:pan-y;overscroll-behavior-y:contain}
+#tt33-dialog .tt33-novena-view .tt33-day-section{box-sizing:border-box;max-width:740px;margin:0 auto 12px;padding:clamp(14px,3.8vw,24px);overflow:visible}
+#tt33-dialog .tt33-novena-view .tt33-day-section>h3{line-height:1.38;overflow-wrap:break-word}
+#tt33-dialog .tt33-novena-view .tt33-day-text{font-size:var(--tt33-font-size);line-height:1.6;letter-spacing:0;white-space:normal;overflow:visible;hyphens:none!important;word-break:normal!important}
+#tt33-dialog .tt33-novena-view .tt33-day-text p{line-height:1.6;margin:0 0 .82em;orphans:2;widows:2}
+#tt33-dialog .tt33-novena-view .tt33-day-text h3{line-height:1.35;margin:1.05em 0 .5em}
+#tt33-dialog .tt33-novena-view .tt33-day-text h3:first-child{margin-top:0}
+#tt33-dialog .tt33-novena-view .tt33-day-text .tt33-verse{line-height:1.65}
+#tt33-dialog .tt33-novena-view .tt33-day-actions{position:relative;z-index:2;flex-shrink:0;padding-bottom:max(4px,env(safe-area-inset-bottom))}
+#tt33-dialog .tt33-novena-view .tt33-check{box-sizing:border-box;min-height:52px;flex-shrink:0}
+#tt33-dialog .tt33-novena-view .tt33-reset-options{margin-top:6px}
+#tt33-dialog .tt33-novena-view .tt33-reset-options summary{min-height:38px;padding:10px 16px}
+@media(max-width:380px){
+ #tt33-dialog .tt33-novena-view .tt33-day-section{padding:13px 12px}
+ #tt33-dialog .tt33-novena-view .tt33-day-heading{padding:3px 2px 4px}
+ #tt33-dialog .tt33-novena-view .tt33-page-nav{gap:3px}
+ #tt33-dialog .tt33-novena-view .tt33-page-nav button{padding:6px 3px;font-size:.72rem}
+}
+`;
 document.head.append(bookCSS);
 const dlg=document.createElement('dialog');dlg.id='tt33-dialog';dlg.setAttribute('aria-label','Parcours marial de 33 jours');dlg.innerHTML='<div class="tt33-top"><strong>Totus Tuus · 33 jours avec Marie</strong><button type="button" id="tt33-close" aria-label="Fermer">Fermer ✕</button></div><div class="tt33-pad" id="tt33-content">Chargement…</div>';document.body.append(dlg);
 const root=dlg.querySelector('#tt33-content');
