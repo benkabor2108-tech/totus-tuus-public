@@ -18,6 +18,15 @@ const assert=require('node:assert/strict');
   assert.equal(await page.locator('.tt33-day-section').count(),5);
   const text=await page.locator('#tt33-day-scroll').innerText();
   for(const part of ['Invocation au Saint-Esprit','Amen.','Parole de Dieu','Méditation','Traité de la vraie dévotion','Prière du jour'])assert.ok(text.includes(part),'Section absente : '+part);
+  // Une seule référence biblique par journée, même si les versets sont regroupés en plusieurs fragments.
+  await page.locator('#tt33-day').selectOption('1');
+  const bibleSection=page.locator('.tt33-day-section').nth(1);
+  assert.equal(await bibleSection.locator('h3').count(),1,'Le titre biblique doit apparaître une seule fois');
+  assert.match(await bibleSection.locator('h3').innerText(),/Jn 2,1-11/);
+  const bibleText=await bibleSection.innerText();
+  assert.equal((bibleText.match(/Parole de Dieu/g)||[]).length,1,'Répétition du titre au milieu des versets');
+  for(const n of ['1','7','11'])assert.ok(bibleText.includes(n),'Verset manquant : '+n);
+  await page.locator('#tt33-day').selectOption('0');
   assert.match(text,/Gabriel/);
   assert.match(text,/26/);
   const layout=await page.evaluate(()=>{
