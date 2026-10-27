@@ -21,7 +21,17 @@ const assert=require('node:assert/strict');
    const paths=['index.html','modules/parcours-marial/parcours-marial.js','modules/parcours-marial/parcours_marial_33_jours_enrichi.json','modules/parcours-marial/bible_crampon_33_lectures.json','modules/parcours-marial/traite_33_lectures.json'];
    return Promise.all(paths.map(async p=>[p,!!(await c.match(new URL(p,location.href).href))]));
   });
-  assert.ok(before.every(x=>x[1]),'Ressources absentes du cache: '+JSON.stringify(before));
+  // L'installation du SW et son précache peuvent encore être en cours juste après controllerchange.
+  let cached=before;
+  for(let attempt=0;attempt<30&&!cached.every(x=>x[1]);attempt++){
+   await page.waitForTimeout(1000);
+   cached=await page.evaluate(async()=>{
+    const c=await caches.open('totus-tuus-pages-v5-12-2');
+    const paths=['index.html','modules/parcours-marial/parcours-marial.js','modules/parcours-marial/parcours_marial_33_jours_enrichi.json','modules/parcours-marial/bible_crampon_33_lectures.json','modules/parcours-marial/traite_33_lectures.json'];
+    return Promise.all(paths.map(async p=>[p,!!(await c.match(new URL(p,location.href).href))]));
+   });
+  }
+  assert.ok(cached.every(x=>x[1]),'Ressources absentes du cache après installation: '+JSON.stringify(cached));
   await context.setOffline(true);
   await page.reload({waitUntil:'domcontentloaded'});
   const result=await page.evaluate(async()=>{
