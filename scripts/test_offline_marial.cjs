@@ -17,7 +17,7 @@ const assert=require('node:assert/strict');
    });
   });
   const before=await page.evaluate(async()=>{
-   const c=await caches.open('totus-tuus-pages-v5-12-2');
+   const c=await caches.open('totus-tuus-pages-v5-12-3');
    const paths=['index.html','modules/parcours-marial/parcours-marial.js','modules/parcours-marial/parcours_marial_33_jours_enrichi.json','modules/parcours-marial/bible_crampon_33_lectures.json','modules/parcours-marial/traite_33_lectures.json'];
    return Promise.all(paths.map(async p=>[p,!!(await c.match(new URL(p,location.href).href))]));
   });
@@ -26,7 +26,7 @@ const assert=require('node:assert/strict');
   for(let attempt=0;attempt<30&&!cached.every(x=>x[1]);attempt++){
    await page.waitForTimeout(1000);
    cached=await page.evaluate(async()=>{
-    const c=await caches.open('totus-tuus-pages-v5-12-2');
+    const c=await caches.open('totus-tuus-pages-v5-12-3');
     const paths=['index.html','modules/parcours-marial/parcours-marial.js','modules/parcours-marial/parcours_marial_33_jours_enrichi.json','modules/parcours-marial/bible_crampon_33_lectures.json','modules/parcours-marial/traite_33_lectures.json'];
     return Promise.all(paths.map(async p=>[p,!!(await c.match(new URL(p,location.href).href))]));
    });
