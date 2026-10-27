@@ -340,12 +340,12 @@ function makeDayPages(d,book){
   let group=[],count=0;
   for(const v of verses){
    const line='<p class="tt33-verse"><sup>'+safe(v.numero)+'</sup> '+safe(v.texte)+'</p>';
-   if(group.length&&count+v.texte.length>530){biblePages.push({label:'Parole de Dieu',html:'<h3>Parole de Dieu · '+safe(read.reference)+'</h3>'+group.join('')});group=[];count=0;}
+   if(group.length&&count+v.texte.length>530){biblePages.push({label:'Parole de Dieu',html:group.join('')});group=[];count=0;}
    group.push(line);count+=v.texte.length;
   }
-  if(group.length)biblePages.push({label:'Parole de Dieu',html:'<h3>Parole de Dieu · '+safe(read.reference)+'</h3>'+group.join('')});
+  if(group.length)biblePages.push({label:'Parole de Dieu',html:group.join('')});
  }else{
-  biblePages.push({label:'Parole de Dieu',html:'<h3>Parole de Dieu · '+safe(read.reference)+'</h3><p>Le texte biblique n’est pas disponible dans cette édition du livre.</p>'});
+  biblePages.push({label:'Parole de Dieu',html:'<p>Le texte biblique n’est pas disponible dans cette édition du livre.</p>'});
  }
  const meditation='<h3>Méditation</h3><p>'+safe(d.explication_spirituelle)+'</p><h3>Pour réfléchir</h3><p>'+safe(d.question_meditation)+'</p>';
  const texts=splitPages(book).map((parts,i)=>({label:'Traité · '+(i+1),html:parts.map(t=>'<p>'+safe(t)+'</p>').join('')}));
@@ -364,7 +364,7 @@ function render(){
  const current=Array.from({length:33},(_,i)=>i+1).find(n=>done[n]!==true)||33;
  const groups=[
   {title:'Invocation au Saint-Esprit',label:'Invocation',items:pages.filter(p=>p.label==='Invocation')},
-  {title:'Parole de Dieu',label:'Parole de Dieu',items:pages.filter(p=>p.label==='Parole de Dieu')},
+  {title:'Parole de Dieu · '+(d.lecture_biblique?.reference||''),label:'Parole de Dieu',items:pages.filter(p=>p.label==='Parole de Dieu')},
   {title:'Méditation et réflexion',label:'Méditation',items:pages.filter(p=>p.label==='Méditation')},
   {title:'Saint Louis-Marie de Montfort · Traité de la vraie dévotion',label:'Traité',items:pages.filter(p=>p.label.startsWith('Traité'))},
   {title:'Prière et résolution du jour',label:'Prière du jour',items:pages.filter(p=>p.label==='Prière du jour')}
