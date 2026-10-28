@@ -374,7 +374,7 @@ function render(){
  const sections=groups.map((g,i)=>{
   const content=g.items.map(p=>p.html).join('');
   const cleaned=g.label==='Parole de Dieu'
-   ?content.replace(/<h3[^>]*>\\s*Parole de Dieu\\s*[·:—-]\\s*[^<]*<\\/h3>/gi,'')
+   ?content.replace(/<h3[^>]*>\s*Parole de Dieu\s*[·:—-]\s*[^<]*<\/h3>/gi,'')
    :content;
   return '<section class="tt33-day-section" aria-labelledby="tt33-section-'+i+'"><h3 id="tt33-section-'+i+'">'+safe(g.title)+'</h3><div class="tt33-day-text">'+cleaned+'</div></section>';
  }).join('');
