@@ -369,7 +369,15 @@ function render(){
   {title:'Saint Louis-Marie de Montfort · Traité de la vraie dévotion',label:'Traité',items:pages.filter(p=>p.label.startsWith('Traité'))},
   {title:'Prière et résolution du jour',label:'Prière du jour',items:pages.filter(p=>p.label==='Prière du jour')}
  ];
- const sections=groups.map((g,i)=>'<section class="tt33-day-section" aria-labelledby="tt33-section-'+i+'"><h3 id="tt33-section-'+i+'">'+safe(g.title)+'</h3><div class="tt33-day-text">'+g.items.map(p=>p.html).join('')+'</div></section>').join('');
+ // Une seule référence biblique par journée : le texte des versets reste continu,
+ // même si les données sont découpées en plusieurs fragments de lecture.
+ const sections=groups.map((g,i)=>{
+  const content=g.items.map(p=>p.html).join('');
+  const cleaned=g.label==='Parole de Dieu'
+   ?content.replace(/<h3[^>]*>\\s*Parole de Dieu\\s*[·:—-]\\s*[^<]*<\\/h3>/gi,'')
+   :content;
+  return '<section class="tt33-day-section" aria-labelledby="tt33-section-'+i+'"><h3 id="tt33-section-'+i+'">'+safe(g.title)+'</h3><div class="tt33-day-text">'+cleaned+'</div></section>';
+ }).join('');
  root.classList.remove('tt33-natural-prayer');
  root.classList.add('tt33-novena-view');
  root.innerHTML='<div class="tt33-book-toolbar"><label for="tt33-day">Choisir une journée <select id="tt33-day">'+days.map((x,i)=>'<option value="'+i+'" '+(i===index?'selected':'')+'>Jour '+safe(x.jour)+' — '+safe(x.titre)+'</option>').join('')+'</select></label><span class="tt33-meta">'+finished+' / 33</span></div>'+
