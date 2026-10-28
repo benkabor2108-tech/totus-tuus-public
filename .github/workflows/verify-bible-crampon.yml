@@ -1,0 +1,33 @@
+name: Vérifier Bible Crampon hors ligne
+on:
+  push:
+    branches:
+      - candidate/parcours-marial-33-jours
+    paths:
+      - 'scripts/build_bible_crampon_33.py'
+      - '.github/workflows/verify-bible-crampon.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  extraire:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extraire les 33 lectures bibliques de la source publique
+        run: python3 scripts/build_bible_crampon_33.py
+      - name: Contrôler les passages complets
+        run: |
+          python3 - <<'PY'
+          import json
+          p='modules/parcours-marial/bible_crampon_33_lectures.json'
+          d=json.load(open(p))
+          assert len(d['jours'])==33
+          assert all(len(j['versets'])>0 for j in d['jours'].values())
+          print('Exemple jour 1:', d['jours']['1']['reference'], len(d['jours']['1']['versets']), 'versets')
+          print('Exemple verset:',d['jours']['1']['versets'][0]['texte'][:90])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bible-crampon-33-verifiee
+          path: modules/parcours-marial/bible_crampon_33_lectures.json

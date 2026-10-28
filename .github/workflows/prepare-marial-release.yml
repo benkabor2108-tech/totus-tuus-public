@@ -1,0 +1,88 @@
+name: Construire Totus Tuus V5.11.0 RC sans déploiement
+on:
+  push:
+    branches: [candidate/parcours-marial-33-jours]
+    paths:
+      - 'scripts/prepare_marial_release_candidate.py'
+      - 'scripts/import_public_site.py'
+      - 'scripts/build_traite_33_lectures.py'
+      - 'scripts/build_bible_crampon_33.py'
+      - 'scripts/test_marial_reader.cjs'
+      - '.github/workflows/prepare-marial-release.yml'
+      - 'modules/parcours-marial/**'
+      - 'scripts/build_traite_33_lectures.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verifier-candidat:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Importer une copie du site existant
+        run: python3 scripts/import_public_site.py
+      - name: Réintégrer les 108 prières V5.10.0 depuis la branche dédiée
+        run: |
+          git clone --quiet --depth 1 --branch candidate/intercessions-108 "https://github.com/${GITHUB_REPOSITORY}.git" /tmp/totus-intercessions
+          cd /tmp/totus-intercessions
+          cp "$GITHUB_WORKSPACE/scripts/import_public_site.py" scripts/import_public_site.py
+          python3 scripts/import_public_site.py
+          test -s site/intercession-prayers.js
+          cp site/intercession-prayers.js "$GITHUB_WORKSPACE/site/intercession-prayers.js"
+      - name: Assembler la version candidate V5.11.0
+        run: |
+          python3 scripts/build_bible_crampon_33.py
+          mkdir -p site/modules/parcours-marial
+          cp modules/parcours-marial/*.js modules/parcours-marial/*.json site/modules/parcours-marial/
+          python3 scripts/build_traite_33_lectures.py site/modules/parcours-marial/traite_33_lectures.json
+          python3 scripts/prepare_marial_release_candidate.py site
+      - name: Vérifier la structure, le code et les données
+        run: |
+          python3 scripts/check_site.py site
+          python3 -m py_compile scripts/prepare_marial_release_candidate.py
+          for f in site/*.js site/modules/parcours-marial/*.js; do node --check "$f"; done
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          p=Path('site')
+          d=json.loads((p/'modules/parcours-marial/parcours_marial_33_jours_enrichi.json').read_text())
+          assert len(d['jours'])==33
+          assert [x['jour'] for x in d['jours']]==list(range(1,34))
+          assert 'totus-intercession-v51' in (p/'interventions.js').read_text()
+          assert (p/'intercession-prayers.js').stat().st_size>1000
+          sw=(p/'service-worker.js').read_text()
+          assert "const CACHE='totus-tuus-pages-v5-11-5-rc7'" in sw
+          assert 'totus-tuus-parcours-marial-33-preview-rc7' in (p/'modules/parcours-marial/parcours-marial.js').read_text()
+          assert 'totus-tuus-parcours-marial-33-v2' not in (p/'modules/parcours-marial/parcours-marial.js').read_text()
+          print('PASS: 33 journées, 108 prières intégrées, clés historiques et caches préservés')
+          PY
+      - name: Tester le feuilletage mobile avec Chromium
+        run: |
+          npm install --no-save --no-package-lock playwright@1.58.2
+          npx playwright install --with-deps chromium
+          (cd site && python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/totus-reader-http.log 2>&1) &
+          sleep 3
+          node scripts/test_marial_reader.cjs
+      - name: Conserver le livrable pour validation manuelle (aucun déploiement)
+        uses: actions/upload-artifact@v4
+        with:
+          name: totus-tuus-v5-11-0-rc-non-publie
+          path: site/
+          include-hidden-files: true
+          retention-days: 30
+
+# Reprise du build avec secours GitHub Pages lorsque Netlify est indisponible.
+
+# Nouvelle validation : assainissement des balises script dans la copie publique.
+
+# Validation du service worker provenant de GitHub Pages.
+
+# Revalidation des regex Python et des contrôles d'assemblage.
+
+# Validation finale de la suppression des scripts existants.
+
+# Validation par correspondance exacte des balises candidates.
+
+# Revalidation de la compilation du site public sans Netlify.
+
+# Contrôle de l'invocation quotidienne sur une seule page.

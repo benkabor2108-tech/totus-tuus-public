@@ -1,0 +1,138 @@
+# Totus Tuus — audit éditorial prépublication du parcours marial (33 jours)
+
+**Branche :** `candidate/parcours-marial-33-jours` — **statut :** RELECTURE ÉDITORIALE REQUISE. Ce rapport ne valide pas le contenu doctrinal et n'autorise aucune mise en production.
+
+## Contrôles automatiques sur les fiches
+
+- 33 fiches présentes, numérotées de 1 à 33.
+- Pages *indicatives* annoncées de 1 à 217, sans trou entre les plages **dans les métadonnées**. Cela ne démontre pas leur concordance avec le texte effectivement réparti.
+- Références bibliques du champ principal et du champ de lecture : identiques pour les 33 fiches.
+- Champs prière, explication et question de méditation : présents pour les 33 fiches.
+- 33 fiches n'ont pas le statut éditorial « valide ».
+- 33 fiches pointent vers la traduction Louis Segond 1910, à revoir pour un parcours catholique.
+- Références répétées : Jn 2,1-11 (jours 2 et 25); Lc 1,46-55 (jours 6 et 33). Répétitions non nécessairement fautives.
+- Contrôles internes signalés : aucune anomalie dans les champs contrôlés.
+
+## Points bloquants avant validation pastorale
+
+1. **Concordance texte / journée :** confronter chaque bloc réel du Traité au titre, à l'explication, à la prière et aux références bibliques de la même journée. Les plages de pages des fiches ne constituent pas une preuve.
+2. **Source biblique :** choisir des références vers une édition catholique autorisée, en distinguant liens externes et reproduction de textes sous droits.
+3. **Formule de consécration :** la prière du jour 33 est une création originale, et non la formule traditionnelle de Montfort ; l'indiquer explicitement et proposer la source de l'acte traditionnel si pertinent.
+4. **Statut du parcours :** maintenir la mention « découpage éditorial original » ; ne pas assimiler ce parcours à la préparation montfortaine traditionnelle de 33 jours.
+5. **Texte historique :** vérifier l'extraction de Wikisource contre l'édition de référence, notamment titres, notes et éventuels éléments éditoriaux parasites.
+6. **Validation finale :** relecture pastorale et contrôle fonctionnel sur Android avant toute fusion.
+
+## Inventaire des journées
+
+| Jour | Thème proposé | Référence biblique | Pages annoncées (indicatives) | Statut |
+|---:|---|---|---|---|
+| 1 | Entrer dans le mystère de Marie | Lc 1,26-38 | 1–7 | redige_a_relire |
+| 2 | La place de Marie dans le dessein de Dieu | Jn 2,1-11 | 8–14 | redige_a_relire |
+| 3 | Marie, mère et disciple | Lc 2,19 | 15–21 | redige_a_relire |
+| 4 | La vie chrétienne avec Marie | Jn 19,25-27 | 22–27 | redige_a_relire |
+| 5 | Une dévotion centrée sur Jésus | Jn 15,1-8 | 28–34 | redige_a_relire |
+| 6 | Accueillir la grâce avec humilité | Lc 1,46-55 | 35–40 | redige_a_relire |
+| 7 | Les vérités fondamentales (I) | 1 Tm 2,5-6 | 41–46 | redige_a_relire |
+| 8 | Les vérités fondamentales (II) | Rm 8,28-30 | 47–53 | redige_a_relire |
+| 9 | Les vérités fondamentales (III) | Ph 2,5-11 | 54–60 | redige_a_relire |
+| 10 | Discerner son chemin spirituel | 1 Jn 4,1-6 | 61–68 | redige_a_relire |
+| 11 | Reconnaître les fausses dévotions (I) | Mt 7,15-20 | 69–73 | redige_a_relire |
+| 12 | Reconnaître les fausses dévotions (II) | Mt 6,5-8 | 74–77 | redige_a_relire |
+| 13 | Les caractères de la vraie dévotion (I) | Ga 5,22-25 | 78–81 | redige_a_relire |
+| 14 | Les caractères de la vraie dévotion (II) | Jn 14,21-23 | 82–84 | redige_a_relire |
+| 15 | Les chemins de la dévotion mariale | Lc 11,27-28 | 85–89 | redige_a_relire |
+| 16 | Le sens de la consécration | Rm 12,1-2 | 90–94 | redige_a_relire |
+| 17 | Se donner à Jésus par Marie | Lc 1,38 | 95–100 | redige_a_relire |
+| 18 | Les motifs de la consécration (I) | 2 Co 5,14-15 | 101–106 | redige_a_relire |
+| 19 | Les motifs de la consécration (II) | Jn 15,4-5 | 107–112 | redige_a_relire |
+| 20 | Les motifs de la consécration (III) | He 12,1-3 | 113–125 | redige_a_relire |
+| 21 | Les motifs de la consécration (IV) | Ep 3,14-21 | 126–139 | redige_a_relire |
+| 22 | Jacob et Rébecca : figure biblique (I) | Gn 27,1-17 | 140–145 | redige_a_relire |
+| 23 | Jacob et Rébecca : figure biblique (II) | Gn 27,18-29 | 146–151 | redige_a_relire |
+| 24 | Jacob et Rébecca : lecture spirituelle (III) | Lc 1,39-45 | 152–158 | redige_a_relire |
+| 25 | Jacob et Rébecca : lecture spirituelle (IV) | Jn 2,1-11 | 159–164 | redige_a_relire |
+| 26 | Les fruits de la consécration (I) | Ga 2,19-20 | 165–170 | redige_a_relire |
+| 27 | Les fruits de la consécration (II) | Col 3,12-17 | 171–176 | redige_a_relire |
+| 28 | Les pratiques extérieures (I) | Mt 6,1-6 | 177–182 | redige_a_relire |
+| 29 | Les pratiques extérieures (II) | Lc 2,41-52 | 183–189 | redige_a_relire |
+| 30 | Les pratiques intérieures (I) | Jn 15,9-17 | 190–196 | redige_a_relire |
+| 31 | Les pratiques intérieures (II) | Col 3,17 | 197–205 | redige_a_relire |
+| 32 | Vivre la communion avec Marie | Jn 6,51-58 | 206–211 | redige_a_relire |
+| 33 | Prière de consécration et action de grâce | Lc 1,46-55 | 212–217 | redige_a_relire |
+
+## Portée de cet audit
+
+Cet audit est fondé sur les métadonnées et textes de méditation du fichier `parcours_marial_33_jours_enrichi.json` et sur la lecture du script de construction des 33 extraits. Il **ne certifie pas** la correspondance entre les plages imprimées, les extraits effectivement produits au build et l'édition de 1859. La vérification algorithmique de l'ordre des paragraphes dans le script de génération est distincte de la vérification indépendante de la source.
+
+## Contrôle complémentaire : confrontation des 33 extraits réellement publiés en prévisualisation
+
+Source de comparaison : `/preview-marial-livre-v5/modules/parcours-marial/traite_33_lectures.json`, contrôlée pour les 33 journées, avec lecture des débuts et fins et confrontation aux thèmes proposés. **Cette opération n'est pas une validation doctrinale exhaustive, phrase par phrase.**
+
+Huit fiches ont été corrigées dans `parcours_marial_33_jours_enrichi.json` : **14, 22, 28, 29, 30, 31, 32, 33**. Les titres et explications ont été rapprochés du contenu réel ; les prières ont été révisées aux jours 22 et 33. Le texte historique du Traité, le moteur de découpage, les clés de progression et la version publique n'ont pas été modifiés.
+
+- **J14** : commence la deuxième partie (consécration), et non une nouvelle séquence sur les caractères de la vraie dévotion.
+- **J22** : traite du huitième motif avant le récit figuratif de Jacob et Rébecca.
+- **J28** : achève les effets spirituels et introduit les pratiques.
+- **J29–J30** : développent les pratiques extérieures ; l'ancien titre « pratiques intérieures » du J30 était prématuré.
+- **J31** : fait la transition de la salutation angélique vers les pratiques intérieures.
+- **J32** : expose les quatre dispositions « par, avec, en, pour Marie », avant la communion.
+- **J33** : développe la préparation à la sainte Communion ; la prière de clôture est identifiée comme création originale.
+
+**Travail restant :** harmoniser les références bibliques et leurs résumés avec les nouveaux titres, approfondir les correspondances des jours 8 à 13 et 23 à 27, vérifier les limites éditoriales des extraits au regard des articulations du texte et faire relire le tout par une personne compétente en doctrine catholique. Les fiches corrigées restent marquées `corrige_a_relire` ; aucune n'est présentée comme approuvée pour publication.
+
+## Harmonisation biblique — correction candidate complémentaire
+
+- Les **33 liens externes** de lecture biblique renvoient désormais aux **chapitres correspondants sur le site de l'AELF**, traduction liturgique catholique ; les versets restent précisés dans les références des fiches. Aucun texte biblique sous droits n'est copié dans le dépôt.
+- Les jours **14, 22, 28, 29, 30, 31, 32 et 33** ont reçu des références et résumés bibliques plus directement adaptés à leurs passages réels du Traité. Leurs questions de méditation et résolutions ont été harmonisées.
+- Les fiches concernées portent le statut `harmonise_a_relire` et **ne sont pas approuvées pour publication**.
+- Les liens AELF ont été vérifiés sur un échantillon de chapitres, y compris des épîtres ; **les 33 URL n'ont pas été ouvertes individuellement**.
+- Les références répétées peuvent être pertinentes ; elles doivent être appréciées lors de la relecture pastorale.
+- Ce rapport conserve les constats historiques des étapes précédentes ; certains constats (liens Louis Segond, titres avant correction) décrivent l'état **antérieur** et ne représentent plus l'état courant du fichier JSON.
+
+**À poursuivre :** confrontation approfondie des jours 8–13 et 23–27, vérification exhaustive des 33 liens AELF, vérification éditoriale des pages imprimées et relecture doctrinale humaine. Le déploiement public V5.10.0 et les données utilisateurs restent inchangés.
+
+## Confrontation approfondie des jours 8–13 et 23–27
+
+Les onze fiches **8, 9, 10, 11, 12, 13, 23, 24, 25, 26 et 27** ont été rapprochées des débuts/fins de leurs extraits réellement publiés en prévisualisation. Titres, explications, questions, résolutions et, lorsque nécessaire, références bibliques et résumés ont été harmonisés dans le JSON candidat. Les interprétations de Jacob/Rébecca ont été assorties d'une mise en garde contre toute justification de la tromperie ; la médiation de Marie est explicitement subordonnée au Christ. **Statut : harmonise_a_relire** (relecture pastorale encore requise).
+
+## Contrôle fonctionnel par navigateur de la prévisualisation publique
+
+**Adresse testée :** https://benkabor2108-tech.github.io/totus-tuus-public/preview-marial-livre-v5/  
+**Rapport de session :** https://agent.tinyfish.ai/runs/84488394-f02b-41ce-89aa-f22a62b2fa4b
+
+- **OK** : chargement de la page, ouverture et fermeture de la modale, sélection des jours 8, 13, 23, 27 et 33, quatre sections, navigation précédente/suivante, liens externes et affichage des paragraphes.
+- **À vérifier** : affichage sur mobile réel ; persistance du statut des journées et compteur sur plusieurs ouvertures et sessions. Le rapport du navigateur comporte des observations contradictoires sur la persistance et ne permet pas de conclure à un défaut avéré.
+- **Important — prévisualisation périmée** : la prévisualisation publique testée affiche encore les **anciens titres et liens BibleGateway**. Les corrections GitHub de cette phase (AELF et méditations) **n'ont pas encore été déployées** dans cette URL. Il est donc interdit de présenter le test navigateur comme une validation des corrections les plus récentes.
+- La validation d'une journée de test dans le navigateur de contrôle ne touche pas les données du téléphone de l'utilisateur.
+- **Verdict :** navigation de l'ancienne prévisualisation globalement opérationnelle ; **contrôle final de la version corrigée non réalisé**. Préparer une nouvelle prévisualisation isolée avant feu vert de production.
+
+Aucune modification du texte historique, de la branche `main` ou des données des utilisateurs n'a été effectuée.
+
+## Prévisualisation reconstruite et contrôlée le 21 octobre 2026
+
+- **Publication GitHub Pages réussie** : https://github.com/benkabor2108-tech/totus-tuus-public/actions/runs/39618031411
+- **Version publique contrôlée en ligne** : `/version.json` = `5.10.0-pages`, `release=5.10.0`.
+- **Prévisualisation isolée contrôlée en ligne** : `/preview-marial-livre-v5/version.json` = `5.11.0-rc2`, `release=release-candidate-not-deployed`.
+- **Données de la prévisualisation** : 33 fiches présentes ; 33 liens bibliques AELF ; titres et références des jours 8, 13, 23, 27 et 33 conformes aux corrections.
+- **Test navigateur sur le site reconstruit** : https://agent.tinyfish.ai/runs/b6731791-e0b9-4440-8a20-cefe4c19ad75 — ouverture, cinq jours, quatre sections, liens AELF J8/J33, fermeture et réouverture sans erreur ; aucun jour validé pendant cette session.
+- **Réserve** : cette validation n'est pas un test exhaustif des 33 écrans, de l'usage hors connexion, de la persistance après rechargement ou d'un appareil Android réel. Relecture doctrinale et pastorale requise. **Aucune fusion de la branche candidate.**
+
+## Contrôle complémentaire de progression et séparation du stockage — 21 octobre 2026
+
+L'analyse du code `modules/parcours-marial/parcours-marial.js` confirme que les journées validées sont écrites dans `localStorage`, relues à l'initialisation et que la case d'une journée peut être cochée ou décochée. Le compteur correspond au nombre de valeurs `true` du dictionnaire `done`.
+
+**Risque identifié et corrigé dans la construction candidate** : la prévisualisation sur le même domaine utilisait auparavant la clé de progression destinée à la version officielle. `scripts/prepare_marial_release_candidate.py` substitue maintenant la clé `totus-tuus-parcours-marial-33-preview-rc2` **uniquement dans le JavaScript assemblé pour la prévisualisation**. Le code source conserve la clé officielle `totus-tuus-parcours-marial-33-v1` pour une éventuelle future publication. Aucune suppression/migration du stockage existant. Les anciens états de prévisualisation ne sont pas transférés vers la nouvelle clé, volontairement.
+
+**Attention au test navigateur** : la session https://agent.tinyfish.ai/runs/f5bb668f-d550-475e-81d8-55adbfe99ec1 a principalement interagi avec une « novaine guidée » et non avec le composant 33 jours ; ses constats de persistance ne permettent **pas** de valider la progression du module marial. L'affichage mobile 390×844 n'a pas été confirmé. Il faut un test spécifique sur le composant `tt33` après redéploiement.
+
+**Statut** : changement de clé et test CI mis à jour sur branche candidate ; republication de cette correction à confirmer par un run GitHub Pages réussi. Pas de fusion vers la production.
+
+## Gate prépublication complémentaire — 21 octobre 2026
+
+- **CI et déploiement isolé** : https://github.com/benkabor2108-tech/totus-tuus-public/actions/runs/39621201101 — `success`.
+- **Contrôle en ligne** : racine `version.json` = V5.10.0 ; preview `version.json` = V5.11.0-rc2 ; script de la preview contient `totus-tuus-parcours-marial-33-preview-rc2` et non la clé prévue pour la production.
+- **Test navigateur ciblé du module 33 jours** : https://agent.tinyfish.ai/runs/25387afe-a65a-4e85-9404-59ce4fcd5a6e. Ouverture, 33 options, jour 8, compteur 0→1 lors du cochage, sections du Traité/méditation/prière, liens AELF, fermeture : observés.
+- **Réserve sur la persistance** : le navigateur a rechargé puis affiché la case du **jour 1** décochée tandis que le compteur conservait le **jour 8** accompli. Cela **ne démontre pas une anomalie** : le compteur agrège tous les jours tandis que la case reflète seulement le jour affiché. Le rapport a confondu ces deux journées. Une vérification après rechargement **en resélectionnant le jour 8** reste à effectuer.
+- **Réserve sur l'annulation** : cocher puis décocher le jour 1 a ramené le compteur de 2 à 1, ce qui est **attendu** puisque le jour 8 était toujours enregistré. Le retour à zéro exige de décocher également le jour 8 ; l'outil n'a pas effectué cette étape.
+- **Limites réelles** : validation sur téléphone Android réel et relecture doctrinale humaine non effectuées. Le navigateur de test peut avoir laissé un jour 8 coché dans son stockage **de prévisualisation uniquement** ; aucune suppression des données d'un utilisateur.
+- **Verdict** : préparation technique substantiellement validée, **feu vert final de production non délivré**. Aucune fusion de la branche candidate.

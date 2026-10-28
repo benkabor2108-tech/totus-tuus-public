@@ -10,6 +10,7 @@ import json
 import shutil
 
 BASE = "https://funny-seahorse-1ccdd6.netlify.app/"
+FALLBACK_BASE = "https://benkabor2108-tech.github.io/totus-tuus-public/"
 OUT = Path("site")
 if OUT.exists():
     shutil.rmtree(OUT)
@@ -33,6 +34,11 @@ def add(value):
     if u.netloc != urlparse(BASE).netloc:
         return
     p = unquote(u.path).lstrip("/")
+    # Sur GitHub Pages, les URL absolues portent le préfixe du dépôt.
+    # Ne pas les télécharger une seconde fois sous /totus-tuus-public/.
+    prefix = urlparse(BASE).path.lstrip("/")
+    if prefix and p.startswith(prefix):
+        p = p[len(prefix):].lstrip("/")
     if p and ".." not in Path(p).parts and not p.endswith("/"):
         paths.add(p)
 def fetch(path):
@@ -53,7 +59,11 @@ def fetch(path):
 
 index = fetch("index.html")
 if not index:
-    raise SystemExit("Impossible de lire le site Netlify")
+    print("Netlify indisponible : reprise depuis la dernière version publique GitHub Pages, sans perte de données.")
+    BASE = FALLBACK_BASE
+    index = fetch("index.html")
+if not index:
+    raise SystemExit("Impossible de lire le site Netlify ET la version publique GitHub Pages")
 Assets().feed(index.decode("utf-8"))
 sw = fetch("service-worker.js")
 if sw:
@@ -71,13 +81,18 @@ for p in sorted(paths):
     dest = OUT / p
     dest.parent.mkdir(parents=True, exist_ok=True)
     dest.write_bytes(data)
-for p in ("index.html", "prieres.json", "rosary-scriptures.json", "service-worker.js", "manifest.webmanifest", "interventions.js"):
+for p in ("index.html", "app.js", "styles.css", "prieres.json", "rosary-scriptures.json", "service-worker.js", "manifest.webmanifest", "interventions.js", "navigation.js", "guided.js"):
     if not (OUT/p).is_file():
         raise SystemExit("Fichier essentiel absent du site source : " + p)
 # Copier les correctifs vérifiés sans exposer le dépôt privé.
 for p in Path("overrides").glob("*.js"):
     shutil.copy2(p, OUT/p.name)
 html = (OUT/"index.html").read_text(encoding="utf-8")
+if BASE == FALLBACK_BASE:
+    # La copie publique contient déjà les scripts du parcours : la préparation RC
+    # les réinjectera une seule fois, à la version candidate exacte.
+    html = re.sub(r'<script[^>]+(?:intercession-prayers|parcours-marial)\.js[^>]*></script>', '', html, flags=re.I)
+    print("Scripts du parcours public retirés du HTML importé pour éviter les doublons.")
 for p in sorted(Path("overrides").glob("*.js")):
     if p.name not in html:
         html = html.replace("</body>", '<script src="./'+p.name+'?v=5.9.1" defer></script></body>', 1)
